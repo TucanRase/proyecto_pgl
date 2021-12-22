@@ -2,13 +2,15 @@ package com.example.proyecto_tommy;
 
 public class Componente {
     private int id;
+    private int imagen;
     private String nombre;
     private String tipo;
-    private Float precio;
+    private Double precio;
     private String caracteristicas;
 
-    public Componente(int id, String nombre, String tipo, Float precio, String caracteristicas) {
+    public Componente(int id, int imagen, String nombre, String tipo, Double precio, String caracteristicas) {
         this.id = id;
+        this.imagen = imagen;
         this.nombre = nombre;
         this.tipo = tipo;
         this.precio = precio;
@@ -21,6 +23,14 @@ public class Componente {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(int imagen) {
+        this.imagen = imagen;
     }
 
     public String getNombre() {
@@ -39,11 +49,11 @@ public class Componente {
         this.tipo = tipo;
     }
 
-    public Float getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Float precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 

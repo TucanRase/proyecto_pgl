@@ -1,37 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- layout del componente a mostrar,además le añadimos el efecto al clicar(clickable y foreground) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/btn_redondo"
+    android:padding="5dp"
+    android:focusable="true"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+<!-- Ajustes básicos de los distintos campos como puede ser el margin o padding y color -->
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/ivImagen"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:layout_margin="5dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="135dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/txtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="#FFF" />
 
         <TextView
-            android:id="@+id/txtSubnombre"
+            android:id="@+id/txtDescripcion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="TextView"
+            android:textColor="#FFF" />
 
         <TextView
             android:id="@+id/txtPrecio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textAlignment="textEnd"
+            android:textColor="#2E9CCA" />
     </LinearLayout>
 </LinearLayout>
