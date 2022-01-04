@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class CPU_Placa extends AppCompatActivity {
+public class Almacenaje extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cpu_placa);
+        setContentView(R.layout.activity_componentes);
     }
 }

@@ -17,7 +17,7 @@ public class AdaptadorComponentes extends RecyclerView.Adapter<AdaptadorComponen
     private LayoutInflater mInflater;
     private View.OnClickListener listener;
 
-    public AdaptadorComponentes(Context context, ArrayList<Componente> listaComponentes) {
+    public AdaptadorComponentes(Context context,ArrayList<Componente> listaComponentes) {
         this.mInflater = LayoutInflater.from(context);
         this.listaComponentes = listaComponentes;
     }
@@ -28,21 +28,18 @@ public class AdaptadorComponentes extends RecyclerView.Adapter<AdaptadorComponen
         view.setOnClickListener(this);
         return new ViewholderComponentes(view);
     }
-
+    //escribir el valor del item
     @Override
     public void onBindViewHolder(ViewholderComponentes holder, int position) {
         holder.ivImagen.setImageResource(listaComponentes.get(position).getImagen());
         holder.txtNombre.setText(listaComponentes.get(position).getNombre());
         holder.txtDescripcion.setText(listaComponentes.get(position).getCaracteristicas());
         holder.txtPrecio.setText(listaComponentes.get(position).getPrecio().toString());
+        holder.itemView.setTag(position);
 
     }
 
-    @Override
-    public int getItemCount() {
-        return listaComponentes.size();
-    }
-
+    //2 metodos para poder activar el onclick en el item
     public void setOnclickListener(View.OnClickListener listener){
         this.listener=listener;
     }
@@ -51,9 +48,17 @@ public class AdaptadorComponentes extends RecyclerView.Adapter<AdaptadorComponen
     public void onClick(View view) {
         if(listener!=null){
             listener.onClick(view);
+            
         }
     }
 
+    //metodo para hallar el numero de componentes
+    @Override
+    public int getItemCount() {
+        return listaComponentes.size();
+    }
+
+    //recuperar los elementos del item en viewholder
     public class ViewholderComponentes extends RecyclerView.ViewHolder{
         TextView txtNombre,txtDescripcion,txtPrecio;
         ImageView ivImagen;
