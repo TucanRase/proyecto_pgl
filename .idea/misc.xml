@@ -6,6 +6,7 @@
         <entry key="..\:/Cosos_de_clase/PGV/Proyecto_Tommy/app/src/main/res/drawable/btn_redondo.xml" value="0.3828125" />
         <entry key="..\:/Cosos_de_clase/PGV/Proyecto_Tommy/app/src/main/res/drawable/fondo.xml" value="0.3828125" />
         <entry key="..\:/Cosos_de_clase/PGV/Proyecto_Tommy/app/src/main/res/drawable/ic_launcher_background.xml" value="0.34791666666666665" />
+        <entry key="..\:/Cosos_de_clase/PGV/Proyecto_Tommy/app/src/main/res/layout/activity_acerca.xml" value="0.3088768115942029" />
         <entry key="..\:/Cosos_de_clase/PGV/Proyecto_Tommy/app/src/main/res/layout/activity_cpu.xml" value="0.31476449275362317" />
         <entry key="..\:/Cosos_de_clase/PGV/Proyecto_Tommy/app/src/main/res/layout/activity_cpu_placa.xml" value="0.28532608695652173" />
         <entry key="..\:/Cosos_de_clase/PGV/Proyecto_Tommy/app/src/main/res/layout/activity_inicio.xml" value="0.33" />
@@ -16,7 +17,10 @@
         <entry key="..\:/Cosos_de_clase/PGV/Proyecto_Tommy/app/src/main/res/layout/input_layout_colores.xml" value="0.5375905797101449" />
         <entry key="..\:/Cosos_de_clase/PGV/Proyecto_Tommy/app/src/main/res/layout/item_listas.xml" value="0.33" />
         <entry key="..\:/Cosos_de_clase/PGV/Proyecto_Tommy/app/src/main/res/layout/juan.xml" value="0.36666666666666664" />
+        <entry key="..\:/Cosos_de_clase/PGV/Proyecto_Tommy/app/src/main/res/layout/menu.xml" value="0.3088768115942029" />
+        <entry key="..\:/Cosos_de_clase/PGV/Proyecto_Tommy/app/src/main/res/layout/menu_opciones.xml" value="0.3088768115942029" />
         <entry key="..\:/Cosos_de_clase/PGV/Proyecto_Tommy/app/src/main/res/layout/styles.xml" value="0.5375905797101449" />
+        <entry key="..\:/Cosos_de_clase/PGV/Proyecto_Tommy/app/src/main/res/menu/opciones_menu.xml" value="0.20520833333333333" />
       </map>
     </option>
   </component>
