@@ -10,20 +10,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Proyecto_Tommy">
         <activity
+            android:name=".Recibo"
+            android:exported="false" />
+        <activity
+            android:name=".Psu"
+            android:exported="false" />
+        <activity
             android:name=".Acerca"
             android:exported="false" />
         <activity
             android:name=".Ram"
             android:exported="false" />
         <activity
-            android:name=".Almacenaje"
+            android:name=".Almacenamiento"
             android:exported="false" />
         <activity
             android:name=".Gpu"
             android:exported="false" />
-        <activity
-            android:name=".Prueba"
-            android:exported="true" />
         <activity
             android:name=".Inicio"
             android:exported="true" />
