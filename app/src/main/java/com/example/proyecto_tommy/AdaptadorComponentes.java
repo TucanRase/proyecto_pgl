@@ -34,7 +34,7 @@ public class AdaptadorComponentes extends RecyclerView.Adapter<AdaptadorComponen
         holder.ivImagen.setImageResource(listaComponentes.get(position).getImagen());
         holder.txtNombre.setText(listaComponentes.get(position).getNombre());
         holder.txtDescripcion.setText(listaComponentes.get(position).getCaracteristicas());
-        holder.txtPrecio.setText(listaComponentes.get(position).getPrecio().toString());
+        holder.txtPrecio.setText(listaComponentes.get(position).getPrecio().toString()+" €");
         holder.itemView.setTag(position);
 
     }
@@ -48,7 +48,6 @@ public class AdaptadorComponentes extends RecyclerView.Adapter<AdaptadorComponen
     public void onClick(View view) {
         if(listener!=null){
             listener.onClick(view);
-            
         }
     }
 

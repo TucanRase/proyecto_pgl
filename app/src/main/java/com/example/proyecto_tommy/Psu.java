@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -16,14 +18,19 @@ public class Psu extends AppCompatActivity {
     Componente cpu;
     Componente ram;
     Componente gpu;
+    TextView titulo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_componentes);
+
+        titulo=(TextView)findViewById(R.id.componente);
+        titulo.setText("Fuentes de alimentación: ");
+
         if (getIntent().getExtras() != null) {
             cpu = getIntent().getExtras().getParcelable("cpu");
             ram = getIntent().getExtras().getParcelable("ram");
-            gpu = getIntent().getExtras().getParcelable("pgu");
+            gpu = getIntent().getExtras().getParcelable("gpu");
         }
 
         listaComponentes=new ArrayList<>();
@@ -46,6 +53,10 @@ public class Psu extends AppCompatActivity {
                 bundle.putParcelable("ram",ram);
                 bundle.putParcelable("gpu",gpu);
                 bundle.putParcelable("psu",listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
+
+               // Toast.makeText(Psu.this, ram.getNombre(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(Psu.this, cpu.getNombre(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(Psu.this, gpu.getNombre(), Toast.LENGTH_SHORT).show();
 
                 intent.putExtras(bundle);
                 startActivity(intent);

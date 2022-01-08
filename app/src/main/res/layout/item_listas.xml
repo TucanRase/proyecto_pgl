@@ -45,8 +45,9 @@
             android:id="@+id/txtPrecio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:text="TextView"
             android:textAlignment="textEnd"
-            android:textColor="#2E9CCA" />
+            android:textColor="#FFF" />
     </LinearLayout>
 </LinearLayout>

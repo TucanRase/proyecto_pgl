@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -15,10 +17,15 @@ public class Gpu extends AppCompatActivity {
     RecyclerView recyclerComponentes;
     Componente cpu;
     Componente ram;
+    TextView titulo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_componentes);
+
+        titulo=(TextView)findViewById(R.id.componente);
+        titulo.setText("Tarjetas gráficas: ");
+
         if (getIntent().getExtras() != null) {
             cpu = getIntent().getExtras().getParcelable("cpu");
             ram = getIntent().getExtras().getParcelable("ram");
@@ -37,12 +44,15 @@ public class Gpu extends AppCompatActivity {
         adapter.setOnclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //creamos el intent para la proxima actividad, acontinuación el bundle para guardar el objeto y por ultimo lo añadimos para poder enviarlo
+                //creamos el intent para la proxima actividad, a continuación el bundle para guardar el objeto y por ultimo lo añadimos para poder enviarlo
                 Intent intent =new Intent(Gpu.this, Psu.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("cpu",cpu);
                 bundle.putParcelable("ram",ram);
                 bundle.putParcelable("gpu",listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
+
+                //Toast.makeText(Gpu.this, cpu.getNombre(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Gpu.this, ram.getNombre(), Toast.LENGTH_SHORT).show();
 
                 intent.putExtras(bundle);
                 startActivity(intent);
