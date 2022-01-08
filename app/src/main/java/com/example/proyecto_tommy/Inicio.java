@@ -25,10 +25,10 @@ public class Inicio extends AppCompatActivity {
         recyclerComponentes=(RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
 
-        listaComponentes.add(new Componente(1,R.drawable.mag_b550m,"primero","1", 10.00,"cabeas"));
-        listaComponentes.add(new Componente(2,R.drawable.mag_b550m,"segundo","1", 150.00,"cabeas"));
-        listaComponentes.add(new Componente(3,R.drawable.mag_b550m,"penultimo","1", 420.00,"cabeas"));
-        listaComponentes.add(new Componente(4,R.drawable.mag_b550m,"ultimo","2", 15.00,"cabeas"));
+        listaComponentes.add(new Componente(1,R.drawable.ryzen_5600,"primero","1", 10.00,"cabeas"));
+        listaComponentes.add(new Componente(2,R.drawable.ryzen_5600,"segundo","1", 150.00,"cabeas"));
+        listaComponentes.add(new Componente(3,R.drawable.ryzen_5600,"penultimo","1", 420.00,"cabeas"));
+        listaComponentes.add(new Componente(4,R.drawable.ryzen_5600,"ultimo","2", 15.00,"cabeas"));
         AdaptadorComponentes adapter=new AdaptadorComponentes(this,listaComponentes);
 
         adapter.setOnclickListener(new View.OnClickListener() {

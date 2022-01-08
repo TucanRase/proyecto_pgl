@@ -28,10 +28,10 @@ public class Cpu extends AppCompatActivity {
         recyclerComponentes=(RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
 
-        listaComponentes.add(new Componente(1,R.drawable.ryzen_5600,"cpu1","cpu", 10.00,"cabeas"));
-        listaComponentes.add(new Componente(2,R.drawable.ryzen_5600,"cpu2","cpu", 150.00,"cabeas"));
-        listaComponentes.add(new Componente(3,R.drawable.ryzen_5600,"cpu3","cpu", 420.00,"cabeas"));
-        listaComponentes.add(new Componente(4,R.drawable.ryzen_5600,"cpu4","cpu", 15.00,"cabeas"));
+        listaComponentes.add(new Componente(25001,R.drawable.ryzen_3600,"AMD Ryzen 5 3600","CPU", 225.00,"Velocidad del procesador: 3.6 GHz \nVelocidad máx procesador: 4.2 GHz \nNúmero de nucleos: 6\nNúmero de hilos:12"));
+        listaComponentes.add(new Componente(25002,R.drawable.ryzen_5600,"AMD Ryzen 5 5600X","CPU", 295.00,"Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 6\nNúmero de hilos:12"));
+        listaComponentes.add(new Componente(25003,R.drawable.ryzen_3600,"AMD Ryzen 7 3700X","CPU", 320.00,"Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16"));
+        listaComponentes.add(new Componente(25004,R.drawable.ryzen_3600,"AMD Ryzen 5 5700G","CPU", 340.00,"Velocidad del procesador: 3.8 GHz \nVelocidad máx procesador: 4.6 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16"));
         AdaptadorComponentes adapter=new AdaptadorComponentes(this,listaComponentes);
 
         adapter.setOnclickListener(new View.OnClickListener() {

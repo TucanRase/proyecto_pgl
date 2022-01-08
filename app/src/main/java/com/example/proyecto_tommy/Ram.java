@@ -33,10 +33,11 @@ public class Ram extends AppCompatActivity {
         recyclerComponentes=(RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
 
-        listaComponentes.add(new Componente(1,R.drawable.ram_corsair,"ram1","ram", 10.00,"cabeas"));
-        listaComponentes.add(new Componente(2,R.drawable.ram_corsair,"ram2","ram", 150.00,"cabeas"));
-        listaComponentes.add(new Componente(3,R.drawable.ram_corsair,"ram3","ram", 420.00,"cabeas"));
-        listaComponentes.add(new Componente(4,R.drawable.ram_corsair,"ram4","ram", 15.00,"cabeas"));
+        listaComponentes.add(new Componente(23001,R.drawable.ram_corsair,"RAM Corsair Vengeance RGB PRO","RAM", 89.00,"Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair"));
+        listaComponentes.add(new Componente(23002,R.drawable.ram_tridentz,"RAM GSkill Trident Z RGB","RAM", 99.00,"Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair"));
+        listaComponentes.add(new Componente(23003,R.drawable.ram_corsair,"RAM Corsair Vengeance RGB PRO","RAM", 89.00,"Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair"));
+        listaComponentes.add(new Componente(23004,R.drawable.ram_corsair,"RAM Corsair Vengeance RGB PRO","RAM", 89.00,"Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair"));
+
         AdaptadorComponentes adapter=new AdaptadorComponentes(this,listaComponentes);
 
         adapter.setOnclickListener(new View.OnClickListener() {
