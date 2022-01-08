@@ -15,9 +15,7 @@ import java.util.ArrayList;
 public class Psu extends AppCompatActivity {
     ArrayList<Componente> listaComponentes;
     RecyclerView recyclerComponentes;
-    Componente cpu;
-    Componente ram;
-    Componente gpu;
+    Componente cpu,ram,gpu;
     TextView titulo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +35,10 @@ public class Psu extends AppCompatActivity {
         recyclerComponentes=(RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
 
-        listaComponentes.add(new Componente(1,R.drawable.psu_750_evga,"psu1","psu", 10.00,"cabeas"));
-        listaComponentes.add(new Componente(2,R.drawable.psu_750_evga,"psu2","psu", 150.00,"cabeas"));
-        listaComponentes.add(new Componente(3,R.drawable.psu_750_evga,"psu3","psu", 420.00,"cabeas"));
-        listaComponentes.add(new Componente(4,R.drawable.psu_750_evga,"psu4","psu", 15.00,"cabeas"));
+        listaComponentes.add(new Componente(28001,R.drawable.psu_corsair_850x,"Corsair RM850X psu","PSU", 110.00,"Potencia de la fuente:850W\nTipo de cableado: Modular\nEficiencia de la fuente:80+Gold\nMarca: Corsair"));
+        listaComponentes.add(new Componente(28002,R.drawable.psu_evga_850,"EVGA 850G+ psu","PSU", 95.00,"Potencia de la fuente:850W\nTipo de cableado: Modular\nEficiencia de la fuente:80+Gold\nMarca: EVGA"));
+        listaComponentes.add(new Componente(28003,R.drawable.psu_rog,"ASUS Rog strix 850G+","PSU", 120.00,"Potencia de la fuente:850W\nTipo de cableado: Modular\nEficiencia de la fuente:80+Gold\nMarca: Asus Strix"));
+        listaComponentes.add(new Componente(28004,R.drawable.psu_evga_850_no,"EVGA 850BQ","PSU", 70.00,"Potencia de la fuente:850W\nTipo de cableado: No modular\nEficiencia de la fuente:80+Bronze\nMarca: EVGA"));
         AdaptadorComponentes adapter=new AdaptadorComponentes(this,listaComponentes);
 
         adapter.setOnclickListener(new View.OnClickListener() {

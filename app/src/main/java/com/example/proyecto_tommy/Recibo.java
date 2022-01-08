@@ -15,16 +15,17 @@ import java.util.ArrayList;
 public class Recibo extends AppCompatActivity {
     ArrayList<Componente> listaComponentes;
     RecyclerView recyclerRecibo;
-    Componente cpu;
-    Componente ram;
-    Componente gpu;
-    Componente psu;
-    Componente almacenamiento;
+    Componente cpu,ram,gpu,psu,almacenamiento;
+    TextView subtotal,igic,total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recibo);
+
+        subtotal=(TextView) findViewById(R.id.recSubtotal);
+        igic=(TextView) findViewById(R.id.recIgic);
+        total=(TextView) findViewById(R.id.recTotal);
 
         if (getIntent().getExtras() != null) {
             cpu = getIntent().getExtras().getParcelable("cpu");
@@ -48,5 +49,17 @@ public class Recibo extends AppCompatActivity {
 
 
         recyclerRecibo.setAdapter(adapter);
+
+        total.setText(String.valueOf(calcularTotal()));
+        subtotal.setText(String.valueOf(calcularTotal()*0.93));
+        igic.setText(String.valueOf(calcularTotal()*0.07));
+    }
+
+    public double calcularTotal(){
+        double total=0;
+        for(Componente item: listaComponentes){
+            total+=item.getPrecio();
+        }
+        return total;
     }
 }

@@ -14,8 +14,7 @@ import java.util.ArrayList;
 public class Gpu extends AppCompatActivity {
     ArrayList<Componente> listaComponentes;
     RecyclerView recyclerComponentes;
-    Componente cpu;
-    Componente ram;
+    Componente cpu,ram;
     TextView titulo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +33,10 @@ public class Gpu extends AppCompatActivity {
         recyclerComponentes=(RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
 
-        listaComponentes.add(new Componente(281624,R.drawable.rtx_2060_evga,"Nvidia RTX 2060 EVGA KO","GPU", 525.00,"Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:14000 MHz"));
-        listaComponentes.add(new Componente(281624,R.drawable.rtx_2060_giga,"Nvidia RTX 2060 Gigabyte Windforce","GPU", 600.00,"Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1830 MHz"));
-        listaComponentes.add(new Componente(281624,R.drawable.rtx_2060_msi,"Nvidia RTX 2060 MSI Gaming Z 6G","GPU", 600.00,"Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1830 MHz"));
-        listaComponentes.add(new Componente(281624,R.drawable.rtx_2060_asus,"Nvidia RTX 2060 Asus Dual Evo","GPU", 550.00,"Memoria 6GB GDDR6"+" \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1725 MHz"));
+        listaComponentes.add(new Componente(22001,R.drawable.rtx_2060_evga,"Nvidia RTX 2060 EVGA KO","GPU", 525.00,"Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:14000 MHz"));
+        listaComponentes.add(new Componente(22002,R.drawable.rtx_2060_giga,"Nvidia RTX 2060 Gigabyte Windforce","GPU", 600.00,"Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1830 MHz"));
+        listaComponentes.add(new Componente(22003,R.drawable.rtx_2060_msi,"Nvidia RTX 2060 MSI Gaming Z 6G","GPU", 600.00,"Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1830 MHz"));
+        listaComponentes.add(new Componente(22004,R.drawable.rtx_2060_asus,"Nvidia RTX 2060 Asus Dual Evo","GPU", 550.00,"Memoria 6GB GDDR6"+" \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1725 MHz"));
 
         AdaptadorComponentes adapter=new AdaptadorComponentes(this,listaComponentes);
 
