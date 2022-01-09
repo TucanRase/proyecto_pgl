@@ -22,8 +22,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         app:hintTextColor="@color/white"
-        android:id="@+id/txtUsu"
         android:textColorHint="@color/white"
+        android:id="@+id/txtUsu"
         app:boxStrokeColor="@color/white"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"

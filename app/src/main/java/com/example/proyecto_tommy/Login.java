@@ -35,7 +35,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 String user = usuario.getEditText().getText().toString().trim();
                 String contra = contrasena.getEditText().getText().toString().trim();
-/*
+
                 if(user.isEmpty())
                     usuario.setError("Por favor introduzca un usuario");
                 else if (contra.isEmpty())
@@ -46,13 +46,12 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(Login.this, "Sesión iniciada correctamente", Toast.LENGTH_SHORT).show();
                         Intent intent  = new Intent(getApplicationContext(), Inicio.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
                     }else{
                         Toast.makeText(Login.this, "Credenciales incorrectos", Toast.LENGTH_SHORT).show();
                     }
-                }*/
-                Intent intent  = new Intent(getApplicationContext(), Inicio.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
+                }
+
             }
         });
         /**
