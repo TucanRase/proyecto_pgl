@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Inicio extends AppCompatActivity {
     ArrayList<Ordenador> listaOrdenadores;
     RecyclerView recyclerOrdenador;
     Ordenador ordenador;
+    TextView placeholder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +32,18 @@ public class Inicio extends AppCompatActivity {
 
         listaOrdenadores=new ArrayList<>();
         recyclerOrdenador=(RecyclerView) findViewById(R.id.recyclerOrdenador);
+        placeholder=(TextView)findViewById(R.id.placeHolder);
         recyclerOrdenador.setLayoutManager(new LinearLayoutManager(this));
         //se añade el ordenador al arraylist
-        listaOrdenadores.add(ordenador);
-        //Establecer el adaptador
-        AdaptadorOrdenador adapter=new AdaptadorOrdenador(this,listaOrdenadores);
-        recyclerOrdenador.setAdapter(adapter);
+        if(ordenador!=null){
+            listaOrdenadores.add(ordenador);
+            //Establecer el adaptador
+            AdaptadorOrdenador adapter=new AdaptadorOrdenador(this,listaOrdenadores);
+            recyclerOrdenador.setAdapter(adapter);
+        }else{
+            recyclerOrdenador.setVisibility(View.GONE);
+            placeholder.setVisibility(View.VISIBLE);
+        }
     }
     /**Creamos el menú**/
     @Override
@@ -50,19 +58,32 @@ public class Inicio extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.cerrarSesion:
                 intent =new Intent(Inicio.this, Login.class);
+                if(listaOrdenadores!=null)
+                    listaOrdenadores.clear();
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
             case R.id.acerca:
                 intent =new Intent(Inicio.this, Acerca.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
             case R.id.add:
                 intent =new Intent(Inicio.this, Cpu.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    /**
+     * Método para establecer la animación al pulsar el botón "atrás"
+     * */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.zoom_back_in, R.anim.zoom_back_out);
     }
 
 }

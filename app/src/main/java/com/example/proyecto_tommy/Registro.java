@@ -52,6 +52,7 @@ public class Registro extends AppCompatActivity {
                                 Toast.makeText(Registro.this, "Registrado correctamente", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), Login.class);
                                 startActivity(intent);
+                                overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
                             }else{
                                 Toast.makeText(Registro.this, "Registro fallido", Toast.LENGTH_SHORT).show();
                             }
@@ -73,7 +74,16 @@ public class Registro extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
             }
         });
+    }
+    /**
+     * Método para establecer la animación al pulsar el botón "atrás"
+     * */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.zoom_back_in, R.anim.zoom_back_out);
     }
 }

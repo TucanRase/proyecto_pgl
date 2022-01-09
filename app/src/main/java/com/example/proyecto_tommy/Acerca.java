@@ -25,9 +25,10 @@ public class Acerca extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
-            case R.id.cerrarSesion:
+            case R.id.home:
                 intent =new Intent(Acerca.this, Inicio.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

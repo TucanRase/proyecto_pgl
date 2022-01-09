@@ -52,6 +52,7 @@ public class Login extends AppCompatActivity {
                 }*/
                 Intent intent  = new Intent(getApplicationContext(), Inicio.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
             }
         });
         /**
@@ -62,8 +63,17 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent  = new Intent(getApplicationContext(), Registro.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
             }
         });
+    }
+    /**
+     * Método para establecer la animación al pulsar el botón "atrás"
+     * */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.zoom_back_in, R.anim.zoom_back_out);
     }
 
 

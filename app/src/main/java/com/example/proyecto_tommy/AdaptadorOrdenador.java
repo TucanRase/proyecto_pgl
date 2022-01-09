@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,7 +36,14 @@ public class AdaptadorOrdenador extends RecyclerView.Adapter<AdaptadorOrdenador.
      * */
     @Override
     public void onBindViewHolder(ViewholderOrdenador holder, int position) {
+        holder.txtId.setText("ID:"+listaOrdenadores.get(position).getId());
+        holder.txtCpu.setText(listaOrdenadores.get(position).getCpu().getNombre());
+        holder.txtRam.setText(listaOrdenadores.get(position).getRam().getNombre());
+        holder.txtGpu.setText(listaOrdenadores.get(position).getGpu().getNombre());
+        holder.txtPsu.setText(listaOrdenadores.get(position).getPsu().getNombre());
+        holder.txtSSD.setText(listaOrdenadores.get(position).getAlmacenamiento().getNombre());
 
+        holder.imagenPc.setImageResource(R.drawable.ordenador);
     }
 
     /**
@@ -50,12 +58,18 @@ public class AdaptadorOrdenador extends RecyclerView.Adapter<AdaptadorOrdenador.
      * recuperar los elementos del item en viewholder
      * */
     public class ViewholderOrdenador extends RecyclerView.ViewHolder{
-        TextView txtID,txtNombre,txtPrecio;
+        TextView txtCpu,txtRam,txtGpu,txtPsu,txtSSD,txtId;
+        ImageView imagenPc;
         public ViewholderOrdenador(View itemView) {
             super(itemView);
-            txtID=(TextView) itemView.findViewById(R.id.idProducto);
-            txtNombre=(TextView) itemView.findViewById(R.id.nombreProducto);
-            txtPrecio=(TextView) itemView.findViewById(R.id.precioProducto);
+            txtId=(TextView) itemView.findViewById(R.id.txtId);
+            txtCpu=(TextView) itemView.findViewById(R.id.txtCpu);
+            txtRam=(TextView) itemView.findViewById(R.id.txtRam);
+            txtGpu=(TextView) itemView.findViewById(R.id.txtGpu);
+            txtPsu=(TextView) itemView.findViewById(R.id.txtPsu);
+            txtSSD=(TextView) itemView.findViewById(R.id.txtSSD);
+            imagenPc=(ImageView) itemView.findViewById(R.id.imagenPc);
+
 
         }
     }

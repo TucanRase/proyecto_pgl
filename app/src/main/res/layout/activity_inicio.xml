@@ -16,4 +16,14 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/placeHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="275dp"
+        android:text="No hay ningún ordenador en tu lista"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
 </LinearLayout>

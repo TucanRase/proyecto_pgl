@@ -20,6 +20,9 @@
         />
     <!-- los inputs son redondeados con el style especificado y el radius-->
     <com.google.android.material.textfield.TextInputLayout
+        app:boxStrokeColor="@color/white"
+        app:hintTextColor="@color/white"
+        android:textColorHint="@color/white"
         android:id="@+id/txtUsuReg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,6 +42,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:endIconTint="@color/white"
+        app:boxStrokeColor="@color/white"
+        android:textColorHint="@color/white"
+        app:hintTextColor="@color/white"
         android:id="@+id/txtContraReg"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
@@ -59,6 +66,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:endIconTint="@color/white"
+        app:hintTextColor="@color/white"
+        app:boxStrokeColor="@color/white"
+        android:textColorHint="@color/white"
         android:id="@+id/txtConfContra"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"

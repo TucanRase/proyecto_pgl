@@ -50,11 +50,21 @@ public class Cpu extends AppCompatActivity {
 
                 intent.putExtras(bundle);
                 startActivity(intent);
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
             }
         });
 
         recyclerComponentes.setAdapter(adapter);
     }
+    /**
+     * Método para establecer la animación al pulsar el botón "atrás"
+     * */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.right_in, R.anim.right_out);
+    }
+
     /**Creamos el menú**/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
