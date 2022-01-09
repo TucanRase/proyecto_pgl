@@ -25,7 +25,11 @@ public class Login extends AppCompatActivity {
         btnIniciar=findViewById(R.id.btnInicio);
         btnRegistrar=findViewById(R.id.btnRegistro);
         DB = new DBHelper(this);
-
+        /**
+         * Al clickar en el boton se procede a hacer la comprobación de los datos introducidos en los campos de login con
+         * los datos disponibles en la base de datos. En el caso de que haya errores se notifica por medio de errores en
+         * el input además se notificará con un mensaje por pantalla.
+         * **/
         btnIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +54,9 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        /**
+         * Establecemos el onclick del botón
+         */
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

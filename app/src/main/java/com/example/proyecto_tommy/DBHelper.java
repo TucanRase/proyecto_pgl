@@ -6,7 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-//clase para crear la base de datos y sus respectivos métodos para crear,actualizar,añadir datos,comprobar usuario,comprobar contraseña
+/**clase para crear la base de datos y sus respectivos métodos para crear,actualizar,añadir datos,comprobar
+ * usuario,comprobar contraseña*/
 public class DBHelper extends SQLiteOpenHelper {
     public static final String nombreDB = "Login.db";
 

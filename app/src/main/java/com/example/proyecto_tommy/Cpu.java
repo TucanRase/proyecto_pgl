@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class Cpu extends AppCompatActivity {
+    //crear las variables
     ArrayList<Componente> listaComponentes;
     RecyclerView recyclerComponentes;
     TextView titulo;
@@ -24,6 +25,7 @@ public class Cpu extends AppCompatActivity {
         titulo=(TextView)findViewById(R.id.componente);
         titulo.setText("Procesadores: ");
 
+        //se crea y añaden los componentes al arraylist además se crea el adapter y se establece
         listaComponentes=new ArrayList<>();
         recyclerComponentes=(RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
@@ -34,6 +36,9 @@ public class Cpu extends AppCompatActivity {
         listaComponentes.add(new Componente(25004,R.drawable.ryzen_5700g,"AMD Ryzen 5 5700G","CPU", 340.00,"Velocidad del procesador: 3.8 GHz \nVelocidad máx procesador: 4.6 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16"));
         AdaptadorComponentes adapter=new AdaptadorComponentes(this,listaComponentes);
 
+        /**
+         * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
+         * **/
         adapter.setOnclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

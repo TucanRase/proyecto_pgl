@@ -43,6 +43,9 @@ public class Almacenamiento extends AppCompatActivity {
 
         AdaptadorComponentes adapter=new AdaptadorComponentes(this,listaComponentes);
 
+        /**
+         * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
+         * **/
         adapter.setOnclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,12 +57,6 @@ public class Almacenamiento extends AppCompatActivity {
                 bundle.putParcelable("gpu",gpu);
                 bundle.putParcelable("psu",psu);
                 bundle.putParcelable("almacenamiento",listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
-
-               /* Toast.makeText(Almacenamiento.this, cpu.getNombre(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(Almacenamiento.this, ram.getNombre(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(Almacenamiento.this, gpu.getNombre(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(Almacenamiento.this, psu.getNombre(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(Almacenamiento.this, listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();*/
 
                 intent.putExtras(bundle);
                 startActivity(intent);

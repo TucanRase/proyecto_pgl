@@ -1,5 +1,7 @@
 package com.example.proyecto_tommy;
-
+/**
+ * Clase ordenador para guardar los componentes
+ * **/
 public class Ordenador {
     private String id;
     private Componente cpu;
@@ -17,6 +19,7 @@ public class Ordenador {
         this.almacenamiento = almacenamiento;
     }
 
+    //Getters y setters de la clase
     public String getId() {
         return id;
     }

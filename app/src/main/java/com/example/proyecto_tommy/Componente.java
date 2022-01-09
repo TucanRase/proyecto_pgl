@@ -2,15 +2,19 @@ package com.example.proyecto_tommy;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-//utilizo parcelable porque es una implementación de serializable que me permite facilitar el movimiento del objeto entre actividades
-public class Componente implements Parcelable {
+    /**
+     * Clase para poder guardar todos los datos de los componentes que se utilizarán en la app
+     * además se tiene que implementar parcelable para poder pasar los objetos de una actividad
+     * a otra de manera más sencilla
+     * */
+    public class Componente implements Parcelable {
     private int id;
     private int imagen;
     private String nombre;
     private String tipo;
     private Double precio;
     private String caracteristicas;
-
+    /**Contructor del objeto*/
     public Componente(int id, int imagen, String nombre, String tipo, Double precio, String caracteristicas) {
         this.id = id;
         this.imagen = imagen;
@@ -19,7 +23,7 @@ public class Componente implements Parcelable {
         this.precio = precio;
         this.caracteristicas = caracteristicas;
     }
-//constructor parcelable del objeto
+    /**constructor parcelable del objeto*/
     protected Componente(Parcel in) {
         id = in.readInt();
         imagen = in.readInt();
@@ -32,7 +36,9 @@ public class Componente implements Parcelable {
         }
         caracteristicas = in.readString();
     }
-
+    /**
+     * Método para utilizar el parcelable
+     * */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
@@ -47,7 +53,7 @@ public class Componente implements Parcelable {
         }
         dest.writeString(caracteristicas);
     }
-
+    /**Creator parcelable*/
     public static final Creator<Componente> CREATOR = new Creator<Componente>() {
         @Override
         public Componente createFromParcel(Parcel in) {
@@ -64,7 +70,7 @@ public class Componente implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
+    //Getters y setters de la clase
     public int getId() {
         return id;
     }

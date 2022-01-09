@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class Gpu extends AppCompatActivity {
+    //crear las variables
     ArrayList<Componente> listaComponentes;
     RecyclerView recyclerComponentes;
     Componente cpu,ram;
@@ -24,11 +25,13 @@ public class Gpu extends AppCompatActivity {
         titulo=(TextView)findViewById(R.id.componente);
         titulo.setText("Tarjetas gráficas: ");
 
+        //recogemos los valores pasados de las actividades anteriores para poder crear el recibo
         if (getIntent().getExtras() != null) {
             cpu = getIntent().getExtras().getParcelable("cpu");
             ram = getIntent().getExtras().getParcelable("ram");
         }
 
+        //se crea y añaden los componentes al arraylist además se crea el adapter y se establece
         listaComponentes=new ArrayList<>();
         recyclerComponentes=(RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
@@ -40,18 +43,17 @@ public class Gpu extends AppCompatActivity {
 
         AdaptadorComponentes adapter=new AdaptadorComponentes(this,listaComponentes);
 
+        /**
+         * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
+         * **/
         adapter.setOnclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //creamos el intent para la proxima actividad, a continuación el bundle para guardar el objeto y por ultimo lo añadimos para poder enviarlo
                 Intent intent =new Intent(Gpu.this, Psu.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("cpu",cpu);
                 bundle.putParcelable("ram",ram);
                 bundle.putParcelable("gpu",listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
-
-                //Toast.makeText(Gpu.this, cpu.getNombre(), Toast.LENGTH_SHORT).show();
-                //Toast.makeText(Gpu.this, ram.getNombre(), Toast.LENGTH_SHORT).show();
 
                 intent.putExtras(bundle);
                 startActivity(intent);
