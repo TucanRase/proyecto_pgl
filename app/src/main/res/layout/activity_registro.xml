@@ -34,7 +34,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/usuario" />
+            android:hint="@string/usuario"
+            android:tooltipText="Insertar usuario" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -53,7 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/contrasena"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:tooltipText="Insertar contraseña" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -74,7 +76,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Vuelva a escribir la contraseña"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:tooltipText="Volver a insertar contraseña" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- El color se cambia con el drawable de btn_redondo.xml y hay que cambiar el tint a null-->
@@ -85,6 +88,7 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/btn_redondo"
         android:text="Registrar"
+        android:tooltipText="Completar el registro"
         app:backgroundTint="@null" />
 
     <Button
@@ -94,6 +98,7 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/btn_redondo"
         android:text="Iniciar sesion"
+        android:tooltipText="Iniciar sesion"
         app:backgroundTint="@null" />
 
 </LinearLayout>

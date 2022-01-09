@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cerrarSesion"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:title="Cerrar Sesion"
+        android:tooltipText="Cerrar sesion"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/acerca"
-        android:title="Acerca de" />
+        android:title="Acerca de"
+        android:tooltipText="Acerca de" />
     <item
         android:id="@+id/add"
-        android:title="Añadir PC" />
+        android:title="Añadir PC"
+        android:tooltipText="añadir un ordenador" />
 </menu>

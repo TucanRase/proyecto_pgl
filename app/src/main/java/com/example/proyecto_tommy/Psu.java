@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,5 +65,25 @@ public class Psu extends AppCompatActivity {
         });
 
         recyclerComponentes.setAdapter(adapter);
+
+    }
+    /**Creamos el menú**/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.volver_inicio,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    /**Establecemos las acciones al pulsar las opciones del menú**/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.home:
+                intent =new Intent(Psu.this, Inicio.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
