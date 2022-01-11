@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class Inicio extends AppCompatActivity {
     //crear las variables
-    ArrayList<Ordenador> listaOrdenadores;
     RecyclerView recyclerOrdenador;
     Ordenador ordenador;
     TextView placeholder;
@@ -30,15 +29,15 @@ public class Inicio extends AppCompatActivity {
             ordenador = getIntent().getExtras().getParcelable("pc");
         }
 
-        listaOrdenadores=new ArrayList<>();
+        Login.listaOrdenadores=new ArrayList<>();
         recyclerOrdenador=(RecyclerView) findViewById(R.id.recyclerOrdenador);
         placeholder=(TextView)findViewById(R.id.placeHolder);
         recyclerOrdenador.setLayoutManager(new LinearLayoutManager(this));
         //se añade el ordenador al arraylist
         if(ordenador!=null){
-            listaOrdenadores.add(ordenador);
+            Login.listaOrdenadores.add(ordenador);
             //Establecer el adaptador
-            AdaptadorOrdenador adapter=new AdaptadorOrdenador(this,listaOrdenadores);
+            AdaptadorOrdenador adapter=new AdaptadorOrdenador(this,Login.listaOrdenadores);
             recyclerOrdenador.setAdapter(adapter);
         }else{
             recyclerOrdenador.setVisibility(View.GONE);
@@ -58,8 +57,6 @@ public class Inicio extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.cerrarSesion:
                 intent =new Intent(Inicio.this, Login.class);
-                if(listaOrdenadores!=null)
-                    listaOrdenadores.clear();
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;

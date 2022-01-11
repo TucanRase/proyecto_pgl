@@ -10,7 +10,10 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+
 public class Login extends AppCompatActivity {
+    static ArrayList<Ordenador> listaOrdenadores=new ArrayList<Ordenador>();
     TextInputLayout usuario,contrasena;
     Button btnIniciar,btnRegistrar;
     DBHelper DB;

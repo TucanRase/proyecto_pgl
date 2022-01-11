@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/usuario"
+            android:textColor="@color/white"
             android:tooltipText="Insertar usuario" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,6 +63,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/contrasena"
             android:inputType="textPassword"
+            android:textColor="@color/white"
             android:tooltipText="Insertar contraseña" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,6 +90,7 @@
             android:layout_height="wrap_content"
             android:hint="Vuelva a escribir la contraseña"
             android:inputType="textPassword"
+            android:textColor="@color/white"
             android:tooltipText="Volver a insertar contraseña" />
     </com.google.android.material.textfield.TextInputLayout>
 
