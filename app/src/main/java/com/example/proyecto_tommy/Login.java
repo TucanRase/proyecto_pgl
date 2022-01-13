@@ -13,9 +13,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 
 public class Login extends AppCompatActivity {
-    static ArrayList<Ordenador> listaOrdenadores=new ArrayList<Ordenador>();
-    TextInputLayout usuario,contrasena;
-    Button btnIniciar,btnRegistrar;
+    static ArrayList<Ordenador> listaOrdenadores = new ArrayList<Ordenador>();
+    TextInputLayout usuario, contrasena;
+    Button btnIniciar, btnRegistrar;
     DBHelper DB;
 
     @Override
@@ -23,10 +23,10 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        usuario=findViewById(R.id.txtUsu);
-        contrasena=findViewById(R.id.txtContra);
-        btnIniciar=findViewById(R.id.btnInicio);
-        btnRegistrar=findViewById(R.id.btnRegistro);
+        usuario = findViewById(R.id.txtUsu);
+        contrasena = findViewById(R.id.txtContra);
+        btnIniciar = findViewById(R.id.btnInicio);
+        btnRegistrar = findViewById(R.id.btnRegistro);
         DB = new DBHelper(this);
         /**
          * Al clickar en el boton se procede a hacer la comprobación de los datos introducidos en los campos de login con
@@ -39,18 +39,18 @@ public class Login extends AppCompatActivity {
                 String user = usuario.getEditText().getText().toString().trim();
                 String contra = contrasena.getEditText().getText().toString().trim();
 
-                if(user.isEmpty())
+                if (user.isEmpty())
                     usuario.setError("Por favor introduzca un usuario");
                 else if (contra.isEmpty())
                     contrasena.setError("Por favor introduzca una contraseña");
-                else{
+                else {
                     Boolean checkuserpass = DB.comprobarContrasenaUsuario(user, contra);
-                    if(checkuserpass==true){
+                    if (checkuserpass == true) {
                         Toast.makeText(Login.this, "Sesión iniciada correctamente", Toast.LENGTH_SHORT).show();
-                        Intent intent  = new Intent(getApplicationContext(), Inicio.class);
+                        Intent intent = new Intent(getApplicationContext(), Inicio.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
-                    }else{
+                    } else {
                         Toast.makeText(Login.this, "Credenciales incorrectos", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -63,15 +63,16 @@ public class Login extends AppCompatActivity {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent  = new Intent(getApplicationContext(), Registro.class);
+                Intent intent = new Intent(getApplicationContext(), Registro.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
             }
         });
     }
+
     /**
      * Método para establecer la animación al pulsar el botón "atrás"
-     * */
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();

@@ -14,7 +14,10 @@ import android.os.Parcelable;
     private String tipo;
     private Double precio;
     private String caracteristicas;
-    /**Contructor del objeto*/
+
+        /**
+         * Contructor del objeto
+         */
     public Componente(int id, int imagen, String nombre, String tipo, Double precio, String caracteristicas) {
         this.id = id;
         this.imagen = imagen;

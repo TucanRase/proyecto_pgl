@@ -63,9 +63,10 @@ public class Ram extends AppCompatActivity {
 
         recyclerComponentes.setAdapter(adapter);
     }
+
     /**
      * Método para establecer la animación al pulsar el botón "atrás"
-     * */
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();

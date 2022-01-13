@@ -24,19 +24,19 @@ public class Cpu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_componentes);
 
-        titulo=(TextView)findViewById(R.id.componente);
+        titulo = (TextView) findViewById(R.id.componente);
         titulo.setText("Procesadores: ");
 
         //se crea y añaden los componentes al arraylist además se crea el adapter y se establece
-        listaComponentes=new ArrayList<>();
-        recyclerComponentes=(RecyclerView) findViewById(R.id.recycler);
+        listaComponentes = new ArrayList<>();
+        recyclerComponentes = (RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
 
-        listaComponentes.add(new Componente(25001,R.drawable.ryzen_3600,"AMD Ryzen 5 3600","CPU", 225.00,"Velocidad del procesador: 3.6 GHz \nVelocidad máx procesador: 4.2 GHz \nNúmero de nucleos: 6\nNúmero de hilos:12"));
-        listaComponentes.add(new Componente(25002,R.drawable.ryzen_5600,"AMD Ryzen 5 5600X","CPU", 295.00,"Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 6\nNúmero de hilos:12"));
-        listaComponentes.add(new Componente(25003,R.drawable.ryzen_3700x,"AMD Ryzen 7 3700X","CPU", 320.00,"Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16"));
-        listaComponentes.add(new Componente(25004,R.drawable.ryzen_5700g,"AMD Ryzen 5 5700G","CPU", 340.00,"Velocidad del procesador: 3.8 GHz \nVelocidad máx procesador: 4.6 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16"));
-        AdaptadorComponentes adapter=new AdaptadorComponentes(this,listaComponentes);
+        listaComponentes.add(new Componente(25001, R.drawable.ryzen_3600, "AMD Ryzen 5 3600", "CPU", 225.00, "Velocidad del procesador: 3.6 GHz \nVelocidad máx procesador: 4.2 GHz \nNúmero de nucleos: 6\nNúmero de hilos:12"));
+        listaComponentes.add(new Componente(25002, R.drawable.ryzen_5600, "AMD Ryzen 5 5600X", "CPU", 295.00, "Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 6\nNúmero de hilos:12"));
+        listaComponentes.add(new Componente(25003, R.drawable.ryzen_3700x, "AMD Ryzen 7 3700X", "CPU", 320.00, "Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16"));
+        listaComponentes.add(new Componente(25004, R.drawable.ryzen_5700g, "AMD Ryzen 5 5700G", "CPU", 340.00, "Velocidad del procesador: 3.8 GHz \nVelocidad máx procesador: 4.6 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16"));
+        AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
 
         /**
          * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
@@ -44,7 +44,7 @@ public class Cpu extends AppCompatActivity {
         adapter.setOnclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Cpu.this,Ram.class);
+                Intent intent = new Intent(Cpu.this, Ram.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("cpu", listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
 
@@ -56,28 +56,34 @@ public class Cpu extends AppCompatActivity {
 
         recyclerComponentes.setAdapter(adapter);
     }
+
     /**
      * Método para establecer la animación al pulsar el botón "atrás"
-     * */
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.right_in, R.anim.right_out);
     }
 
-    /**Creamos el menú**/
+    /**
+     * Creamos el menú
+     **/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.volver_inicio,menu);
+        getMenuInflater().inflate(R.menu.volver_inicio, menu);
         return super.onCreateOptionsMenu(menu);
     }
-    /**Establecemos las acciones al pulsar las opciones del menú**/
+
+    /**
+     * Establecemos las acciones al pulsar las opciones del menú
+     **/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.home:
-                intent =new Intent(Cpu.this, Inicio.class);
+                intent = new Intent(Cpu.this, Inicio.class);
                 startActivity(intent);
                 return true;
             default:

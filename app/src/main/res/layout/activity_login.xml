@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Cambio de fondo con el drawable de fondo.xml -->
+<?xml version="1.0" encoding="utf-8"?><!-- Cambio de fondo con el drawable de fondo.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@drawable/fondo"
     tools:context=".Login">
 
     <TextView
@@ -21,20 +20,20 @@
     <!-- los inputs son redondeados con el style especificado y el radius-->
 
     <com.google.android.material.textfield.TextInputLayout
-        app:hintTextColor="@color/white"
-        android:textColorHint="@color/white"
         android:id="@+id/txtUsu"
-        app:boxStrokeColor="@color/white"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="25dp"
         android:ellipsize="start"
+        android:textColorHint="@color/white"
         app:boxCornerRadiusBottomEnd="20dp"
         app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp">
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/white"
+        app:hintTextColor="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -45,20 +44,20 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        app:hintTextColor="@color/white"
-        app:boxStrokeColor="@color/white"
-        android:textColorHint="@color/white"
         android:id="@+id/txtContra"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
+        android:textColorHint="@color/white"
         app:boxCornerRadiusBottomEnd="20dp"
         app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/white"
         app:endIconMode="password_toggle"
-        app:endIconTint="@color/white">
+        app:endIconTint="@color/white"
+        app:hintTextColor="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

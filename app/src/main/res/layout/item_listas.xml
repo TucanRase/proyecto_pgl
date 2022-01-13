@@ -1,17 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- layout del componente a mostrar,además le añadimos el efecto al clicar(clickable y foreground) -->
+<?xml version="1.0" encoding="utf-8"?><!-- layout del componente a mostrar,además le añadimos el efecto al clicar(clickable y foreground) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="10dp"
     android:background="@drawable/btn_redondo"
-    android:padding="5dp"
-    android:focusable="true"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground">
-<!-- Ajustes básicos de los distintos campos como puede ser el margin o padding y color -->
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:padding="5dp">
+    <!-- Ajustes básicos de los distintos campos como puede ser el margin o padding y color -->
     <ImageView
         android:id="@+id/ivImagen"
         android:layout_width="135dp"

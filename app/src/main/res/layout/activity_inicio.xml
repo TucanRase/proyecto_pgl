@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/fondo"
-    tools:context=".Inicio"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".Inicio">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerOrdenador"
@@ -20,10 +20,22 @@
         android:id="@+id/placeHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="75dp"
+        android:layout_marginStart="75dp"
         android:layout_marginTop="275dp"
         android:text="No hay ningún ordenador en tu lista"
         android:textColor="@color/white"
         android:visibility="gone" />
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:backgroundTint="@color/boton"
+        android:clickable="true"
+        android:contentDescription="Pulse para añadir un pc"
+        android:src="@drawable/plus_drawable"
+        android:tooltipText="Añadir un pc" />
+
+
+</FrameLayout>

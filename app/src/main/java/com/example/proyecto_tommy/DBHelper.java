@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**clase para crear la base de datos y sus respectivos métodos para crear,actualizar,añadir datos,comprobar
- * usuario,comprobar contraseña*/
+/**
+ * clase para crear la base de datos y sus respectivos métodos para crear,actualizar,añadir datos,comprobar
+ * usuario,comprobar contraseña
+ */
 public class DBHelper extends SQLiteOpenHelper {
     public static final String nombreDB = "Login.db";
 
@@ -25,30 +27,31 @@ public class DBHelper extends SQLiteOpenHelper {
         MiDB.execSQL("drop Table if exists usuarios");
     }
 
-    public boolean insertarDatos(String usuario,String contrasena){
-        SQLiteDatabase MiDB=this.getWritableDatabase();
-        ContentValues contentValues=new ContentValues();
-        contentValues.put("usuario",usuario);
-        contentValues.put("contrasena",contrasena);
-        long resultado=MiDB.insert("usuarios",null,contentValues);
-        if(resultado==-1)
+    public boolean insertarDatos(String usuario, String contrasena) {
+        SQLiteDatabase MiDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("usuario", usuario);
+        contentValues.put("contrasena", contrasena);
+        long resultado = MiDB.insert("usuarios", null, contentValues);
+        if (resultado == -1)
             return false;
         else
             return true;
     }
-    public Boolean comprobarUsuario(String usuario){
-        SQLiteDatabase MiDB=this.getWritableDatabase();
-        Cursor cursor=MiDB.rawQuery("Select * from usuarios where usuario = ?",new String[]{usuario});
-        if(cursor.getCount()>0)
+
+    public Boolean comprobarUsuario(String usuario) {
+        SQLiteDatabase MiDB = this.getWritableDatabase();
+        Cursor cursor = MiDB.rawQuery("Select * from usuarios where usuario = ?", new String[]{usuario});
+        if (cursor.getCount() > 0)
             return true;
         else
             return false;
     }
 
-    public Boolean comprobarContrasenaUsuario(String usuario,String contrasena){
-        SQLiteDatabase MiDB=this.getWritableDatabase();
-        Cursor cursor=MiDB.rawQuery("Select * from usuarios where usuario = ? and contrasena = ?",new String[] {usuario,contrasena});
-        if(cursor.getCount()>0)
+    public Boolean comprobarContrasenaUsuario(String usuario, String contrasena) {
+        SQLiteDatabase MiDB = this.getWritableDatabase();
+        Cursor cursor = MiDB.rawQuery("Select * from usuarios where usuario = ? and contrasena = ?", new String[]{usuario, contrasena});
+        if (cursor.getCount() > 0)
             return true;
         else
             return false;
