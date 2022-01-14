@@ -30,6 +30,7 @@
         app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusTopStart="20dp"
         app:boxStrokeColor="@color/white"
+        app:errorTextColor="#E72900"
         app:hintTextColor="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -53,6 +54,7 @@
         app:boxStrokeColor="@color/white"
         app:endIconMode="password_toggle"
         app:endIconTint="@color/white"
+        app:errorTextColor="#E72900"
         app:hintTextColor="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -80,6 +82,7 @@
         app:boxStrokeColor="@color/white"
         app:endIconMode="password_toggle"
         app:endIconTint="@color/white"
+        app:errorTextColor="#E72900"
         app:hintTextColor="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText

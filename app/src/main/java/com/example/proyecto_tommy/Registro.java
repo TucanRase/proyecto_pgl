@@ -27,6 +27,8 @@ public class Registro extends AppCompatActivity {
         iniciar = (Button) findViewById(R.id.btnRegistrar2);
         DB = new DBHelper(this);
 
+        // TODO: 14/01/2022 añadir campos de datos y correo electronico 
+
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +52,7 @@ public class Registro extends AppCompatActivity {
                             Boolean insertar = DB.insertarDatos(user, contra);
                             if (insertar == true) {
                                 Toast.makeText(Registro.this, "Registrado correctamente", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), Login.class);
+                                Intent intent = new Intent(getApplicationContext(), Inicio.class);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
                             } else {

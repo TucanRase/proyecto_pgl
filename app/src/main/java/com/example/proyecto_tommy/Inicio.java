@@ -47,7 +47,7 @@ public class Inicio extends AppCompatActivity {
             recyclerOrdenador.setVisibility(View.GONE);
             placeholder.setVisibility(View.VISIBLE);
         }
-        // TODO: 13/01/2022 Establecer animación al fab 
+        // TODO: 13/01/2022 Establecer animación al fab y cambiar color sin borde blanco
         fab = (FloatingActionButton) findViewById(R.id.fabAdd);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +62,8 @@ public class Inicio extends AppCompatActivity {
     /**
      * Creamos el menú
      **/
+
+    // TODO: 13/01/2022 Cambiar el tooltip del menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.opciones_menu, menu);
