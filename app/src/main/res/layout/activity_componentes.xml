@@ -34,7 +34,7 @@
             app:hintTextColor="@color/white">
 
             <AutoCompleteTextView
-                android:id="@+id/filled_exposed_dropdown"
+                android:id="@+id/dropDownOrdenar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"

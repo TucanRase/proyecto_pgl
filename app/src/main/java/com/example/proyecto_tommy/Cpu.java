@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -21,7 +22,9 @@ public class Cpu extends AppCompatActivity {
     ArrayList<Componente> listaComponentes;
     RecyclerView recyclerComponentes;
     TextView titulo;
-    TextInputLayout tilDrop;
+    String[] ordenaciones;
+    AutoCompleteTextView textOrdenar;
+    ArrayAdapter<String> arrayAdapterOrdenar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,12 @@ public class Cpu extends AppCompatActivity {
 
         titulo = (TextView) findViewById(R.id.componente);
         titulo.setText("Procesadores: ");
+        textOrdenar=(AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
+        ordenaciones = getResources().getStringArray(R.array.ordenarPor);
+
+        //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
+        arrayAdapterOrdenar=new ArrayAdapter<>(getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,ordenaciones);
+        textOrdenar.setAdapter(arrayAdapterOrdenar);
 
         //se crea y añaden los componentes al arraylist además se crea el adapter y se establece
         listaComponentes = new ArrayList<>();
@@ -59,7 +68,6 @@ public class Cpu extends AppCompatActivity {
                 overridePendingTransition(R.anim.left_in, R.anim.left_out);
             }
         });
-
         recyclerComponentes.setAdapter(adapter);
     }
 
