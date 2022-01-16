@@ -22,9 +22,6 @@ public class Cpu extends AppCompatActivity {
     ArrayList<Componente> listaComponentes;
     RecyclerView recyclerComponentes;
     TextView titulo;
-    String[] ordenaciones;
-    AutoCompleteTextView textOrdenar;
-    ArrayAdapter<String> arrayAdapterOrdenar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +30,11 @@ public class Cpu extends AppCompatActivity {
 
         titulo = (TextView) findViewById(R.id.componente);
         titulo.setText("Procesadores: ");
-        textOrdenar=(AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
-        ordenaciones = getResources().getStringArray(R.array.ordenarPor);
+        AutoCompleteTextView textOrdenar=(AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
+        String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
 
         //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
-        arrayAdapterOrdenar=new ArrayAdapter<>(getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,ordenaciones);
+        ArrayAdapter<String> arrayAdapterOrdenar=new ArrayAdapter<>(getApplicationContext(),R.layout.item_dropdown,ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);
 
         //se crea y añaden los componentes al arraylist además se crea el adapter y se establece

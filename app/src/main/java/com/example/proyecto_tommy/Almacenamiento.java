@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,12 @@ public class Almacenamiento extends AppCompatActivity {
         listaComponentes = new ArrayList<>();
         recyclerComponentes = (RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
+        AutoCompleteTextView textOrdenar=(AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
+        String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
+
+        //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
+        ArrayAdapter<String> arrayAdapterOrdenar=new ArrayAdapter<>(getApplicationContext(),R.layout.item_dropdown,ordenaciones);
+        textOrdenar.setAdapter(arrayAdapterOrdenar);
 
         listaComponentes.add(new Componente(26001, R.drawable.ssd_wb_blue, "Western Digital SSD 1tb", "Almacenamiento", 85.00, "Tipo de disco duro: SSD\nCapacidad: 1Tb\nVelocidad de lectura:560mb/s\nVelociad de escritura: 530mb/s"));
         listaComponentes.add(new Componente(26002, R.drawable.ssd_wd_m2, "Western Digital SSD M.2 1tb ", "Almacenamiento", 100.00, "Tipo de disco duro: SSD\nCapacidad: 1Tb\nVelocidad de lectura:2000mb/s\nVelociad de escritura: 1700mb/s"));

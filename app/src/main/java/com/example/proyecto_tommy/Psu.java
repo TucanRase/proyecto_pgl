@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +29,7 @@ public class Psu extends AppCompatActivity {
         setContentView(R.layout.activity_componentes);
 
         titulo = (TextView) findViewById(R.id.componente);
-        titulo.setText("Fuentes de alimentación: ");
+        titulo.setText("Fuentes de\nalimentación: ");
 
         //recogemos los valores pasados de las actividades anteriores para poder crear el recibo
         if (getIntent().getExtras() != null) {
@@ -40,6 +42,12 @@ public class Psu extends AppCompatActivity {
         listaComponentes = new ArrayList<>();
         recyclerComponentes = (RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
+        AutoCompleteTextView textOrdenar=(AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
+        String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
+
+        //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
+        ArrayAdapter<String> arrayAdapterOrdenar=new ArrayAdapter<>(getApplicationContext(),R.layout.item_dropdown,ordenaciones);
+        textOrdenar.setAdapter(arrayAdapterOrdenar);
 
         listaComponentes.add(new Componente(28001, R.drawable.psu_corsair_850x, "Corsair RM850X psu", "PSU", 110.00, "Potencia de la fuente:850W\nTipo de cableado: Modular\nEficiencia de la fuente:80+Gold\nMarca: Corsair"));
         listaComponentes.add(new Componente(28002, R.drawable.psu_evga_850, "EVGA 850G+ psu", "PSU", 95.00, "Potencia de la fuente:850W\nTipo de cableado: Modular\nEficiencia de la fuente:80+Gold\nMarca: EVGA"));

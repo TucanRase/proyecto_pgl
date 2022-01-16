@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,6 +40,13 @@ public class Gpu extends AppCompatActivity {
         listaComponentes = new ArrayList<>();
         recyclerComponentes = (RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
+        AutoCompleteTextView textOrdenar=(AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
+        String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
+
+        //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
+        ArrayAdapter<String> arrayAdapterOrdenar=new ArrayAdapter<>(getApplicationContext(),R.layout.item_dropdown,ordenaciones);
+        textOrdenar.setAdapter(arrayAdapterOrdenar);
+
 
         listaComponentes.add(new Componente(22001, R.drawable.rtx_2060_evga, "Nvidia RTX 2060 EVGA KO", "GPU", 525.00, "Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:14000 MHz"));
         listaComponentes.add(new Componente(22002, R.drawable.rtx_2060_giga, "Nvidia RTX 2060 Gigabyte Windforce", "GPU", 600.00, "Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1830 MHz"));

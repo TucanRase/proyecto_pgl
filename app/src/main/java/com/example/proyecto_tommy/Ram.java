@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,12 @@ public class Ram extends AppCompatActivity {
         listaComponentes=new ArrayList<>();
         recyclerComponentes=(RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
+        AutoCompleteTextView textOrdenar=(AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
+        String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
+
+        //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
+        ArrayAdapter<String> arrayAdapterOrdenar=new ArrayAdapter<>(getApplicationContext(),R.layout.item_dropdown,ordenaciones);
+        textOrdenar.setAdapter(arrayAdapterOrdenar);
 
         listaComponentes.add(new Componente(23001,R.drawable.ram_corsair,"RAM Corsair Vengeance RGB PRO","RAM", 89.00,"Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair"));
         listaComponentes.add(new Componente(23002,R.drawable.ram_tridentz,"RAM GSkill Trident Z RGB","RAM", 99.00,"Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair"));

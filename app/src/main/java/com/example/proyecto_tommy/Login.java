@@ -36,6 +36,8 @@ public class Login extends AppCompatActivity {
         btnIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                usuario.setError(null);
+                contrasena.setError(null);
                 String user = usuario.getEditText().getText().toString().trim();
                 String contra = contrasena.getEditText().getText().toString().trim();
 
@@ -51,7 +53,10 @@ public class Login extends AppCompatActivity {
                         startActivity(intent);
                         overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
                     } else {
+                        // TODO: 16/01/2022 Hacer que la el error se muestre dependiendo del error 
                         Toast.makeText(Login.this, "Credenciales incorrectos", Toast.LENGTH_SHORT).show();
+                        usuario.setError("Revise el usuario");
+                        contrasena.setError("Revise la contraseña");
                     }
                 }
 
