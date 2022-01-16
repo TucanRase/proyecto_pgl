@@ -32,7 +32,9 @@
             android:textColorHint="@color/white"
             app:boxStrokeColor="@color/white"
             app:endIconTint="@color/white"
-            app:hintTextColor="@color/white">
+            app:hintTextColor="@color/white"
+            app:startIconDrawable="@drawable/ic_baseline_sort_by_alpha_24"
+            app:startIconTint="@color/white">
 
             <AutoCompleteTextView
                 android:id="@+id/dropDownOrdenar"

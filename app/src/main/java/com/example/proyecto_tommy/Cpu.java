@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -36,6 +38,27 @@ public class Cpu extends AppCompatActivity {
         //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
         ArrayAdapter<String> arrayAdapterOrdenar=new ArrayAdapter<>(getApplicationContext(),R.layout.item_dropdown,ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);
+
+        textOrdenar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String item = arrayAdapterOrdenar.getItem(position);
+                Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
+                switch (item){
+                    case "Precio descendente":
+
+                        break;
+                    case "Precio ascendente":
+                        break;
+                    case "Nombre A-Z":
+                        break;
+                    case "Nombre Z-A":
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
         //se crea y añaden los componentes al arraylist además se crea el adapter y se establece
         listaComponentes = new ArrayList<>();
