@@ -14,47 +14,56 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String nombreDB = "Login.db";
 
     public DBHelper(Context context) {
-        super(context, "Login.db", null, 1);
+        super(context, nombreDB, null, 1);
     }
 
     @Override // TODO: 17/01/2022 Cambiar el login por email
     public void onCreate(SQLiteDatabase MiDB) {
         MiDB.execSQL("create Table usuarios(usuario TEXT primary key,contrasena TEXT)");
-       // MiDB.execSQL("create Table componentes(ID int primary key, TEXT)");
+        //MiDB.execSQL("create Table componentes(ID INTEGER primary key, TEXT)");
+        MiDB.execSQL("create Table ordenadores(ID INTEGER primary key,cpuId INTEGER,ramId INTEGER,gpuId INTEGER,psuId INTEGER,almacenamientoId INTEGER)");
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase MiDB, int i, int i1) {
         MiDB.execSQL("drop Table if exists usuarios");
+        //MiDB.execSQL("drop Table if exists componentes");
+        MiDB.execSQL("drop Table if exists ordenadores");
     }
 
-    public boolean insertarDatos(String usuario, String contrasena) {
+    public boolean insertarDatosUsuario(String usuario, String contrasena) {
         SQLiteDatabase MiDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("usuario", usuario);
         contentValues.put("contrasena", contrasena);
         long resultado = MiDB.insert("usuarios", null, contentValues);
-        if (resultado == -1)
-            return false;
-        else
-            return true;
+        //se puede usar el "si es menos 1 no devuelve false,si no devuelve true" esta linea es la simplificación
+        return resultado != -1;
+    }
+
+    public boolean insertarDatosOrdenador(Integer cpuId, Integer ramId, Integer gpuId, Integer psuId, Integer almacenamientoId) {
+        SQLiteDatabase MiDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("cpuId", cpuId);
+        contentValues.put("ramId", ramId);
+        contentValues.put("gpuId", gpuId);
+        contentValues.put("psuId", psuId);
+        contentValues.put("almacenamientoId", almacenamientoId);
+        long resultado = MiDB.insert("ordenadores", null, contentValues);
+        //se puede usar el "si es menos 1 no devuelve false,si no devuelve true" esta linea es la simplificación
+        return resultado != -1;
     }
 
     public Boolean comprobarUsuario(String usuario) {
         SQLiteDatabase MiDB = this.getWritableDatabase();
         Cursor cursor = MiDB.rawQuery("Select * from usuarios where usuario = ?", new String[]{usuario});
-        if (cursor.getCount() > 0)
-            return true;
-        else
-            return false;
+        return cursor.getCount() > 0;
     }
 
     public Boolean comprobarContrasenaUsuario(String usuario, String contrasena) {
         SQLiteDatabase MiDB = this.getWritableDatabase();
         Cursor cursor = MiDB.rawQuery("Select * from usuarios where usuario = ? and contrasena = ?", new String[]{usuario, contrasena});
-        if (cursor.getCount() > 0)
-            return true;
-        else
-            return false;
+        return cursor.getCount() > 0;
     }
 }

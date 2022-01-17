@@ -35,21 +35,23 @@ public class Registro extends AppCompatActivity {
                 usuario.setError(null);
                 contrasena.setError(null);
                 confirmContrasena.setError(null);
-                String user = usuario.getEditText().getText().toString().trim();
+                String email = usuario.getEditText().getText().toString().trim();
                 String contra = contrasena.getEditText().getText().toString().trim();
                 String confirmContra = confirmContrasena.getEditText().getText().toString().trim();
 
-                if (user.isEmpty())
+                if (email.isEmpty())
                     usuario.setError("Por favor introduzca un usuario");
+                else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
+                    usuario.setError("Por favor introduzca un email válido");
                 else if (contra.isEmpty())
                     contrasena.setError("Por favor introduzca una contraseña");
                 else if (confirmContra.isEmpty())
                     confirmContrasena.setError("Por favor introduzca la contraseña");
                 else {
                     if (contra.equals(confirmContra)) {
-                        Boolean comprobarUsuario = DB.comprobarUsuario(user);
+                        Boolean comprobarUsuario = DB.comprobarUsuario(email);
                         if (comprobarUsuario == false) {
-                            Boolean insertar = DB.insertarDatos(user, contra);
+                            Boolean insertar = DB.insertarDatosUsuario(email, contra);
                             if (insertar == true) {
                                 Toast.makeText(Registro.this, "Registrado correctamente", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), Inicio.class);

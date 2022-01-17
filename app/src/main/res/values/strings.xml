@@ -6,6 +6,7 @@
     <string name="log_in">LOG IN</string>
     <string name="registrarse">Registrarse</string>
     <string name="iniciar_sesi_n">Iniciar Sesión</string>
+    <string name="Email">email</string>
 
     <string-array name="ordenarPor">
         <item>Precio ascendente</item>

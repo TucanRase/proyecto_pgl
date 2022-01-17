@@ -6,11 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class AdaptadorComponentes extends RecyclerView.Adapter<AdaptadorComponentes.ViewholderComponentes> implements View.OnClickListener {
     //crear las variables
@@ -81,5 +84,24 @@ public class AdaptadorComponentes extends RecyclerView.Adapter<AdaptadorComponen
             txtPrecio=(TextView) itemView.findViewById(R.id.txtPrecio);
 
         }
+    }
+
+    public static ArrayList<Componente> ordenarPrecioAsc(ArrayList<Componente> lista){
+        lista.sort(Comparator.comparing(Componente::getPrecio));
+        return lista;
+    }
+    public static ArrayList<Componente> ordenarPrecioDesc(ArrayList<Componente> lista){
+        lista.sort(Comparator.comparing(Componente::getPrecio));
+        Collections.reverse(lista);
+        return lista;
+    }
+    public static ArrayList<Componente> ordenarNombreAsc(ArrayList<Componente> lista){
+        lista.sort(Comparator.comparing(Componente::getNombre));
+        return lista;
+    }
+    public static ArrayList<Componente> ordenarNombreDesc(ArrayList<Componente> lista){
+        lista.sort(Comparator.comparing(Componente::getNombre));
+        Collections.reverse(lista);
+        return lista;
     }
 }

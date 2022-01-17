@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Cpu extends AppCompatActivity {
     //crear las variables
@@ -39,27 +41,6 @@ public class Cpu extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapterOrdenar=new ArrayAdapter<>(getApplicationContext(),R.layout.item_dropdown,ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);
 
-        textOrdenar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String item = arrayAdapterOrdenar.getItem(position);
-                Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
-                switch (item){
-                    case "Precio descendente":
-
-                        break;
-                    case "Precio ascendente":
-                        break;
-                    case "Nombre A-Z":
-                        break;
-                    case "Nombre Z-A":
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-
         //se crea y añaden los componentes al arraylist además se crea el adapter y se establece
         listaComponentes = new ArrayList<>();
         recyclerComponentes = (RecyclerView) findViewById(R.id.recycler);
@@ -70,6 +51,38 @@ public class Cpu extends AppCompatActivity {
         listaComponentes.add(new Componente(25003, R.drawable.ryzen_3700x, "AMD Ryzen 7 3700X", "CPU", 320.00, "Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16"));
         listaComponentes.add(new Componente(25004, R.drawable.ryzen_5700g, "AMD Ryzen 5 5700G", "CPU", 340.00, "Velocidad del procesador: 3.8 GHz \nVelocidad máx procesador: 4.6 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16"));
         AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
+
+        textOrdenar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String item = arrayAdapterOrdenar.getItem(position);
+               // Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
+                switch (item){
+                    // TODO: 17/01/2022 Cambiar el remove allviews por algo más eficiente 
+                    case "Precio ascendente":
+                        listaComponentes.sort(Comparator.comparing(Componente::getPrecio));
+                        Toast.makeText(getApplicationContext(), listaComponentes.get(1).getPrecio().toString(), Toast.LENGTH_SHORT).show();
+                        recyclerComponentes.removeAllViews();
+                        break;
+                    case "Precio descendente":
+                        listaComponentes.sort(Comparator.comparing(Componente::getPrecio));
+                        Collections.reverse(listaComponentes);
+                        Toast.makeText(getApplicationContext(), listaComponentes.get(1).getPrecio().toString(), Toast.LENGTH_SHORT).show();
+                        recyclerComponentes.removeAllViews();
+                        break;
+                    case "Nombre A-Z":
+                        listaComponentes=AdaptadorComponentes.ordenarNombreAsc(listaComponentes);
+                        recyclerComponentes.removeAllViews();
+                        break;
+                    case "Nombre Z-A":
+                        listaComponentes=AdaptadorComponentes.ordenarNombreDesc(listaComponentes);
+                        recyclerComponentes.removeAllViews();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
 
 

@@ -38,22 +38,24 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 usuario.setError(null);
                 contrasena.setError(null);
-                String user = usuario.getEditText().getText().toString().trim();
+                String email = usuario.getEditText().getText().toString().trim();
                 String contra = contrasena.getEditText().getText().toString().trim();
 
-                if (user.isEmpty())
+                if (email.isEmpty())
                     usuario.setError("Por favor introduzca un usuario");
+                /*else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
+                    usuario.setError("Por favor introduzca un email válido");*/
                 else if (contra.isEmpty())
                     contrasena.setError("Por favor introduzca una contraseña");
                 else {
-                    Boolean checkuserpass = DB.comprobarContrasenaUsuario(user, contra);
+                    Boolean checkuserpass = DB.comprobarContrasenaUsuario(email, contra);
                     if (checkuserpass == true) {
                         Toast.makeText(Login.this, "Sesión iniciada correctamente", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), Inicio.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
                     }
-                    else if (!DB.comprobarUsuario(user)){
+                    else if (!DB.comprobarUsuario(email)){
                         usuario.setError("Revise el usuario");
                     }else
                         contrasena.setError("Revise la contraseña");
