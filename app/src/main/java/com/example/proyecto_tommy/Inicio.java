@@ -47,7 +47,7 @@ public class Inicio extends AppCompatActivity {
             recyclerOrdenador.setVisibility(View.GONE);
             placeholder.setVisibility(View.VISIBLE);
         }
-        // TODO: 13/01/2022 Establecer animación al fab y cambiar color sin borde blanco
+        // TODO: 13/01/2022 Establecer animación al fab
         fab = (FloatingActionButton) findViewById(R.id.fabAdd);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -33,11 +33,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
-        android:backgroundTint="@color/boton"
         android:clickable="true"
         android:contentDescription="Pulse para añadir un pc"
         android:src="@drawable/plus_drawable"
-        android:tooltipText="Añadir un pc" />
+        android:tooltipText="Añadir un pc"
+        app:backgroundTint="@color/boton" />
 
 
 </FrameLayout>

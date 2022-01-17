@@ -4,7 +4,8 @@
 
     <item
         android:id="@+id/home"
-        android:icon="@drawable/home"
+        android:icon="@drawable/home_icon"
+        android:iconTint="@color/white"
         android:title="Item"
         android:tooltipText="Volver al inicio"
         app:showAsAction="ifRoom" />

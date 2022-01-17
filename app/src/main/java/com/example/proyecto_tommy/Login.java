@@ -52,12 +52,12 @@ public class Login extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), Inicio.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
-                    } else {
-                        // TODO: 16/01/2022 Hacer que la el error se muestre dependiendo del error 
-                        Toast.makeText(Login.this, "Credenciales incorrectos", Toast.LENGTH_SHORT).show();
-                        usuario.setError("Revise el usuario");
-                        contrasena.setError("Revise la contraseña");
                     }
+                    else if (!DB.comprobarUsuario(user)){
+                        usuario.setError("Revise el usuario");
+                    }else
+                        contrasena.setError("Revise la contraseña");
+                    Toast.makeText(getApplicationContext(), "Credenciales incorrectos", Toast.LENGTH_SHORT).show();
                 }
 
             }

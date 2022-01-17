@@ -17,9 +17,10 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, "Login.db", null, 1);
     }
 
-    @Override
+    @Override // TODO: 17/01/2022 Cambiar el login por email
     public void onCreate(SQLiteDatabase MiDB) {
         MiDB.execSQL("create Table usuarios(usuario TEXT primary key,contrasena TEXT)");
+       // MiDB.execSQL("create Table componentes(ID int primary key, TEXT)");
     }
 
     @Override
