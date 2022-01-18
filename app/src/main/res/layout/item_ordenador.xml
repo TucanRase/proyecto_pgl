@@ -15,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:layout_weight="1"
+        android:contentDescription="Imagen del ordenador"
         tools:srcCompat="@drawable/ordenador" />
 
     <LinearLayout
@@ -28,41 +29,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="@color/white" />
+            android:textColor="#212121" />
 
         <TextView
             android:id="@+id/txtCpu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="@color/white" />
+            android:textColor="#212121" />
 
         <TextView
             android:id="@+id/txtRam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="@color/white" />
+            android:textColor="#212121" />
 
         <TextView
             android:id="@+id/txtGpu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="@color/white" />
+            android:textColor="#212121" />
 
         <TextView
             android:id="@+id/txtPsu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="@color/white" />
+            android:textColor="#212121" />
 
         <TextView
             android:id="@+id/txtSSD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="@color/white" />
+            android:textColor="#212121" />
     </LinearLayout>
 </LinearLayout>

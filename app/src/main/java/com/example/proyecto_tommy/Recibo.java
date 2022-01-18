@@ -24,6 +24,7 @@ public class Recibo extends AppCompatActivity {
     Componente cpu, ram, gpu, psu, almacenamiento;
     TextView subtotal, igic, total;
     Button btnComprar;
+    DBHelper DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class Recibo extends AppCompatActivity {
         igic = (TextView) findViewById(R.id.recIgic);
         total = (TextView) findViewById(R.id.recTotal);
         btnComprar = (Button) findViewById(R.id.btnComprar);
+        DB=new DBHelper(this);
         //recogemos los valores pasados de las actividades anteriores para poder crear el recibo
         if (getIntent().getExtras() != null) {
             cpu = getIntent().getExtras().getParcelable("cpu");
@@ -76,10 +78,14 @@ public class Recibo extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("pc", pc);
 
-                System.out.println(String.valueOf(y));
-                intent.putExtras(bundle);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                Boolean insertar =DB.insertarDatosOrdenador(cpu.getId(),ram.getId(),gpu.getId(),psu.getId(),almacenamiento.getId(),Login.email);
+                if(insertar) {
+                    System.out.println(String.valueOf(y));
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                }else
+                    Toast.makeText(getApplicationContext(), "Algo a ido mal en la compra, no se ha podido finalizar.Intentelo de nuevo", Toast.LENGTH_LONG).show();
             }
         });
     }

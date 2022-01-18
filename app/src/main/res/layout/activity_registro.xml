@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:text="REGISTRO"
         android:textAlignment="center"
+        android:textColor="#757575"
         android:textSize="34sp" />
     <!-- los inputs son redondeados con el style especificado y el radius-->
     <com.google.android.material.textfield.TextInputLayout
@@ -103,6 +104,7 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/btn_redondo"
         android:text="Registrar"
+        android:textColor="#212121"
         android:tooltipText="Completar el registro"
         app:backgroundTint="@null" />
 
@@ -113,6 +115,7 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/btn_redondo"
         android:text="Iniciar sesion"
+        android:textColor="#212121"
         android:tooltipText="Iniciar sesion"
         app:backgroundTint="@null" />
 

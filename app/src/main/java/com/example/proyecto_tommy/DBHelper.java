@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * usuario,comprobar contraseña
  */
 public class DBHelper extends SQLiteOpenHelper {
-    public static final String nombreDB = "Login.db";
+    public static final String nombreDB = "pcApp.db";
 
     public DBHelper(Context context) {
         super(context, nombreDB, null, 1);
@@ -21,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase MiDB) {
         MiDB.execSQL("create Table usuarios(usuario TEXT primary key,contrasena TEXT)");
         //MiDB.execSQL("create Table componentes(ID INTEGER primary key, TEXT)");
-        MiDB.execSQL("create Table ordenadores(ID INTEGER primary key,cpuId int,ramId int,gpuId int,psuId int,almacenamientoId int)");
+        MiDB.execSQL("create Table ordenadores(ID INTEGER primary key,cpuId int,ramId int,gpuId int,psuId int,almacenamientoId int,UID TEXT)");
 
     }
 
@@ -42,7 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return resultado != -1;
     }
 
-    public boolean insertarDatosOrdenador(int cpuId, int ramId, int gpuId, int psuId, int almacenamientoId) {
+    public boolean insertarDatosOrdenador(int cpuId, int ramId, int gpuId, int psuId, int almacenamientoId,String UID) {
         SQLiteDatabase MiDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("ID", (Integer) null);
@@ -50,6 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("ramId", ramId);
         contentValues.put("gpuId", gpuId);
         contentValues.put("psuId", psuId);
+        contentValues.put("UID", UID);
         contentValues.put("almacenamientoId", almacenamientoId);
         long resultado = MiDB.insert("ordenadores", null, contentValues);
         //se puede usar el "si es menos 1 no devuelve false,si no devuelve true" esta linea es la simplificación
@@ -65,6 +66,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public Boolean comprobarContrasenaUsuario(String usuario, String contrasena) {
         SQLiteDatabase MiDB = this.getWritableDatabase();
         Cursor cursor = MiDB.rawQuery("Select * from usuarios where usuario = ? and contrasena = ?", new String[]{usuario, contrasena});
+        return cursor.getCount() > 0;
+    }
+
+    public Boolean mostrarOrdenador(String UID) {
+        SQLiteDatabase MiDB = this.getWritableDatabase();
+        Cursor cursor = MiDB.rawQuery("Select * from ordenadores where UID = ?", new String[]{UID});
         return cursor.getCount() > 0;
     }
 }

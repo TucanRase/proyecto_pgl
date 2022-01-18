@@ -17,6 +17,7 @@ public class Login extends AppCompatActivity {
     TextInputLayout usuario, contrasena;
     Button btnIniciar, btnRegistrar;
     DBHelper DB;
+    static String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 usuario.setError(null);
                 contrasena.setError(null);
-                String email = usuario.getEditText().getText().toString().trim();
+                email = usuario.getEditText().getText().toString().trim();
                 String contra = contrasena.getEditText().getText().toString().trim();
 
                 if (email.isEmpty())

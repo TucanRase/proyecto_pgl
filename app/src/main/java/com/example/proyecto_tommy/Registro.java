@@ -52,7 +52,8 @@ public class Registro extends AppCompatActivity {
                         Boolean comprobarUsuario = DB.comprobarUsuario(email);
                         if (comprobarUsuario == false) {
                             Boolean insertar = DB.insertarDatosUsuario(email, contra);
-                            if (insertar == true) {
+                            if (insertar) {
+                                Login.email=email;
                                 Toast.makeText(Registro.this, "Registrado correctamente", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), Inicio.class);
                                 startActivity(intent);
