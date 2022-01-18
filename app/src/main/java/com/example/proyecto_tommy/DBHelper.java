@@ -21,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase MiDB) {
         MiDB.execSQL("create Table usuarios(usuario TEXT primary key,contrasena TEXT)");
         //MiDB.execSQL("create Table componentes(ID INTEGER primary key, TEXT)");
-        MiDB.execSQL("create Table ordenadores(ID INTEGER primary key,cpuId INTEGER,ramId INTEGER,gpuId INTEGER,psuId INTEGER,almacenamientoId INTEGER)");
+        MiDB.execSQL("create Table ordenadores(ID INTEGER primary key,cpuId int,ramId int,gpuId int,psuId int,almacenamientoId int)");
 
     }
 
@@ -42,9 +42,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return resultado != -1;
     }
 
-    public boolean insertarDatosOrdenador(Integer cpuId, Integer ramId, Integer gpuId, Integer psuId, Integer almacenamientoId) {
+    public boolean insertarDatosOrdenador(int cpuId, int ramId, int gpuId, int psuId, int almacenamientoId) {
         SQLiteDatabase MiDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put("ID", (Integer) null);
         contentValues.put("cpuId", cpuId);
         contentValues.put("ramId", ramId);
         contentValues.put("gpuId", gpuId);

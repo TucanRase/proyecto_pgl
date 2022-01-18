@@ -34,11 +34,11 @@ public class Cpu extends AppCompatActivity {
 
         titulo = (TextView) findViewById(R.id.componente);
         titulo.setText("Procesadores: ");
-        AutoCompleteTextView textOrdenar=(AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
+        AutoCompleteTextView textOrdenar = (AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
         String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
 
         //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
-        ArrayAdapter<String> arrayAdapterOrdenar=new ArrayAdapter<>(getApplicationContext(),R.layout.item_dropdown,ordenaciones);
+        ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);
 
         //se crea y añaden los componentes al arraylist además se crea el adapter y se establece
@@ -51,31 +51,32 @@ public class Cpu extends AppCompatActivity {
         listaComponentes.add(new Componente(25003, R.drawable.ryzen_3700x, "AMD Ryzen 7 3700X", "CPU", 320.00, "Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16"));
         listaComponentes.add(new Componente(25004, R.drawable.ryzen_5700g, "AMD Ryzen 5 5700G", "CPU", 340.00, "Velocidad del procesador: 3.8 GHz \nVelocidad máx procesador: 4.6 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16"));
         AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
-
+        /**
+         *Este método lo que hace es que al clickar en el dropdown podemos organizar los valores alfabeticamente o por precios
+         * */
         textOrdenar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String item = arrayAdapterOrdenar.getItem(position);
-               // Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
-                switch (item){
-                    // TODO: 17/01/2022 Cambiar el remove allviews por algo más eficiente 
+                // Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
+                switch (item) {
+                    // TODO: 17/01/2022 Cambiar el removeallviews por algo más eficiente
                     case "Precio ascendente":
                         listaComponentes.sort(Comparator.comparing(Componente::getPrecio));
-                        Toast.makeText(getApplicationContext(), listaComponentes.get(1).getPrecio().toString(), Toast.LENGTH_SHORT).show();
                         recyclerComponentes.removeAllViews();
                         break;
                     case "Precio descendente":
                         listaComponentes.sort(Comparator.comparing(Componente::getPrecio));
                         Collections.reverse(listaComponentes);
-                        Toast.makeText(getApplicationContext(), listaComponentes.get(1).getPrecio().toString(), Toast.LENGTH_SHORT).show();
                         recyclerComponentes.removeAllViews();
                         break;
                     case "Nombre A-Z":
-                        listaComponentes=AdaptadorComponentes.ordenarNombreAsc(listaComponentes);
+                        listaComponentes.sort(Comparator.comparing(Componente::getNombre));
                         recyclerComponentes.removeAllViews();
                         break;
                     case "Nombre Z-A":
-                        listaComponentes=AdaptadorComponentes.ordenarNombreDesc(listaComponentes);
+                        listaComponentes.sort(Comparator.comparing(Componente::getNombre));
+                        Collections.reverse(listaComponentes);
                         recyclerComponentes.removeAllViews();
                         break;
                     default:
@@ -83,7 +84,6 @@ public class Cpu extends AppCompatActivity {
                 }
             }
         });
-
 
 
         /**

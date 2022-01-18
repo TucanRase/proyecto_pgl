@@ -9,12 +9,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Ram extends AppCompatActivity {
     //crear las variables
@@ -28,39 +31,73 @@ public class Ram extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_componentes);
 
-        titulo=(TextView)findViewById(R.id.componente);
+        titulo = (TextView) findViewById(R.id.componente);
         titulo.setText("Memoria RAM: ");
         //recogemos los valores pasados de las actividades anteriores para poder crear el recibo
         if (getIntent().getExtras() != null) {
             cpu = getIntent().getExtras().getParcelable("cpu");
         }
         //se crea y añaden los componentes al arraylist además se crea el adapter y se establece
-        listaComponentes=new ArrayList<>();
-        recyclerComponentes=(RecyclerView) findViewById(R.id.recycler);
+        listaComponentes = new ArrayList<>();
+        recyclerComponentes = (RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
-        AutoCompleteTextView textOrdenar=(AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
+        AutoCompleteTextView textOrdenar = (AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
         String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
 
         //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
-        ArrayAdapter<String> arrayAdapterOrdenar=new ArrayAdapter<>(getApplicationContext(),R.layout.item_dropdown,ordenaciones);
+        ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);
 
-        listaComponentes.add(new Componente(23001,R.drawable.ram_corsair,"RAM Corsair Vengeance RGB PRO","RAM", 89.00,"Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair"));
-        listaComponentes.add(new Componente(23002,R.drawable.ram_tridentz,"RAM GSkill Trident Z RGB","RAM", 99.00,"Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair"));
-        listaComponentes.add(new Componente(23003,R.drawable.ram_corsair,"RAM Kingston Hyperx Fury Black","RAM", 87.00,"Tamaño de memoria: 2x8GB\nVelocidad de memoria:2933MHz\nTipo:DDR4 SDRAM\nMarca: Kingston"));
-        listaComponentes.add(new Componente(23004,R.drawable.ram_corsair_dominator,"RAM Corsair Dominator White RGB","RAM", 120.00,"Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair"));
+        listaComponentes.add(new Componente(23001, R.drawable.ram_corsair, "RAM Corsair Vengeance RGB PRO", "RAM", 89.00, "Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair"));
+        listaComponentes.add(new Componente(23002, R.drawable.ram_tridentz, "RAM GSkill Trident Z RGB", "RAM", 99.00, "Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair"));
+        listaComponentes.add(new Componente(23003, R.drawable.ram_corsair, "RAM Kingston Hyperx Fury Black", "RAM", 87.00, "Tamaño de memoria: 2x8GB\nVelocidad de memoria:2933MHz\nTipo:DDR4 SDRAM\nMarca: Kingston"));
+        listaComponentes.add(new Componente(23004, R.drawable.ram_corsair_dominator, "RAM Corsair Dominator White RGB", "RAM", 120.00, "Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair"));
 
-        AdaptadorComponentes adapter=new AdaptadorComponentes(this,listaComponentes);
+        AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
+
+        /**
+         *Este método lo que hace es que al clickar en el dropdown podemos organizar los valores alfabeticamente o por precios
+         * */
+        textOrdenar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String item = arrayAdapterOrdenar.getItem(position);
+                // Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
+                switch (item) {
+                    // TODO: 17/01/2022 Cambiar el removeallviews por algo más eficiente
+                    case "Precio ascendente":
+                        listaComponentes.sort(Comparator.comparing(Componente::getPrecio));
+                        recyclerComponentes.removeAllViews();
+                        break;
+                    case "Precio descendente":
+                        listaComponentes.sort(Comparator.comparing(Componente::getPrecio));
+                        Collections.reverse(listaComponentes);
+                        recyclerComponentes.removeAllViews();
+                        break;
+                    case "Nombre A-Z":
+                        listaComponentes.sort(Comparator.comparing(Componente::getNombre));
+                        recyclerComponentes.removeAllViews();
+                        break;
+                    case "Nombre Z-A":
+                        listaComponentes.sort(Comparator.comparing(Componente::getNombre));
+                        Collections.reverse(listaComponentes);
+                        recyclerComponentes.removeAllViews();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
         /**
          * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
          * **/
         adapter.setOnclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(Ram.this, Gpu.class);
+                Intent intent = new Intent(Ram.this, Gpu.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("cpu",cpu);
-                bundle.putParcelable("ram",listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
+                bundle.putParcelable("cpu", cpu);
+                bundle.putParcelable("ram", listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
 
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -81,19 +118,24 @@ public class Ram extends AppCompatActivity {
         overridePendingTransition(R.anim.right_in, R.anim.right_out);
     }
 
-    /**Creamos el menú**/
+    /**
+     * Creamos el menú
+     **/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.volver_inicio,menu);
+        getMenuInflater().inflate(R.menu.volver_inicio, menu);
         return super.onCreateOptionsMenu(menu);
     }
-    /**Establecemos las acciones al pulsar las opciones del menú**/
+
+    /**
+     * Establecemos las acciones al pulsar las opciones del menú
+     **/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.home:
-                intent =new Intent(Ram.this, Inicio.class);
+                intent = new Intent(Ram.this, Inicio.class);
                 startActivity(intent);
                 return true;
             default:

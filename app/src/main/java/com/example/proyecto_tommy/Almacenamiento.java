@@ -9,12 +9,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Almacenamiento extends AppCompatActivity {
     ArrayList<Componente> listaComponentes;
@@ -40,11 +43,11 @@ public class Almacenamiento extends AppCompatActivity {
         listaComponentes = new ArrayList<>();
         recyclerComponentes = (RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
-        AutoCompleteTextView textOrdenar=(AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
+        AutoCompleteTextView textOrdenar = (AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
         String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
 
         //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
-        ArrayAdapter<String> arrayAdapterOrdenar=new ArrayAdapter<>(getApplicationContext(),R.layout.item_dropdown,ordenaciones);
+        ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);
 
         listaComponentes.add(new Componente(26001, R.drawable.ssd_wb_blue, "Western Digital SSD 1tb", "Almacenamiento", 85.00, "Tipo de disco duro: SSD\nCapacidad: 1Tb\nVelocidad de lectura:560mb/s\nVelociad de escritura: 530mb/s"));
@@ -53,6 +56,40 @@ public class Almacenamiento extends AppCompatActivity {
         listaComponentes.add(new Componente(26004, R.drawable.ssd_aorus, "Gigabyte AORUS 7000s", "Almacenamiento", 190.00, "Tipo de disco duro: SSD NVME\nCapacidad: 1Tb\nVelocidad de lectura:7000mb/s\nVelociad de escritura: 5500mb/s"));
 
         AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
+
+        /**
+         *Este método lo que hace es que al clickar en el dropdown podemos organizar los valores alfabeticamente o por precios
+         * */
+        textOrdenar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String item = arrayAdapterOrdenar.getItem(position);
+                // Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
+                switch (item) {
+                    // TODO: 17/01/2022 Cambiar el removeallviews por algo más eficiente
+                    case "Precio ascendente":
+                        listaComponentes.sort(Comparator.comparing(Componente::getPrecio));
+                        recyclerComponentes.removeAllViews();
+                        break;
+                    case "Precio descendente":
+                        listaComponentes.sort(Comparator.comparing(Componente::getPrecio));
+                        Collections.reverse(listaComponentes);
+                        recyclerComponentes.removeAllViews();
+                        break;
+                    case "Nombre A-Z":
+                        listaComponentes.sort(Comparator.comparing(Componente::getNombre));
+                        recyclerComponentes.removeAllViews();
+                        break;
+                    case "Nombre Z-A":
+                        listaComponentes.sort(Comparator.comparing(Componente::getNombre));
+                        Collections.reverse(listaComponentes);
+                        recyclerComponentes.removeAllViews();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
         /**
          * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades

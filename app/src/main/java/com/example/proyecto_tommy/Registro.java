@@ -41,7 +41,7 @@ public class Registro extends AppCompatActivity {
 
                 if (email.isEmpty())
                     usuario.setError("Por favor introduzca un usuario");
-                else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
+                else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
                     usuario.setError("Por favor introduzca un email válido");
                 else if (contra.isEmpty())
                     contrasena.setError("Por favor introduzca una contraseña");

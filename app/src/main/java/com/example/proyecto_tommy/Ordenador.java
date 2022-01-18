@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 /**
  * Clase ordenador para guardar los componentes
- * **/
+ **/
 public class Ordenador implements Parcelable {
     private String id;
     private Componente cpu;
@@ -13,7 +13,10 @@ public class Ordenador implements Parcelable {
     private Componente gpu;
     private Componente psu;
     private Componente almacenamiento;
-    /**Contructor del objeto*/
+
+    /**
+     * Contructor del objeto
+     */
     public Ordenador(String id, Componente cpu, Componente ram, Componente gpu, Componente psu, Componente almacenamiento) {
         this.id = id;
         this.cpu = cpu;
@@ -22,7 +25,10 @@ public class Ordenador implements Parcelable {
         this.psu = psu;
         this.almacenamiento = almacenamiento;
     }
-    /**constructor parcelable del objeto*/
+
+    /**
+     * constructor parcelable del objeto
+     */
     protected Ordenador(Parcel in) {
         id = in.readString();
         cpu = in.readParcelable(Componente.class.getClassLoader());
@@ -31,7 +37,10 @@ public class Ordenador implements Parcelable {
         psu = in.readParcelable(Componente.class.getClassLoader());
         almacenamiento = in.readParcelable(Componente.class.getClassLoader());
     }
-    /**Creator parcelable*/
+
+    /**
+     * Creator parcelable
+     */
     public static final Creator<Ordenador> CREATOR = new Creator<Ordenador>() {
         @Override
         public Ordenador createFromParcel(Parcel in) {
@@ -97,9 +106,10 @@ public class Ordenador implements Parcelable {
     public int describeContents() {
         return 0;
     }
+
     /**
      * Método para utilizar el parcelable
-     * */
+     */
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(id);

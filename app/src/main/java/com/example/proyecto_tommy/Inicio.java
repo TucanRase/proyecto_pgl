@@ -33,7 +33,6 @@ public class Inicio extends AppCompatActivity {
             ordenador = getIntent().getExtras().getParcelable("pc");
         }
 
-        Login.listaOrdenadores = new ArrayList<>();
         recyclerOrdenador = (RecyclerView) findViewById(R.id.recyclerOrdenador);
         placeholder = (TextView) findViewById(R.id.placeHolder);
         recyclerOrdenador.setLayoutManager(new LinearLayoutManager(this));
