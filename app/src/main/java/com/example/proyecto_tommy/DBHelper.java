@@ -20,7 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override // TODO: 17/01/2022 Cambiar el login por email
     public void onCreate(SQLiteDatabase MiDB) {
         MiDB.execSQL("create Table usuarios(usuario TEXT primary key,contrasena TEXT)");
-        //MiDB.execSQL("create Table componentes(ID INTEGER primary key, TEXT)");
+        MiDB.execSQL("create Table componentes(ID INTEGER primary key,imagen int,nombre text,tipo text,precio real,caracteristicas text)");
         MiDB.execSQL("create Table ordenadores(ID INTEGER primary key,cpuId int,ramId int,gpuId int,psuId int,almacenamientoId int,UID TEXT)");
 
     }
@@ -28,7 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase MiDB, int i, int i1) {
         MiDB.execSQL("drop Table if exists usuarios");
-        //MiDB.execSQL("drop Table if exists componentes");
+        MiDB.execSQL("drop Table if exists componentes");
         MiDB.execSQL("drop Table if exists ordenadores");
     }
 
@@ -42,7 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return resultado != -1;
     }
 
-    public boolean insertarDatosOrdenador(int cpuId, int ramId, int gpuId, int psuId, int almacenamientoId,String UID) {
+    public boolean insertarOrdenador(int cpuId, int ramId, int gpuId, int psuId, int almacenamientoId,String UID) {
         SQLiteDatabase MiDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("ID", (Integer) null);
@@ -57,6 +57,20 @@ public class DBHelper extends SQLiteOpenHelper {
         return resultado != -1;
     }
 
+    public boolean insertarComponentes(int id, int imagen, String nombreComponente, String tipo, double precio,String caracteristicas) {
+        SQLiteDatabase MiDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ID", id);
+        contentValues.put("imagen", imagen);
+        contentValues.put("nombreComponente", nombreComponente);
+        contentValues.put("tipo", tipo);
+        contentValues.put("precio", precio);
+        contentValues.put("caracteristicas", caracteristicas);
+        long resultado = MiDB.insert("componentes", null, contentValues);
+        //se puede usar el "si es menos 1 devuelve false,si  devuelve true" esta linea es la simplificación
+        return resultado != -1;
+    }
+
     public Boolean comprobarUsuario(String usuario) {
         SQLiteDatabase MiDB = this.getWritableDatabase();
         Cursor cursor = MiDB.rawQuery("Select * from usuarios where usuario = ?", new String[]{usuario});
@@ -66,12 +80,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public Boolean comprobarContrasenaUsuario(String usuario, String contrasena) {
         SQLiteDatabase MiDB = this.getWritableDatabase();
         Cursor cursor = MiDB.rawQuery("Select * from usuarios where usuario = ? and contrasena = ?", new String[]{usuario, contrasena});
-        return cursor.getCount() > 0;
-    }
-
-    public Boolean mostrarOrdenador(String UID) {
-        SQLiteDatabase MiDB = this.getWritableDatabase();
-        Cursor cursor = MiDB.rawQuery("Select * from ordenadores where UID = ?", new String[]{UID});
         return cursor.getCount() > 0;
     }
 }

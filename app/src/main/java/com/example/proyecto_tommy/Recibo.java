@@ -78,7 +78,7 @@ public class Recibo extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("pc", pc);
 
-                Boolean insertar =DB.insertarDatosOrdenador(cpu.getId(),ram.getId(),gpu.getId(),psu.getId(),almacenamiento.getId(),Login.email);
+                Boolean insertar =DB.insertarOrdenador(cpu.getId(),ram.getId(),gpu.getId(),psu.getId(),almacenamiento.getId(),Login.email);
                 if(insertar) {
                     System.out.println(String.valueOf(y));
                     intent.putExtras(bundle);

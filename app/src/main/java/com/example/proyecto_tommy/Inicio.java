@@ -56,6 +56,8 @@ public class Inicio extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+
+        System.out.println(R.drawable.ryzen_3700x);
     }
 
     /**

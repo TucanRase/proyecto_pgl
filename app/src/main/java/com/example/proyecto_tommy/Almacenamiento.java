@@ -66,7 +66,6 @@ public class Almacenamiento extends AppCompatActivity {
                 String item = arrayAdapterOrdenar.getItem(position);
                 // Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
                 switch (item) {
-                    // TODO: 17/01/2022 Cambiar el removeallviews por algo más eficiente
                     case "Precio ascendente":
                         listaComponentes.sort(Comparator.comparing(Componente::getPrecio));
                         recyclerComponentes.removeAllViews();
