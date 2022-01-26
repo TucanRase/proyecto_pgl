@@ -21,8 +21,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase MiDB) {
-        MiDB.execSQL("create Table usuarios(usuario TEXT primary key,contrasena TEXT)");
-        MiDB.execSQL("create Table componentes(ID INTEGER primary key,imagen int,nombre text,tipo text,precio real,caracteristicas text)");
+        MiDB.execSQL("create Table usuarios(usuario TEXT primary key,contrasena TEXT,tipoUsuario TEXT,curso int)");
+        MiDB.execSQL("create Table componentes(ID INTEGER primary key,imagen int,nombre text,tipo text,precio real,caracteristicas TEXT)");
         MiDB.execSQL("create Table ordenadores(ID INTEGER primary key,cpuId int,ramId int,gpuId int,psuId int,almacenamientoId int,UID TEXT)");
 
     }
@@ -34,11 +34,13 @@ public class DBHelper extends SQLiteOpenHelper {
         MiDB.execSQL("drop Table if exists ordenadores");
     }
 
-    public boolean insertarDatosUsuario(String usuario, String contrasena) {
+    public boolean insertarDatosUsuario(String usuario, String contrasena,String tipoUsuario,int curso) {
         SQLiteDatabase MiDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("usuario", usuario);
         contentValues.put("contrasena", contrasena);
+        contentValues.put("tipoUsuario", tipoUsuario);
+        contentValues.put("curso", curso);
         long resultado = MiDB.insert("usuarios", null, contentValues);
         //se puede usar el "si es menos 1 no devuelve false,si no devuelve true" esta linea es la simplificación
         return resultado != -1;

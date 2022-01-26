@@ -14,4 +14,8 @@
         <item>Nombre A-Z</item>
         <item>Nombre Z-A</item>
     </string-array>
+    <string-array name="tipoUsuario">
+        <item>Alumno</item>
+        <item>Profesor</item>
+    </string-array>
 </resources>
