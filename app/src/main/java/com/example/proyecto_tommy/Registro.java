@@ -26,7 +26,7 @@ public class Registro extends AppCompatActivity {
         contrasena = findViewById(R.id.txtContraReg);
         confirmContrasena = findViewById(R.id.txtConfContra);
         txtTipo = findViewById(R.id.txtTipo);
-        txtCurso = findViewById(R.id.txtCurso);
+        txtCurso = findViewById(R.id.txtCursoP);
         registrar = (Button) findViewById(R.id.btnRegistrar);
         iniciar = (Button) findViewById(R.id.btnRegistrar2);
         DB = new DBHelper(this);

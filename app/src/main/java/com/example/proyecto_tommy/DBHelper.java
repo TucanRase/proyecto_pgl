@@ -75,6 +75,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return resultado != -1;
     }
 
+    public void eliminarUsuario(String UID){
+        SQLiteDatabase MiDB = this.getWritableDatabase();
+        MiDB.delete("usuarios", "usuario" + "=" + UID, null);
+    }
+
     public Boolean comprobarUsuario(String usuario) {
         SQLiteDatabase MiDB = this.getWritableDatabase();
         Cursor cursor = MiDB.rawQuery("Select * from usuarios where usuario = ?", new String[]{usuario});

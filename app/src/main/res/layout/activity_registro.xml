@@ -46,8 +46,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txtTipo"
@@ -70,13 +70,14 @@
                 android:id="@+id/dropDownTipos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
                 android:inputType="none"
                 android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtCurso"
+            android:id="@+id/txtCursoP"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,6 +96,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:hint="Curso"
                 android:inputType="number|textEmailAddress"
                 android:numeric="integer"
@@ -158,26 +160,37 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- El color se cambia con el drawable de btn_redondo.xml y hay que cambiar el tint a null-->
-    <Button
-        android:id="@+id/btnRegistrar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/btn_redondo"
-        android:text="Registrar"
-        android:textColor="#212121"
-        android:tooltipText="Completar el registro"
-        app:backgroundTint="@null" />
 
-    <Button
-        android:id="@+id/btnRegistrar2"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/btn_redondo"
-        android:text="Iniciar sesion"
-        android:textColor="#212121"
-        android:tooltipText="Iniciar sesion"
-        app:backgroundTint="@null" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnRegistrar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_redondo"
+            android:text="Volver"
+            android:textColor="#212121"
+            android:tooltipText="Iniciar sesion"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnRegistrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="25dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_redondo"
+            android:text="Registrar"
+            android:textColor="#212121"
+            android:tooltipText="Completar el registro"
+            app:backgroundTint="@null" />
+    </LinearLayout>
 
 </LinearLayout>
