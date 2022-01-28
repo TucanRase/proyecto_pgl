@@ -195,11 +195,13 @@
             android:tooltipText="Eliminar"
             android:visibility="visible"
             app:backgroundTint="@null" />
+
         <Button
             android:id="@+id/btnAceptar"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="25dp"
             android:layout_weight="1"
             android:background="@drawable/btn_redondo"
@@ -207,8 +209,7 @@
             android:textColor="#212121"
             android:tooltipText="Aceptar"
             android:visibility="gone"
-            app:backgroundTint="@null"
-            style="?android:attr/buttonBarButtonStyle" />
+            app:backgroundTint="@null" />
 
         <Button
             android:id="@+id/btnCancelar"

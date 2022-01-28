@@ -56,8 +56,6 @@ public class Inicio extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
-
-        System.out.println(R.drawable.ryzen_3700x);
     }
 
     /**
@@ -89,6 +87,11 @@ public class Inicio extends AppCompatActivity {
                 return true;
             case R.id.add:
                 intent = new Intent(Inicio.this, Cpu.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                return true;
+            case R.id.perfil:
+                intent = new Intent(Inicio.this, Perfil.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;

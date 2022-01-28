@@ -16,4 +16,8 @@
         android:id="@+id/add"
         android:title="Añadir PC"
         android:tooltipText="añadir un ordenador" />
+    <item
+        android:id="@+id/perfil"
+        android:title="Perfil"
+        android:tooltipText="Acceder al perfil" />
 </menu>

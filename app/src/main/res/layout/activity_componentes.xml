@@ -16,8 +16,9 @@
 
         <TextView
             android:id="@+id/componente"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:minHeight="32dp"
             android:text="COMPONENTE: "
             android:textColor="@color/white"
@@ -28,6 +29,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:hint="Ordenar por:"
             android:textColorHint="@color/white"
             app:boxCornerRadiusBottomEnd="20dp"
@@ -44,6 +46,7 @@
                 android:id="@+id/dropDownOrdenar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:inputType="none"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
