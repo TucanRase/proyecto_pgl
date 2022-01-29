@@ -48,6 +48,8 @@ public class Login extends AppCompatActivity {
                     usuario.setError("Por favor introduzca un email válido");
                 else if (contra.isEmpty())
                     contrasena.setError("Por favor introduzca una contraseña");
+                else if (!DB.comprobarUsuario(email))
+                    usuario.setError("Revise el usuario");
                 else {
                     Boolean checkuserpass = DB.comprobarContrasenaUsuario(email, contra);
                     if (checkuserpass == true) {
@@ -55,11 +57,10 @@ public class Login extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), Inicio.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
-                    } else if (!DB.comprobarUsuario(email)) {
-                        usuario.setError("Revise el usuario");
-                    } else
+                    } else {
                         contrasena.setError("Revise la contraseña");
-                    Toast.makeText(getApplicationContext(), "Credenciales incorrectos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Credenciales incorrectos", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }

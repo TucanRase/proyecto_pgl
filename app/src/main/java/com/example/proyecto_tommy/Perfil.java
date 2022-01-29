@@ -2,6 +2,7 @@ package com.example.proyecto_tommy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,28 +17,34 @@ import java.util.ArrayList;
 
 public class Perfil extends AppCompatActivity {
     DBHelper DB;
-    Button btnCancelar,btnAceptar,btnEditar,btnEliminar,btnVolver;
-    TextInputLayout txtEmail,txtContrasenaP,txtContrasena2,txtTipoP,txtCursoP;
+    Button btnCancelar, btnAceptar, btnEditar, btnEliminar, btnVolver;
+    TextInputLayout txtEmail, txtContrasenaP, txtContrasena2, txtTipoP, txtCursoP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
-        DB=new DBHelper(this);
+        DB = new DBHelper(this);
 
         //Inicializamos los botones y los inputs
-        btnAceptar=(Button) findViewById(R.id.btnAceptar);
-        btnCancelar=(Button) findViewById(R.id.btnCancelar);
-        btnEditar=(Button) findViewById(R.id.btnEditar);
-        btnEliminar=(Button) findViewById(R.id.btnEliminar);
-        btnVolver=(Button) findViewById(R.id.btnVolver);
-        txtEmail=(TextInputLayout) findViewById(R.id.txtEmail);
-        txtContrasenaP=(TextInputLayout) findViewById(R.id.txtContrasenaP);
-        txtContrasena2=(TextInputLayout) findViewById(R.id.txtContrasena2);
-        txtTipoP=(TextInputLayout) findViewById(R.id.txtTipoP);
-        txtCursoP=(TextInputLayout) findViewById(R.id.txtCursoP);
+        btnAceptar = (Button) findViewById(R.id.btnAceptar);
+        btnCancelar = (Button) findViewById(R.id.btnCancelar);
+        btnEditar = (Button) findViewById(R.id.btnEditar);
+        btnEliminar = (Button) findViewById(R.id.btnEliminar);
+        btnVolver = (Button) findViewById(R.id.btnVolver);
+        txtEmail = (TextInputLayout) findViewById(R.id.txtEmail);
+        txtContrasenaP = (TextInputLayout) findViewById(R.id.txtContrasenaP);
+        txtContrasena2 = (TextInputLayout) findViewById(R.id.txtContrasena2);
+        txtTipoP = (TextInputLayout) findViewById(R.id.txtTipoP);
+        txtCursoP = (TextInputLayout) findViewById(R.id.txtCursoP);
 
         recogerUsuario();
+
+        String correo = txtEmail.getEditText().getText().toString().trim();
+        String tipo = txtTipoP.getEditText().getText().toString().trim();
+        String curso = txtCursoP.getEditText().getText().toString();
+        String contrasena1 = txtContrasenaP.getEditText().getText().toString();
+        String contrasena2 = txtContrasena2.getEditText().getText().toString();
 
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +53,9 @@ public class Perfil extends AppCompatActivity {
                 btnAceptar.setVisibility(View.VISIBLE);
                 btnCancelar.setVisibility(View.VISIBLE);
                 btnEliminar.setVisibility(View.GONE);
+                txtContrasenaP.setVisibility(View.VISIBLE);
+                txtContrasena2.setVisibility(View.VISIBLE);
+                txtCursoP.setEnabled(true);
             }
         });
 
@@ -56,67 +66,79 @@ public class Perfil extends AppCompatActivity {
                 btnAceptar.setVisibility(View.GONE);
                 btnCancelar.setVisibility(View.GONE);
                 btnEliminar.setVisibility(View.VISIBLE);
+                txtContrasenaP.setVisibility(View.GONE);
+                txtContrasena2.setVisibility(View.GONE);
+            }
+        });
+
+        btnVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Perfil.this, Inicio.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {/*
-                if (email.isEmpty())
-                    usuario.setError("Por favor introduzca un usuario");
-                else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
-                    usuario.setError("Por favor introduzca un email válido");
-                else if (tipo.isEmpty())
-                    txtTipo.setError("Por favor introduzca el tipo de usuario");
-                else if (curso.isEmpty())
-                    txtCurso.setError("Por favor introduzca su curso(número)");
-                else if (contra.isEmpty())
-                    contrasena.setError("Por favor introduzca una contraseña");
-                else if (confirmContra.isEmpty())
-                    confirmContrasena.setError("Por favor introduzca la contraseña");
-                else {
-                    if (Integer.valueOf(curso) <= 0)
-                        txtCurso.setError("Por favor introduzca un número superior a 0");
-                    else{
-                        System.out.println("csadasdasdasabezaaa");
-                        if (contra.equals(confirmContra)) {
-                            System.out.println("cabezaaasewqewqeqwewqeqwewqwqeqwa");
-                            Boolean comprobarUsuario = DB.comprobarUsuario(email);
-                            if (comprobarUsuario == false) {
-                                Boolean insertar = DB.insertarDatosUsuario(email, contra, tipo, Integer.valueOf(curso));
-                                if (insertar) {
-                                    System.out.println("cabezaaa");
-                                    Login.email = email;
-                                    Toast.makeText(Registro.this, "Registrado correctamente", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), Inicio.class);
-                                    startActivity(intent);
-                                    overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
-                                } else {
-                                    Toast.makeText(Registro.this, "Registro fallido", Toast.LENGTH_SHORT).show();
-                                }
+            public void onClick(View view) {
+                txtContrasenaP.setError(null);
+                txtContrasena2.setError(null);
+                txtCursoP.setError(null);
+                Boolean insertado;
+                if (!curso.isEmpty() && Integer.valueOf(curso) > 0)
+                    if (!contrasena1.isEmpty())
+                        if (!contrasena2.isEmpty())
+                            if (contrasena1.equals(contrasena2)) {
+                                insertado = DB.updateUsuario(correo, contrasena1, tipo, Integer.valueOf(curso));
+                                if (insertado)
+                                    Toast.makeText(getApplicationContext(), "Sus datos han sido actualizados correctamente", Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(getApplicationContext(), "Ha habido un problema al actualizar los datos intentelo de nuevo", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(Registro.this, "Este usuario ya existe, por favor inicie sesión", Toast.LENGTH_SHORT).show();
+                                txtContrasenaP.setError("Por favor compruebe que las contraseñas sean iguales");
+                                txtContrasena2.setError("Por favor compruebe que las contraseñas sean iguales");
                             }
-                        } else {
-                            Toast.makeText(Registro.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
-                            contrasena.setError("Asegurese de que coinciden las contraseñas");
-                            confirmContrasena.setError("Asegurese de que coinciden las contraseñas");
+                        else
+                            txtContrasena2.setError("Por favor introduzca una contraseña válida");
+                    else
+                        txtContrasenaP.setError("Por favor introduzca una contraseña válida");
+                else
+                    txtCursoP.setError("Por favor introduzca el curso y asegúrese de que es superior a 0");
 
-                        }}
-                }*/
+            }
+        });
+
+        btnEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DB.borrarUsuario(correo)) {
+                    Toast.makeText(getApplicationContext(), "Su usuario ha sido eliminado correctamente de la base de datos", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Perfil.this, Login.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                } else
+                    Toast.makeText(getApplicationContext(), "No se ha podido eliminar al usuario, intentelo de nuevo más tarde", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void recogerUsuario(){
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    public void recogerUsuario() {
         SQLiteDatabase db = DB.getWritableDatabase();
         Cursor res = db.rawQuery("select * from usuarios where usuario='" + Login.email + "'", null);
-        String email="";
-        String contrasena="";
-        String tipo="";
-        int curso=0;
+        String email = "";
+        String contrasena = "";
+        String tipo = "";
+        int curso = 0;
         while (res.moveToNext()) {
-            email= res.getString(0);
+            email = res.getString(0);
             contrasena = res.getString(1);
             tipo = res.getString(2);
             curso = res.getInt(3);

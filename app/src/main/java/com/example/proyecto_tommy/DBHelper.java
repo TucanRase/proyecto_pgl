@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 public class DBHelper extends SQLiteOpenHelper {
     public static final String nombreDB = "pcApp.db";
+    SQLiteDatabase MiDB = this.getWritableDatabase();
 
     public DBHelper(Context context) {
         super(context, nombreDB, null, 1);
@@ -35,7 +36,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean insertarDatosUsuario(String usuario, String contrasena,String tipoUsuario,int curso) {
-        SQLiteDatabase MiDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("usuario", usuario);
         contentValues.put("contrasena", contrasena);
@@ -47,7 +47,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean insertarOrdenador(int cpuId, int ramId, int gpuId, int psuId, int almacenamientoId, String UID) {
-        SQLiteDatabase MiDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("ID", (Integer) null);
         contentValues.put("cpuId", cpuId);
@@ -62,7 +61,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean insertarComponentes(int id, int imagen, String nombreComponente, String tipo, double precio, String caracteristicas) {
-        SQLiteDatabase MiDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("ID", id);
         contentValues.put("imagen", imagen);
@@ -76,26 +74,22 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void eliminarUsuario(String UID){
-        SQLiteDatabase MiDB = this.getWritableDatabase();
         MiDB.delete("usuarios", "usuario" + "=" + UID, null);
     }
 
     public Boolean comprobarUsuario(String usuario) {
-        SQLiteDatabase MiDB = this.getWritableDatabase();
         Cursor cursor = MiDB.rawQuery("Select * from usuarios where usuario = ?", new String[]{usuario});
         return cursor.getCount() > 0;
     }
 
     public Boolean comprobarContrasenaUsuario(String usuario, String contrasena) {
-        SQLiteDatabase MiDB = this.getWritableDatabase();
         Cursor cursor = MiDB.rawQuery("Select * from usuarios where usuario = ? and contrasena = ?", new String[]{usuario, contrasena});
         return cursor.getCount() > 0;
     }
 
     public ArrayList<Componente> getComponentes(String tipoComponente) {
         ArrayList<Componente> listaComponentes = new ArrayList<>();
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from componentes where tipo='" + tipoComponente + "'", null);
+        Cursor res = MiDB.rawQuery("select * from componentes where tipo='" + tipoComponente + "'", null);
 
         while (res.moveToNext()) {
             int id = res.getInt(0);
@@ -110,6 +104,23 @@ public class DBHelper extends SQLiteOpenHelper {
             listaComponentes.add(nuevoComponente);
         }
         return listaComponentes;
+    }
+
+    public Boolean updateUsuario(String usuario, String contrasena,String tipoUsuario,int curso){
+        SQLiteDatabase MiDB = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("usuario", usuario);
+        cv.put("contrasena", contrasena);
+        cv.put("tipoUsuario", tipoUsuario);
+        cv.put("curso", curso);
+
+        return MiDB.update("usuarios", cv, "usuario = ?", new String[]{usuario}) >0;
+
+    }
+
+    public boolean borrarUsuario(String email){
+        return MiDB.delete("usuarios","usuario=?",new String[]{email})> 0;
+
     }
     // TODO: 22/01/2022 Investigar solucion para los ordenadores 
     /*
