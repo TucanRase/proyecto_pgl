@@ -1,8 +1,10 @@
 package com.example.proyecto_tommy;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -113,13 +115,32 @@ public class Perfil extends AppCompatActivity {
         btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (DB.borrarUsuario(correo)) {
-                    Toast.makeText(getApplicationContext(), "Su usuario ha sido eliminado correctamente de la base de datos", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Perfil.this, Login.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                } else
-                    Toast.makeText(getApplicationContext(), "No se ha podido eliminar al usuario, intentelo de nuevo más tarde", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder alert = new AlertDialog.Builder(Perfil.this);
+                alert.setTitle("Eliminar usuario");
+                alert.setMessage("¿Está seguro qué desea borrar su usuario y cerrar sesión?");
+                alert.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (DB.borrarUsuario(correo)) {
+                            Toast.makeText(getApplicationContext(), "Su usuario ha sido eliminado correctamente de la base de datos", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Perfil.this, Login.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        } else
+                            Toast.makeText(getApplicationContext(), "No se ha podido eliminar al usuario, intentelo de nuevo más tarde", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                alert.show();
             }
         });
     }

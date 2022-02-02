@@ -11,47 +11,23 @@
         android:theme="@style/Theme.Proyecto_Tommy">
         <activity
             android:name=".Portada"
-            android:exported="false"
             android:theme="@style/Theme.Proyecto_Tommy.NoActionBar" />
-        <activity
-            android:name=".InicioProfe"
-            android:exported="false" />
-        <activity
-            android:name=".Perfil"
-            android:exported="false" />
-        <activity
-            android:name=".Recibo"
-            android:exported="false" />
-        <activity
-            android:name=".Psu"
-            android:exported="false" />
-        <activity
-            android:name=".Acerca"
-            android:exported="false" />
-        <activity
-            android:name=".Ram"
-            android:exported="false" />
-        <activity
-            android:name=".Almacenamiento"
-            android:exported="false" />
-        <activity
-            android:name=".Gpu"
-            android:exported="false" />
-        <activity
-            android:name=".Inicio"
-            android:exported="true" />
-        <activity
-            android:name=".Cpu"
-            android:exported="false" />
-        <activity
-            android:name=".Registro"
-            android:exported="false" />
+        <activity android:name=".InicioProfe" />
+        <activity android:name=".Perfil" />
+        <activity android:name=".Recibo" />
+        <activity android:name=".Psu" />
+        <activity android:name=".Acerca" />
+        <activity android:name=".Ram" />
+        <activity android:name=".Almacenamiento" />
+        <activity android:name=".Gpu" />
+        <activity android:name=".Inicio" />
+        <activity android:name=".Cpu" />
+        <activity android:name=".Registro" />
         <activity
             android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
