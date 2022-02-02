@@ -80,7 +80,6 @@ public class Recibo extends AppCompatActivity {
 
                 Boolean insertar =DB.insertarOrdenador(cpu.getId(),ram.getId(),gpu.getId(),psu.getId(),almacenamiento.getId(),Login.email);
                 if(insertar) {
-                    System.out.println(String.valueOf(y));
                     intent.putExtras(bundle);
                     startActivity(intent);
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

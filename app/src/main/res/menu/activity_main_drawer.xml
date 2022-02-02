@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <item android:title="Acciones">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/mostrarPcs"
+                    android:icon="@drawable/lista_drawable"
+                    android:title="Mostrar lista de ordenadores" />
+                <item
+                    android:id="@+id/nav_gallery"
+                    android:icon="@drawable/plus_drawable"
+                    android:title="Añadir ordenador" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Acciones de usuario">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/editarUsuario"
+                    android:icon="@drawable/edit_drawable"
+                    android:title="Editar usuario" />
+                <item
+                    android:id="@+id/cerrarSesionNav"
+                    android:icon="@android:drawable/ic_menu_close_clear_cancel"
+                    android:title="Cerrar sesión" />
+                <item
+                    android:id="@+id/cerrarApp"
+                    android:icon="@drawable/salir_drawable"
+                    android:title="Cerrar app" />
+            </group>
+        </menu>
+    </item>
+</menu>

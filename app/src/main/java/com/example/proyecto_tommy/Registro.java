@@ -54,8 +54,6 @@ public class Registro extends AppCompatActivity {
                 String tipo = txtTipo.getEditText().getText().toString().trim();
                 String curso = txtCurso.getEditText().getText().toString().trim();
 
-                System.out.println(tipo);
-
                 if (email.isEmpty())
                     usuario.setError("Por favor introduzca un usuario");
                 else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
@@ -72,14 +70,11 @@ public class Registro extends AppCompatActivity {
                     if (Integer.valueOf(curso) <= 0)
                         txtCurso.setError("Por favor introduzca un número superior a 0");
                     else{
-                    System.out.println("csadasdasdasabezaaa");
                     if (contra.equals(confirmContra)) {
-                        System.out.println("cabezaaasewqewqeqwewqeqwewqwqeqwa");
                         Boolean comprobarUsuario = DB.comprobarUsuario(email);
                         if (comprobarUsuario == false) {
                             Boolean insertar = DB.insertarDatosUsuario(email, contra, tipo, Integer.valueOf(curso));
                             if (insertar) {
-                                System.out.println("cabezaaa");
                                 Login.email = email;
                                 Toast.makeText(Registro.this, "Registrado correctamente", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), Inicio.class);
