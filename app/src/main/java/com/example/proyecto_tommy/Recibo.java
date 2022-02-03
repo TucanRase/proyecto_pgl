@@ -14,7 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 public class Recibo extends AppCompatActivity {
@@ -70,21 +72,17 @@ public class Recibo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Inicio.class);
-                Toast.makeText(getApplicationContext(), "Su ordenador ha sido añadido a su lista", Toast.LENGTH_SHORT).show();
-                //cuando esté conectada a la base de datos se comprobará que no esté ya establecido el id del ordenador
-                Random random = new Random();
-                int y = random.nextInt(10000);
-                Ordenador pc = new Ordenador(String.valueOf(y), cpu, ram, gpu, psu, almacenamiento);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("pc", pc);
 
-                Boolean insertar =DB.insertarOrdenador(cpu.getId(),ram.getId(),gpu.getId(),psu.getId(),almacenamiento.getId(),Login.email);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String fechaCompra = sdf.format(new Date());
+
+                Boolean insertar =DB.insertarOrdenador(fechaCompra,calcularTotal(),cpu.getId(),ram.getId(),gpu.getId(),psu.getId(),almacenamiento.getId(),Login.email);
                 if(insertar) {
-                    intent.putExtras(bundle);
+                    Toast.makeText(getApplicationContext(), "Su ordenador ha sido añadido a su lista", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }else
-                    Toast.makeText(getApplicationContext(), "Algo a ido mal en la compra, no se ha podido finalizar.Intentelo de nuevo", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Algo ha ido mal en la compra, no se ha podido finalizar. Inténtelo de nuevo", Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -30,9 +30,9 @@ public class Login extends AppCompatActivity {
         btnRegistrar = findViewById(R.id.btnRegistro);
         DB = new DBHelper(this);
         /**
-         * Al clickar en el boton se procede a hacer la comprobación de los datos introducidos en los campos de login con
+         * Al clickar en el botón se procede a hacer la comprobación de los datos introducidos en los campos de login con
          * los datos disponibles en la base de datos. En el caso de que haya errores se notifica por medio de errores en
-         * el input además se notificará con un mensaje por pantalla.
+         * el input. Además, se notificará con un mensaje por pantalla.
          * **/
         btnIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,11 +43,11 @@ public class Login extends AppCompatActivity {
                 String contra = contrasena.getEditText().getText().toString().trim();
 
                 if (email.isEmpty())
-                    usuario.setError("Por favor introduzca un usuario");
+                    usuario.setError("Por favor, introduzca un usuario");
                 else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
-                    usuario.setError("Por favor introduzca un email válido");
+                    usuario.setError("Por favor, introduzca un email válido");
                 else if (contra.isEmpty())
-                    contrasena.setError("Por favor introduzca una contraseña");
+                    contrasena.setError("Por favor, introduzca una contraseña");
                 else if (!DB.comprobarUsuario(email))
                     usuario.setError("Revise el usuario");
                 else {

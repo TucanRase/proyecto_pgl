@@ -38,7 +38,7 @@ public class Registro extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, tipos);
         tipoUsuarios.setAdapter(arrayAdapterOrdenar);
 
-        // TODO: 14/01/2022 añadir campos de datos y correo electronico 
+
 
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,20 +55,20 @@ public class Registro extends AppCompatActivity {
                 String curso = txtCurso.getEditText().getText().toString().trim();
 
                 if (email.isEmpty())
-                    usuario.setError("Por favor introduzca un usuario");
+                    usuario.setError("Por favor, introduzca un usuario");
                 else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
-                    usuario.setError("Por favor introduzca un email válido");
+                    usuario.setError("Por favor, introduzca un email válido");
                 else if (tipo.isEmpty())
-                    txtTipo.setError("Por favor introduzca el tipo de usuario");
+                    txtTipo.setError("Por favor, introduzca el tipo de usuario");
                 else if (curso.isEmpty())
-                    txtCurso.setError("Por favor introduzca su curso(número)");
+                    txtCurso.setError("Por favor, introduzca su curso (número)");
                 else if (contra.isEmpty())
-                    contrasena.setError("Por favor introduzca una contraseña");
+                    contrasena.setError("Por favor, introduzca una contraseña");
                 else if (confirmContra.isEmpty())
-                    confirmContrasena.setError("Por favor introduzca la contraseña");
+                    confirmContrasena.setError("Por favor, introduzca la contraseña");
                 else {
                     if (Integer.valueOf(curso) <= 0)
-                        txtCurso.setError("Por favor introduzca un número superior a 0");
+                        txtCurso.setError("Por favor, introduzca un número superior a 0");
                     else{
                     if (contra.equals(confirmContra)) {
                         Boolean comprobarUsuario = DB.comprobarUsuario(email);
@@ -84,12 +84,12 @@ public class Registro extends AppCompatActivity {
                                 Toast.makeText(Registro.this, "Registro fallido", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(Registro.this, "Este usuario ya existe, por favor inicie sesión", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Registro.this, "Este usuario ya existe. Por favor, inicie sesión", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(Registro.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
-                        contrasena.setError("Asegurese de que coinciden las contraseñas");
-                        confirmContrasena.setError("Asegurese de que coinciden las contraseñas");
+                        contrasena.setError("Asegúrese de que coinciden las contraseñas");
+                        confirmContrasena.setError("Asegúrese de que coinciden las contraseñas");
 
                     }}
                 }

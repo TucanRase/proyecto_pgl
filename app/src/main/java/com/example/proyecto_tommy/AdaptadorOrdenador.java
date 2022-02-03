@@ -39,11 +39,11 @@ public class AdaptadorOrdenador extends RecyclerView.Adapter<AdaptadorOrdenador.
     @Override
     public void onBindViewHolder(ViewholderOrdenador holder, int position) {
         holder.txtId.setText("ID:" + listaOrdenadores.get(position).getId());
-        holder.txtCpu.setText(listaOrdenadores.get(position).getCpu().getNombre());
-        holder.txtRam.setText(listaOrdenadores.get(position).getRam().getNombre());
-        holder.txtGpu.setText(listaOrdenadores.get(position).getGpu().getNombre());
-        holder.txtPsu.setText(listaOrdenadores.get(position).getPsu().getNombre());
-        holder.txtSSD.setText(listaOrdenadores.get(position).getAlmacenamiento().getNombre());
+        holder.txtCpu.setText(listaOrdenadores.get(position).getFecha());
+        holder.txtRam.setText(listaOrdenadores.get(position).getFecha());
+        holder.txtGpu.setText(listaOrdenadores.get(position).getFecha());
+        holder.txtPsu.setText(listaOrdenadores.get(position).getFecha());
+        holder.txtSSD.setText(listaOrdenadores.get(position).getFecha());
 
         holder.imagenPc.setImageResource(R.drawable.ordenador);
     }

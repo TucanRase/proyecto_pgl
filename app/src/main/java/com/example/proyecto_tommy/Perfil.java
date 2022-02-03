@@ -97,17 +97,17 @@ public class Perfil extends AppCompatActivity {
                                 if (insertado)
                                     Toast.makeText(getApplicationContext(), "Sus datos han sido actualizados correctamente", Toast.LENGTH_SHORT).show();
                                 else
-                                    Toast.makeText(getApplicationContext(), "Ha habido un problema al actualizar los datos intentelo de nuevo", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Ha habido un problema al actualizar los datos. Inténtelo de nuevo", Toast.LENGTH_SHORT).show();
                             } else {
-                                txtContrasenaP.setError("Por favor compruebe que las contraseñas sean iguales");
-                                txtContrasena2.setError("Por favor compruebe que las contraseñas sean iguales");
+                                txtContrasenaP.setError("Por favor, compruebe que las contraseñas sean iguales");
+                                txtContrasena2.setError("Por favor, compruebe que las contraseñas sean iguales");
                             }
                         else
-                            txtContrasena2.setError("Por favor introduzca una contraseña válida");
+                            txtContrasena2.setError("Por favor, introduzca una contraseña válida");
                     else
-                        txtContrasenaP.setError("Por favor introduzca una contraseña válida");
+                        txtContrasenaP.setError("Por favor, introduzca una contraseña válida");
                 else
-                    txtCursoP.setError("Por favor introduzca el curso y asegúrese de que es superior a 0");
+                    txtCursoP.setError("Por favor, introduzca el curso y asegúrese de que es superior a 0");
 
             }
         });
@@ -117,7 +117,7 @@ public class Perfil extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(Perfil.this);
                 alert.setTitle("Eliminar usuario");
-                alert.setMessage("¿Está seguro qué desea borrar su usuario y cerrar sesión?");
+                alert.setMessage("¿Está seguro de querer eliminar su usuario y cerrar sesión?");
                 alert.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
 
                     @Override
@@ -128,7 +128,7 @@ public class Perfil extends AppCompatActivity {
                             startActivity(intent);
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         } else
-                            Toast.makeText(getApplicationContext(), "No se ha podido eliminar al usuario, intentelo de nuevo más tarde", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "No se ha podido eliminar al usuario. Inténtelo de nuevo más tarde", Toast.LENGTH_SHORT).show();
                     }
                 });
 

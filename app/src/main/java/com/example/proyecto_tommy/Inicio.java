@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,24 +25,31 @@ public class Inicio extends AppCompatActivity {
     TextView placeholder;
     FloatingActionButton fab;
     Intent intent;
+    DBHelper DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
-        //recogemos los valores pasados de las actividades anteriores para poder crear el recibo
-        if (getIntent().getExtras() != null) {
-            ordenador = getIntent().getExtras().getParcelable("pc");
-        }
 
         recyclerOrdenador = (RecyclerView) findViewById(R.id.recyclerOrdenador);
         placeholder = (TextView) findViewById(R.id.placeHolder);
         recyclerOrdenador.setLayoutManager(new LinearLayoutManager(this));
-        //se añade el ordenador al arraylist
-        if (ordenador != null) {
+        //se añaden los ordenadores al arraylist
+        ArrayList<Ordenador> ordenadores;
+        try {
+            ordenadores = DB.getOrdenadores(Login.email);
+            System.out.println(ordenadores.get(1).getUID());
+        } catch (Exception ex) {
+            System.out.println("Este usuario no tiene ordenadores en su cuenta");
+            System.out.println(ex);
+            System.out.println(Login.email);
+            ordenadores = null;
+        }
+        if (ordenadores != null) {
             Login.listaOrdenadores.add(ordenador);
             //Establecer el adaptador
-            AdaptadorOrdenador adapter = new AdaptadorOrdenador(this, Login.listaOrdenadores);
+            AdaptadorOrdenador adapter = new AdaptadorOrdenador(this, ordenadores);
             recyclerOrdenador.setAdapter(adapter);
         } else {
             recyclerOrdenador.setVisibility(View.GONE);
@@ -108,5 +117,24 @@ public class Inicio extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.zoom_back_in, R.anim.zoom_back_out);
     }
+/*
+    public ArrayList<Componente> getComponentesPc() {
+        Cursor res = DB.rawQuery("select * from componentes where ID='" + idComponente + "'", null);
 
+        while (res.moveToNext()) {
+            int id = res.getInt(0);
+            int imagen = res.getInt(1);
+            String nombreComponente = res.getString(2);
+            String tipo = res.getString(3);
+            double precio = res.getDouble(4);
+            String caracteristicas = res.getString(5);
+
+
+            Componente nuevoComponente = new Componente(id, imagen, nombreComponente, tipo, precio, caracteristicas);
+            listaComponentes.add(nuevoComponente);
+        }
+        return listaComponentes;
+
+    }
+*/
 }

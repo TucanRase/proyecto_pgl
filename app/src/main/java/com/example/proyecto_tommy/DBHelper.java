@@ -24,7 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase MiDB) {
         MiDB.execSQL("create Table usuarios(usuario TEXT primary key,contrasena TEXT,tipoUsuario TEXT,curso int)");
         MiDB.execSQL("create Table componentes(ID INTEGER primary key,imagen int,nombre text,tipo text,precio real,caracteristicas TEXT)");
-        MiDB.execSQL("create Table ordenadores(ID INTEGER primary key,cpuId int,ramId int,gpuId int,psuId int,almacenamientoId int,UID TEXT)");
+        MiDB.execSQL("create Table ordenadores(ID INTEGER primary key,fecha TEXT,precio REAL,cpuId int,ramId int,gpuId int,psuId int,almacenamientoId int,UID TEXT)");
 
     }
 
@@ -46,9 +46,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return resultado != -1;
     }
 
-    public boolean insertarOrdenador(int cpuId, int ramId, int gpuId, int psuId, int almacenamientoId, String UID) {
+    public boolean insertarOrdenador(String fecha,double precio,int cpuId, int ramId, int gpuId, int psuId, int almacenamientoId, String UID) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("ID", (Integer) null);
+        contentValues.put("fecha", fecha);
+        contentValues.put("precio", precio);
         contentValues.put("cpuId", cpuId);
         contentValues.put("ramId", ramId);
         contentValues.put("gpuId", gpuId);
@@ -89,7 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList<Componente> getComponentes(String tipoComponente) {
         ArrayList<Componente> listaComponentes = new ArrayList<>();
-        Cursor res = MiDB.rawQuery("select * from componentes where tipo='" + tipoComponente + "'", null);
+        Cursor res = MiDB.rawQuery("Select * from usuarios where tipo = ?", new String[]{tipoComponente});
 
         while (res.moveToNext()) {
             int id = res.getInt(0);
@@ -122,26 +124,27 @@ public class DBHelper extends SQLiteOpenHelper {
         return MiDB.delete("usuarios","usuario=?",new String[]{email})> 0;
 
     }
-    // TODO: 22/01/2022 Investigar solucion para los ordenadores 
-    /*
-    public ArrayList<Ordenador> getOrdenadores() {
+    // TODO: 22/01/2022 Investigar solucion para los ordenadores
+    public ArrayList<Ordenador> getOrdenadores(String email) {
         ArrayList<Ordenador> listaOrdenadores = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from ordenadores", null);
+        Cursor res = MiDB.rawQuery("Select * from ordenadores where UID = ?", new String[]{email});
 
         while (res.moveToNext()) {
             int id = res.getInt(0);
-            int cpuId = res.getInt(1);
-            String ramId = res.getString(2);
-            String gpuId = res.getString(3);
-            double psuId = res.getDouble(4);
-            String almacenamientoId = res.getString(5);
-            String UID = res.getString(6);
+            String fecha = res.getString(1);
+            double precio = res.getDouble(2);
+            int cpuId = res.getInt(3);
+            int ramId = res.getInt(4);
+            int gpuId = res.getInt(5);
+            int psuId = res.getInt(6);
+            int almacenamientoId = res.getInt(7);
+            String UID = res.getString(8);
 
 
-            Componente nuevoOrdenador = new Ordenador(id,cpuId, ramId,gpuId, psuId,almacenamientoId,UID);
+            Ordenador nuevoOrdenador = new Ordenador(id,fecha,precio,cpuId, ramId,gpuId, psuId,almacenamientoId,UID);
             listaOrdenadores.add(nuevoOrdenador);
         }
-        return listaComponentes;
-    }*/
+        return listaOrdenadores;
+    }
 }

@@ -7,40 +7,40 @@ import android.os.Parcelable;
  * Clase ordenador para guardar los componentes
  **/
 public class Ordenador implements Parcelable {
-    private String id;
-    private Componente cpu;
-    private Componente ram;
-    private Componente gpu;
-    private Componente psu;
-    private Componente almacenamiento;
+    private int id;
+    private String fecha;
+    private double precio;
+    private int cpu;
+    private int ram;
+    private int gpu;
+    private int psu;
+    private int almacenamiento;
+    private String UID;
 
-    /**
-     * Contructor del objeto
-     */
-    public Ordenador(String id, Componente cpu, Componente ram, Componente gpu, Componente psu, Componente almacenamiento) {
+    public Ordenador(int id, String fecha, double precio, int cpu, int ram, int gpu, int psu, int almacenamiento, String UID) {
         this.id = id;
+        this.fecha = fecha;
+        this.precio = precio;
         this.cpu = cpu;
         this.ram = ram;
         this.gpu = gpu;
         this.psu = psu;
         this.almacenamiento = almacenamiento;
+        this.UID = UID;
     }
 
-    /**
-     * constructor parcelable del objeto
-     */
     protected Ordenador(Parcel in) {
-        id = in.readString();
-        cpu = in.readParcelable(Componente.class.getClassLoader());
-        ram = in.readParcelable(Componente.class.getClassLoader());
-        gpu = in.readParcelable(Componente.class.getClassLoader());
-        psu = in.readParcelable(Componente.class.getClassLoader());
-        almacenamiento = in.readParcelable(Componente.class.getClassLoader());
+        id = in.readInt();
+        fecha = in.readString();
+        precio = in.readDouble();
+        cpu = in.readInt();
+        ram = in.readInt();
+        gpu = in.readInt();
+        psu = in.readInt();
+        almacenamiento = in.readInt();
+        UID = in.readString();
     }
 
-    /**
-     * Creator parcelable
-     */
     public static final Creator<Ordenador> CREATOR = new Creator<Ordenador>() {
         @Override
         public Ordenador createFromParcel(Parcel in) {
@@ -53,53 +53,76 @@ public class Ordenador implements Parcelable {
         }
     };
 
-    //Getters y setters de la clase
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Componente getCpu() {
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public int getCpu() {
         return cpu;
     }
 
-    public void setCpu(Componente cpu) {
+    public void setCpu(int cpu) {
         this.cpu = cpu;
     }
 
-    public Componente getRam() {
+    public int getRam() {
         return ram;
     }
 
-    public void setRam(Componente ram) {
+    public void setRam(int ram) {
         this.ram = ram;
     }
 
-    public Componente getGpu() {
+    public int getGpu() {
         return gpu;
     }
 
-    public void setGpu(Componente gpu) {
+    public void setGpu(int gpu) {
         this.gpu = gpu;
     }
 
-    public Componente getPsu() {
+    public int getPsu() {
         return psu;
     }
 
-    public void setPsu(Componente psu) {
+    public void setPsu(int psu) {
         this.psu = psu;
     }
 
-    public Componente getAlmacenamiento() {
+    public int getAlmacenamiento() {
         return almacenamiento;
     }
 
-    public void setAlmacenamiento(Componente almacenamiento) {
+    public void setAlmacenamiento(int almacenamiento) {
         this.almacenamiento = almacenamiento;
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     @Override
@@ -107,16 +130,16 @@ public class Ordenador implements Parcelable {
         return 0;
     }
 
-    /**
-     * Método para utilizar el parcelable
-     */
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
-        parcel.writeParcelable(cpu, i);
-        parcel.writeParcelable(ram, i);
-        parcel.writeParcelable(gpu, i);
-        parcel.writeParcelable(psu, i);
-        parcel.writeParcelable(almacenamiento, i);
+        parcel.writeInt(id);
+        parcel.writeString(fecha);
+        parcel.writeDouble(precio);
+        parcel.writeInt(cpu);
+        parcel.writeInt(ram);
+        parcel.writeInt(gpu);
+        parcel.writeInt(psu);
+        parcel.writeInt(almacenamiento);
+        parcel.writeString(UID);
     }
 }
