@@ -32,38 +32,18 @@
             android:textColor="#212121" />
 
         <TextView
-            android:id="@+id/txtCpu"
+            android:id="@+id/txtId2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textColor="#212121" />
 
         <TextView
-            android:id="@+id/txtRam"
+            android:id="@+id/txtId3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textColor="#212121" />
 
-        <TextView
-            android:id="@+id/txtGpu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="#212121" />
-
-        <TextView
-            android:id="@+id/txtPsu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="#212121" />
-
-        <TextView
-            android:id="@+id/txtSSD"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="#212121" />
     </LinearLayout>
 </LinearLayout>
