@@ -35,7 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
         MiDB.execSQL("drop Table if exists ordenadores");
     }
 
-    public boolean insertarDatosUsuario(String usuario, String contrasena,String tipoUsuario,int curso) {
+    public boolean insertarDatosUsuario(String usuario, String contrasena, String tipoUsuario, int curso) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("usuario", usuario);
         contentValues.put("contrasena", contrasena);
@@ -46,7 +46,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return resultado != -1;
     }
 
-    public boolean insertarOrdenador(String fecha,double precio,int cpuId, int ramId, int gpuId, int psuId, int almacenamientoId, String UID) {
+    public boolean insertarOrdenador(String fecha, double precio, int cpuId, int ramId, int gpuId, int psuId, int almacenamientoId, String UID) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("ID", (Integer) null);
         contentValues.put("fecha", fecha);
@@ -75,10 +75,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return resultado != -1;
     }
 
-    public void eliminarUsuario(String UID){
-        MiDB.delete("usuarios", "usuario" + "=" + UID, null);
-    }
-
     public Boolean comprobarUsuario(String usuario) {
         Cursor cursor = MiDB.rawQuery("Select * from usuarios where usuario = ?", new String[]{usuario});
         return cursor.getCount() > 0;
@@ -91,7 +87,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList<Componente> getComponentes(String tipoComponente) {
         ArrayList<Componente> listaComponentes = new ArrayList<>();
-        Cursor res = MiDB.rawQuery("Select * from usuarios where tipo = ?", new String[]{tipoComponente});
+        Cursor res = MiDB.rawQuery("Select * from componentes where tipo = ?", new String[]{tipoComponente});
 
         while (res.moveToNext()) {
             int id = res.getInt(0);
@@ -108,7 +104,26 @@ public class DBHelper extends SQLiteOpenHelper {
         return listaComponentes;
     }
 
-    public Boolean updateUsuario(String usuario, String contrasena,String tipoUsuario,int curso){
+    public ArrayList<Componente> getComponentesPorID(String idComponente) {
+        ArrayList<Componente> listaComponentes = new ArrayList<>();
+        Cursor res = MiDB.rawQuery("Select * from componentes where ID = ?", new String[]{idComponente});
+
+        while (res.moveToNext()) {
+            int id = res.getInt(0);
+            int imagen = res.getInt(1);
+            String nombreComponente = res.getString(2);
+            String tipo = res.getString(3);
+            double precio = res.getDouble(4);
+            String caracteristicas = res.getString(5);
+
+
+            Componente nuevoComponente = new Componente(id, imagen, nombreComponente, tipo, precio, caracteristicas);
+            listaComponentes.add(nuevoComponente);
+        }
+        return listaComponentes;
+    }
+
+    public Boolean updateUsuario(String usuario, String contrasena, String tipoUsuario, int curso) {
         SQLiteDatabase MiDB = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("usuario", usuario);
@@ -116,14 +131,15 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("tipoUsuario", tipoUsuario);
         cv.put("curso", curso);
 
-        return MiDB.update("usuarios", cv, "usuario = ?", new String[]{usuario}) >0;
+        return MiDB.update("usuarios", cv, "usuario = ?", new String[]{usuario}) > 0;
 
     }
 
-    public boolean borrarUsuario(String email){
-        return MiDB.delete("usuarios","usuario=?",new String[]{email})> 0;
+    public boolean borrarUsuario(String email) {
+        return MiDB.delete("usuarios", "usuario=?", new String[]{email}) > 0;
 
     }
+
     // TODO: 22/01/2022 Investigar solucion para los ordenadores
     public ArrayList<Ordenador> getOrdenadores(String email) {
         ArrayList<Ordenador> listaOrdenadores = new ArrayList<>();
@@ -142,7 +158,7 @@ public class DBHelper extends SQLiteOpenHelper {
             String UID = res.getString(8);
 
 
-            Ordenador nuevoOrdenador = new Ordenador(id,fecha,precio,cpuId, ramId,gpuId, psuId,almacenamientoId,UID);
+            Ordenador nuevoOrdenador = new Ordenador(id, fecha, precio, cpuId, ramId, gpuId, psuId, almacenamientoId, UID);
             listaOrdenadores.add(nuevoOrdenador);
         }
         return listaOrdenadores;

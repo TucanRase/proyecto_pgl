@@ -17,7 +17,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
 
 public class Recibo extends AppCompatActivity {
     //creamos las variables
@@ -71,7 +70,7 @@ public class Recibo extends AppCompatActivity {
         btnComprar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Inicio.class);
+                Intent intent = new Intent(getApplicationContext(), ListaOrdenadores.class);
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String fechaCompra = sdf.format(new Date());

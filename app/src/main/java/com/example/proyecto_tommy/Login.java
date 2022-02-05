@@ -13,7 +13,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 
 public class Login extends AppCompatActivity {
-    static ArrayList<Ordenador> listaOrdenadores = new ArrayList<Ordenador>();
     TextInputLayout usuario, contrasena;
     Button btnIniciar, btnRegistrar;
     DBHelper DB;
@@ -52,9 +51,9 @@ public class Login extends AppCompatActivity {
                     usuario.setError("Revise el usuario");
                 else {
                     Boolean checkuserpass = DB.comprobarContrasenaUsuario(email, contra);
-                    if (checkuserpass == true) {
+                    if (checkuserpass) {
                         Toast.makeText(Login.this, "Sesión iniciada correctamente", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), Inicio.class);
+                        Intent intent = new Intent(getApplicationContext(), ListaOrdenadores.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
                     } else {

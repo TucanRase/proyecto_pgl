@@ -20,7 +20,7 @@
         <activity android:name=".Ram" />
         <activity android:name=".Almacenamiento" />
         <activity android:name=".Gpu" />
-        <activity android:name=".Inicio" />
+        <activity android:name=".ListaOrdenadores" />
         <activity android:name=".Cpu" />
         <activity android:name=".Registro" />
         <activity

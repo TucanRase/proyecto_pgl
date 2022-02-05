@@ -39,11 +39,8 @@ public class AdaptadorOrdenador extends RecyclerView.Adapter<AdaptadorOrdenador.
     @Override
     public void onBindViewHolder(ViewholderOrdenador holder, int position) {
         holder.txtId.setText("ID:" + listaOrdenadores.get(position).getId());
-        holder.txtCpu.setText(listaOrdenadores.get(position).getFecha());
-        holder.txtRam.setText(listaOrdenadores.get(position).getFecha());
-        holder.txtGpu.setText(listaOrdenadores.get(position).getFecha());
-        holder.txtPsu.setText(listaOrdenadores.get(position).getFecha());
-        holder.txtSSD.setText(listaOrdenadores.get(position).getFecha());
+        holder.txtPrecio.setText(String.valueOf(listaOrdenadores.get(position).getPrecio())+" €");
+        holder.txtFecha.setText(listaOrdenadores.get(position).getFecha());
 
         holder.imagenPc.setImageResource(R.drawable.ordenador);
     }
@@ -60,17 +57,14 @@ public class AdaptadorOrdenador extends RecyclerView.Adapter<AdaptadorOrdenador.
      * recuperar los elementos del item en viewholder
      */
     public class ViewholderOrdenador extends RecyclerView.ViewHolder {
-        TextView txtCpu, txtRam, txtGpu, txtPsu, txtSSD, txtId;
+        TextView txtPrecio, txtFecha, txtId;
         ImageView imagenPc;
 
         public ViewholderOrdenador(View itemView) {
             super(itemView);
-            txtId = (TextView) itemView.findViewById(R.id.txtId);
-            txtCpu = (TextView) itemView.findViewById(R.id.txtCpu);
-            txtRam = (TextView) itemView.findViewById(R.id.txtRam);
-            txtGpu = (TextView) itemView.findViewById(R.id.txtGpu);
-            txtPsu = (TextView) itemView.findViewById(R.id.txtPsu);
-            txtSSD = (TextView) itemView.findViewById(R.id.txtSSD);
+            txtId = (TextView) itemView.findViewById(R.id.txtID);
+            txtFecha = (TextView) itemView.findViewById(R.id.txtFecha);
+            txtPrecio = (TextView) itemView.findViewById(R.id.txtPrecioPC);
             imagenPc = (ImageView) itemView.findViewById(R.id.imagenPc);
 
 

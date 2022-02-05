@@ -145,7 +145,7 @@ public class Gpu extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.home:
-                intent = new Intent(Gpu.this, Inicio.class);
+                intent = new Intent(Gpu.this, ListaOrdenadores.class);
                 startActivity(intent);
                 return true;
             default:

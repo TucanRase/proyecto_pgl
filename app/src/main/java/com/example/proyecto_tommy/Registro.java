@@ -77,7 +77,7 @@ public class Registro extends AppCompatActivity {
                             if (insertar) {
                                 Login.email = email;
                                 Toast.makeText(Registro.this, "Registrado correctamente", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), Inicio.class);
+                                Intent intent = new Intent(getApplicationContext(), ListaOrdenadores.class);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
                             } else {

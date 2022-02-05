@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -143,7 +142,7 @@ public class Ram extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.home:
-                intent = new Intent(Ram.this, Inicio.class);
+                intent = new Intent(Ram.this, ListaOrdenadores.class);
                 startActivity(intent);
                 return true;
             default:

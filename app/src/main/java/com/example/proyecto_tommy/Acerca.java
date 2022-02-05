@@ -32,7 +32,7 @@ public class Acerca extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.home:
-                intent = new Intent(Acerca.this, Inicio.class);
+                intent = new Intent(Acerca.this, ListaOrdenadores.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;

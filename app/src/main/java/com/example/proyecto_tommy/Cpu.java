@@ -13,9 +13,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -137,7 +134,7 @@ public class Cpu extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.home:
-                intent = new Intent(Cpu.this, Inicio.class);
+                intent = new Intent(Cpu.this, ListaOrdenadores.class);
                 startActivity(intent);
                 return true;
             default:

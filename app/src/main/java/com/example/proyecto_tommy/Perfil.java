@@ -3,7 +3,6 @@ package com.example.proyecto_tommy;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,8 +13,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.ArrayList;
 
 public class Perfil extends AppCompatActivity {
     DBHelper DB;
@@ -76,7 +73,7 @@ public class Perfil extends AppCompatActivity {
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Perfil.this, Inicio.class);
+                Intent intent = new Intent(Perfil.this, ListaOrdenadores.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
