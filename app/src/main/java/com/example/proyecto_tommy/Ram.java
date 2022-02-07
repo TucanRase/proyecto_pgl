@@ -23,7 +23,6 @@ public class Ram extends AppCompatActivity {
     ArrayList<Componente> listaComponentes;
     RecyclerView recyclerComponentes;
     Componente cpu;
-    TextView titulo;
     DBHelper DB;
 
     @Override
@@ -31,8 +30,8 @@ public class Ram extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_componentes);
 
-        titulo = (TextView) findViewById(R.id.componente);
-        titulo.setText("Memoria RAM: ");
+        setTitle("Memorias RAM");
+
         //recogemos los valores pasados de las actividades anteriores para poder crear el recibo
         if (getIntent().getExtras() != null) {
             cpu = getIntent().getExtras().getParcelable("cpu");

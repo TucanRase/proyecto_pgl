@@ -160,23 +160,23 @@ public class DBHelper extends SQLiteOpenHelper {
             int psuID = res.getInt(3);
             int almacenamientoId = res.getInt(4);
 
-            listaIds[0]=cpuID;
-            listaIds[1]=ramID;
-            listaIds[2]=gpuId;
-            listaIds[3]=psuID;
-            listaIds[4]=almacenamientoId;
+            listaIds[0] = cpuID;
+            listaIds[1] = ramID;
+            listaIds[2] = gpuId;
+            listaIds[3] = psuID;
+            listaIds[4] = almacenamientoId;
         }
         return listaIds;
     }
 
-    public ArrayList<Componente> getComponentesPc(String idOrdenador){
+    public ArrayList<Componente> getComponentesPc(String idOrdenador) {
         ArrayList<Componente> listaComponentes = new ArrayList<>();
-        int[] listaIds=getIdsPC(idOrdenador);
-        for(Integer id:listaIds){
+        int[] listaIds = getIdsPC(idOrdenador);
+        for (Integer id : listaIds) {
             System.out.println(id);
         }
         // TODO: 07/02/2022 MIRAR ESTE METODO 
-        Cursor res = MiDB.rawQuery("SELECT * FROM componentes WHERE id = ?", new String[]{String.valueOf(listaIds[0]),String.valueOf(listaIds[1]),String.valueOf(listaIds[2]),String.valueOf(listaIds[3]),String.valueOf(listaIds[4])});
+        Cursor res = MiDB.rawQuery("SELECT * FROM componentes WHERE id in(?,?,?,?,?)", new String[]{String.valueOf(listaIds[0]), String.valueOf(listaIds[1]), String.valueOf(listaIds[2]), String.valueOf(listaIds[3]), String.valueOf(listaIds[4])});
 
         while (res.moveToNext()) {
             int id = res.getInt(0);

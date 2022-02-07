@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -36,7 +38,7 @@ public class Recibo extends AppCompatActivity {
         igic = (TextView) findViewById(R.id.recIgic);
         total = (TextView) findViewById(R.id.recTotal);
         btnComprar = (Button) findViewById(R.id.btnComprar);
-        DB=new DBHelper(this);
+        DB = new DBHelper(this);
         //recogemos los valores pasados de las actividades anteriores para poder crear el recibo
         if (getIntent().getExtras() != null) {
             cpu = getIntent().getExtras().getParcelable("cpu");
@@ -75,15 +77,40 @@ public class Recibo extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String fechaCompra = sdf.format(new Date());
 
-                Boolean insertar =DB.insertarOrdenador(fechaCompra,calcularTotal(),cpu.getId(),ram.getId(),gpu.getId(),psu.getId(),almacenamiento.getId(),Login.email);
-                if(insertar) {
+                Boolean insertar = DB.insertarOrdenador(fechaCompra, calcularTotal(), cpu.getId(), ram.getId(), gpu.getId(), psu.getId(), almacenamiento.getId(), Login.email);
+                if (insertar) {
                     Toast.makeText(getApplicationContext(), "Su ordenador ha sido añadido a su lista", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                }else
+                } else
                     Toast.makeText(getApplicationContext(), "Algo ha ido mal en la compra, no se ha podido finalizar. Inténtelo de nuevo", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    /**
+     * Creamos el menú
+     **/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.volver_inicio, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    /**
+     * Establecemos las acciones al pulsar las opciones del menú
+     **/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.home:
+                intent = new Intent(Recibo.this, ListaOrdenadores.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
@@ -92,7 +119,7 @@ public class Recibo extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.left_in, R.anim.left_out);
+        overridePendingTransition(R.anim.right_in, R.anim.right_out);
     }
 
     /**

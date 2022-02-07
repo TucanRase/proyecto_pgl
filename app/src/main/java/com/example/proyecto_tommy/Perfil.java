@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -140,6 +142,31 @@ public class Perfil extends AppCompatActivity {
                 alert.show();
             }
         });
+    }
+
+    /**
+     * Creamos el menú
+     **/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.volver_inicio, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    /**
+     * Establecemos las acciones al pulsar las opciones del menú
+     **/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.home:
+                intent = new Intent(Perfil.this, ListaOrdenadores.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

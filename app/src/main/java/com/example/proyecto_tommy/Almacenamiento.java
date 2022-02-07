@@ -22,7 +22,6 @@ public class Almacenamiento extends AppCompatActivity {
     ArrayList<Componente> listaComponentes;
     RecyclerView recyclerComponentes;
     Componente cpu, ram, gpu, psu;
-    TextView titulo;
     DBHelper DB;
 
     @Override
@@ -30,8 +29,7 @@ public class Almacenamiento extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_componentes);
 
-        titulo = (TextView) findViewById(R.id.componente);
-        titulo.setText("Sistema de almacenamiento: ");
+        setTitle("Almacenamiento");
 
         if (getIntent().getExtras() != null) {
             cpu = getIntent().getExtras().getParcelable("cpu");

@@ -23,7 +23,6 @@ public class Gpu extends AppCompatActivity {
     ArrayList<Componente> listaComponentes;
     RecyclerView recyclerComponentes;
     Componente cpu, ram;
-    TextView titulo;
     DBHelper DB;
 
     @Override
@@ -31,8 +30,7 @@ public class Gpu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_componentes);
 
-        titulo = (TextView) findViewById(R.id.componente);
-        titulo.setText("Tarjetas gráficas: ");
+        setTitle("Tarjetas gráficas");
 
         //recogemos los valores pasados de las actividades anteriores para poder crear el recibo
         if (getIntent().getExtras() != null) {

@@ -22,7 +22,6 @@ public class Cpu extends AppCompatActivity {
     //crear las variables
     ArrayList<Componente> listaComponentes;
     RecyclerView recyclerComponentes;
-    TextView titulo;
     DBHelper DB;
 
     @Override
@@ -30,8 +29,8 @@ public class Cpu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_componentes);
 
-        titulo = (TextView) findViewById(R.id.componente);
-        titulo.setText("Procesadores: ");
+        setTitle("Procesadores");
+
         AutoCompleteTextView textOrdenar = (AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
         String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
 

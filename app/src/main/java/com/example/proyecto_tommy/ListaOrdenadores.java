@@ -29,6 +29,8 @@ public class ListaOrdenadores extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_ordenadores);
 
+        setTitle("Mis ordenadores");
+
         DB = new DBHelper(this);
 
         recyclerOrdenador = (RecyclerView) findViewById(R.id.recyclerOrdenador);
@@ -109,24 +111,4 @@ public class ListaOrdenadores extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.zoom_back_in, R.anim.zoom_back_out);
     }
-/*
-    public ArrayList<Componente> getComponentesPc() {
-        Cursor res = DB.rawQuery("select * from componentes where ID='" + idComponente + "'", null);
-
-        while (res.moveToNext()) {
-            int id = res.getInt(0);
-            int imagen = res.getInt(1);
-            String nombreComponente = res.getString(2);
-            String tipo = res.getString(3);
-            double precio = res.getDouble(4);
-            String caracteristicas = res.getString(5);
-
-
-            Componente nuevoComponente = new Componente(id, imagen, nombreComponente, tipo, precio, caracteristicas);
-            listaComponentes.add(nuevoComponente);
-        }
-        return listaComponentes;
-
-    }
-*/
 }
