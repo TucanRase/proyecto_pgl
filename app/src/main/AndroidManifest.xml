@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Proyecto_Tommy">
         <activity
+            android:name=".ComponentesPC"
+            android:exported="false" />
+        <activity
             android:name=".Portada"
             android:theme="@style/Theme.Proyecto_Tommy.NoActionBar" />
         <activity android:name=".InicioProfe" />
@@ -28,6 +31,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

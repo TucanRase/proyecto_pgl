@@ -23,6 +23,7 @@ public class Almacenamiento extends AppCompatActivity {
     RecyclerView recyclerComponentes;
     Componente cpu, ram, gpu, psu;
     TextView titulo;
+    DBHelper DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,8 @@ public class Almacenamiento extends AppCompatActivity {
             psu = getIntent().getExtras().getParcelable("psu");
         }
 
+        DB=new DBHelper(this);
+
         listaComponentes = new ArrayList<>();
         recyclerComponentes = (RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
@@ -49,10 +52,11 @@ public class Almacenamiento extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);
 
-        listaComponentes.add(new Componente(26001, R.drawable.ssd_wb_blue, "Western Digital SSD 1tb", "Almacenamiento", 85.00, "Tipo de disco duro: SSD\nCapacidad: 1Tb\nVelocidad de lectura:560mb/s\nVelociad de escritura: 530mb/s"));
-        listaComponentes.add(new Componente(26002, R.drawable.ssd_wd_m2, "Western Digital SSD M.2 1tb ", "Almacenamiento", 100.00, "Tipo de disco duro: SSD\nCapacidad: 1Tb\nVelocidad de lectura:2000mb/s\nVelociad de escritura: 1700mb/s"));
-        listaComponentes.add(new Componente(26003, R.drawable.ssd_samsung, "Samsung 970 EVO Plus", "Almacenamiento", 150.00, "Tipo de disco duro: SSD NVME\nCapacidad: 1Tb\nVelocidad de lectura:3500mb/s\nVelociad de escritura: 3200mb/s"));
-        listaComponentes.add(new Componente(26004, R.drawable.ssd_aorus, "Gigabyte AORUS 7000s", "Almacenamiento", 190.00, "Tipo de disco duro: SSD NVME\nCapacidad: 1Tb\nVelocidad de lectura:7000mb/s\nVelociad de escritura: 5500mb/s"));
+        DB.insertarComponentes(26001, R.drawable.ssd_wb_blue, "Western Digital SSD 1tb", "ALMACENAMIENTO", 85.00, "Tipo de disco duro: SSD\nCapacidad: 1Tb\nVelocidad de lectura:560mb/s\nVelociad de escritura: 530mb/s");
+        DB.insertarComponentes(26002, R.drawable.ssd_wd_m2, "Western Digital SSD M.2 1tb ", "ALMACENAMIENTO", 100.00, "Tipo de disco duro: SSD\nCapacidad: 1Tb\nVelocidad de lectura:2000mb/s\nVelociad de escritura: 1700mb/s");
+        DB.insertarComponentes(26003, R.drawable.ssd_samsung, "Samsung 970 EVO Plus", "ALMACENAMIENTO", 150.00, "Tipo de disco duro: SSD NVME\nCapacidad: 1Tb\nVelocidad de lectura:3500mb/s\nVelociad de escritura: 3200mb/s");
+        DB.insertarComponentes(26004, R.drawable.ssd_aorus, "Gigabyte AORUS 7000s", "ALMACENAMIENTO", 190.00, "Tipo de disco duro: SSD NVME\nCapacidad: 1Tb\nVelocidad de lectura:7000mb/s\nVelociad de escritura: 5500mb/s");
+        listaComponentes = DB.getComponentes("ALMACENAMIENTO");
 
         AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
 

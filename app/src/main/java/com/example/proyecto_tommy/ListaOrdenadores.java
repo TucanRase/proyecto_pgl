@@ -89,8 +89,10 @@ public class ListaOrdenadores extends AppCompatActivity {
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
-            case R.id.perfil:
+            case R.id.perfil:/*
                 intent = new Intent(ListaOrdenadores.this, Perfil.class);
+                startActivity(intent);*/
+                intent = new Intent(ListaOrdenadores.this, ComponentesPC.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;

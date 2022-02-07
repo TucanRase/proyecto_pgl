@@ -23,9 +23,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase MiDB) {
-        MiDB.execSQL("create Table usuarios(usuario TEXT primary key,contrasena TEXT,tipoUsuario TEXT,curso int)");
-        MiDB.execSQL("create Table componentes(ID INTEGER primary key,imagen int,nombre text,tipo text,precio real,caracteristicas TEXT)");
-        MiDB.execSQL("create Table ordenadores(ID INTEGER primary key,fecha TEXT,precio REAL,cpuId int,ramId int,gpuId int,psuId int,almacenamientoId int,UID TEXT)");
+        MiDB.execSQL("create Table usuarios(usuario TEXT primary key,contrasena TEXT,tipoUsuario TEXT,curso INT)");
+        MiDB.execSQL("create Table componentes(ID INTEGER primary key,imagen INT,nombre TEXT,tipo TEXT,precio REAL,caracteristicas TEXT)");
+        MiDB.execSQL("create Table ordenadores(ID INTEGER primary key,fecha TEXT,precio REAL,cpuId INT,ramId INT,gpuId INT,psuId INT,almacenamientoId INT,UID TEXT)");
 
     }
 
@@ -82,37 +82,18 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Boolean comprobarUsuario(String usuario) {
-        Cursor cursor = MiDB.rawQuery("Select * from usuarios where usuario = ?", new String[]{usuario});
+        Cursor cursor = MiDB.rawQuery("SELECT * FROM usuarios WHERE usuario = ?", new String[]{usuario});
         return cursor.getCount() > 0;
     }
 
     public Boolean comprobarContrasenaUsuario(String usuario, String contrasena) {
-        Cursor cursor = MiDB.rawQuery("Select * from usuarios where usuario = ? and contrasena = ?", new String[]{usuario, contrasena});
+        Cursor cursor = MiDB.rawQuery("SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?", new String[]{usuario, contrasena});
         return cursor.getCount() > 0;
     }
 
     public ArrayList<Componente> getComponentes(String tipoComponente) {
         ArrayList<Componente> listaComponentes = new ArrayList<>();
-        Cursor res = MiDB.rawQuery("Select * from componentes where tipo = ?", new String[]{tipoComponente});
-
-        while (res.moveToNext()) {
-            int id = res.getInt(0);
-            int imagen = res.getInt(1);
-            String nombreComponente = res.getString(2);
-            String tipo = res.getString(3);
-            double precio = res.getDouble(4);
-            String caracteristicas = res.getString(5);
-
-
-            Componente nuevoComponente = new Componente(id, imagen, nombreComponente, tipo, precio, caracteristicas);
-            listaComponentes.add(nuevoComponente);
-        }
-        return listaComponentes;
-    }
-
-    public ArrayList<Componente> getComponentesPorID(String idComponente) {
-        ArrayList<Componente> listaComponentes = new ArrayList<>();
-        Cursor res = MiDB.rawQuery("Select * from componentes where ID = ?", new String[]{idComponente});
+        Cursor res = MiDB.rawQuery("SELECT * FROM componentes WHERE tipo = ?", new String[]{tipoComponente});
 
         while (res.moveToNext()) {
             int id = res.getInt(0);
@@ -148,7 +129,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList<Ordenador> getOrdenadores(String email) {
         ArrayList<Ordenador> listaOrdenadores = new ArrayList<>();
-        Cursor res = MiDB.rawQuery("Select * from ordenadores where UID = ?", new String[]{email});
+        Cursor res = MiDB.rawQuery("SELECT * FROM ordenadores WHERE UID = ?", new String[]{email});
 
         while (res.moveToNext()) {
             int id = res.getInt(0);
@@ -167,4 +148,49 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return listaOrdenadores;
     }
+
+    public int[] getIdsPC(String idOrdenador) {
+        int[] listaIds = new int[5];
+        Cursor res = MiDB.rawQuery("SELECT cpuID,ramID,gpuId,psuID,almacenamientoId FROM ordenadores WHERE ID = ?", new String[]{idOrdenador});
+
+        while (res.moveToNext()) {
+            int cpuID = res.getInt(0);
+            int ramID = res.getInt(1);
+            int gpuId = res.getInt(2);
+            int psuID = res.getInt(3);
+            int almacenamientoId = res.getInt(4);
+
+            listaIds[0]=cpuID;
+            listaIds[1]=ramID;
+            listaIds[2]=gpuId;
+            listaIds[3]=psuID;
+            listaIds[4]=almacenamientoId;
+        }
+        return listaIds;
+    }
+
+    public ArrayList<Componente> getComponentesPc(String idOrdenador){
+        ArrayList<Componente> listaComponentes = new ArrayList<>();
+        int[] listaIds=getIdsPC(idOrdenador);
+        for(Integer id:listaIds){
+            System.out.println(id);
+        }
+        // TODO: 07/02/2022 MIRAR ESTE METODO 
+        Cursor res = MiDB.rawQuery("SELECT * FROM componentes WHERE id = ?", new String[]{String.valueOf(listaIds[0]),String.valueOf(listaIds[1]),String.valueOf(listaIds[2]),String.valueOf(listaIds[3]),String.valueOf(listaIds[4])});
+
+        while (res.moveToNext()) {
+            int id = res.getInt(0);
+            int imagen = res.getInt(1);
+            String nombreComponente = res.getString(2);
+            String tipo = res.getString(3);
+            double precio = res.getDouble(4);
+            String caracteristicas = res.getString(5);
+
+
+            Componente nuevoComponente = new Componente(id, imagen, nombreComponente, tipo, precio, caracteristicas);
+            listaComponentes.add(nuevoComponente);
+        }
+        return listaComponentes;
+    }
+
 }
