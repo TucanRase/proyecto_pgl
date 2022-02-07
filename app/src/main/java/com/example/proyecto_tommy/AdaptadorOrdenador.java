@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,11 +40,12 @@ public class AdaptadorOrdenador extends RecyclerView.Adapter<AdaptadorOrdenador.
     @Override
     public void onBindViewHolder(ViewholderOrdenador holder, int position) {
         holder.txtId.setText("ID:" + listaOrdenadores.get(position).getId());
-        holder.txtPrecio.setText(String.valueOf(listaOrdenadores.get(position).getPrecio())+" €");
+        holder.txtPrecio.setText(String.valueOf(listaOrdenadores.get(position).getPrecio()) + " €");
         holder.txtFecha.setText(listaOrdenadores.get(position).getFecha());
 
         holder.imagenPc.setImageResource(R.drawable.ordenador);
     }
+    
 
     /**
      * Metodo para devolver el tamaño de la lista
@@ -62,6 +64,19 @@ public class AdaptadorOrdenador extends RecyclerView.Adapter<AdaptadorOrdenador.
 
         public ViewholderOrdenador(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(), "Position is " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    return false;
+                }
+            });
             txtId = (TextView) itemView.findViewById(R.id.txtID);
             txtFecha = (TextView) itemView.findViewById(R.id.txtFecha);
             txtPrecio = (TextView) itemView.findViewById(R.id.txtPrecioPC);

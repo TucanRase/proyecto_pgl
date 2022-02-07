@@ -37,7 +37,7 @@
         android:contentDescription="Pulse para añadir un pc"
         android:src="@drawable/plus_drawable"
         android:tooltipText="Añadir un pc"
-        app:backgroundTint="@color/boton" />
+        app:backgroundTint="#29648A" />
 
 
 </FrameLayout>

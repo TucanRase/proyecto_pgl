@@ -90,7 +90,6 @@ public class Registro extends AppCompatActivity {
                         Toast.makeText(Registro.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                         contrasena.setError("Asegúrese de que coinciden las contraseñas");
                         confirmContrasena.setError("Asegúrese de que coinciden las contraseñas");
-
                     }}
                 }
 

@@ -48,7 +48,7 @@ public class Psu extends AppCompatActivity {
         AutoCompleteTextView textOrdenar = (AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
         String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
         DB = new DBHelper(this);
-        // TODO: 22/01/2022 Controlar errores al introducir y limpiar comentarios
+
         DB.insertarComponentes(28001, R.drawable.psu_corsair_850x, "Corsair RM850X psu", "PSU", 110.00, "Potencia de la fuente:850W\nTipo de cableado: Modular\nEficiencia de la fuente:80+Gold\nMarca: Corsair");
         DB.insertarComponentes(28002, R.drawable.psu_evga_850, "EVGA 850G+ psu", "PSU", 95.00, "Potencia de la fuente:850W\nTipo de cableado: Modular\nEficiencia de la fuente:80+Gold\nMarca: EVGA");
         DB.insertarComponentes(28003, R.drawable.psu_rog, "ASUS Rog strix 850G+", "PSU", 120.00, "Potencia de la fuente:850W\nTipo de cableado: Modular\nEficiencia de la fuente:80+Gold\nMarca: Asus Strix");
@@ -58,13 +58,7 @@ public class Psu extends AppCompatActivity {
         //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
         ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);
-/*
-        listaComponentes.add(new Componente(28001, R.drawable.psu_corsair_850x, "Corsair RM850X psu", "PSU", 110.00, "Potencia de la fuente:850W\nTipo de cableado: Modular\nEficiencia de la fuente:80+Gold\nMarca: Corsair"));
-        listaComponentes.add(new Componente(28002, R.drawable.psu_evga_850, "EVGA 850G+ psu", "PSU", 95.00, "Potencia de la fuente:850W\nTipo de cableado: Modular\nEficiencia de la fuente:80+Gold\nMarca: EVGA"));
-        listaComponentes.add(new Componente(28003, R.drawable.psu_rog, "ASUS Rog strix 850G+", "PSU", 120.00, "Potencia de la fuente:850W\nTipo de cableado: Modular\nEficiencia de la fuente:80+Gold\nMarca: Asus Strix"));
-        listaComponentes.add(new Componente(28004, R.drawable.psu_evga_850_no, "EVGA 850BQ", "PSU", 70.00, "Potencia de la fuente:850W\nTipo de cableado: No modular\nEficiencia de la fuente:80+Bronze\nMarca: EVGA"));
 
-       */
         AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
 
         /**

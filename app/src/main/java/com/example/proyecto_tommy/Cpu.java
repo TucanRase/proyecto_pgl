@@ -36,7 +36,7 @@ public class Cpu extends AppCompatActivity {
         String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
 
         DB=new DBHelper(this);
-        // TODO: 22/01/2022 Controlar errores al introducir
+
         DB.insertarComponentes(25001, R.drawable.ryzen_3600, "AMD Ryzen 5 3600", "CPU", 225.00, "Velocidad del procesador: 3.6 GHz \nVelocidad máx procesador: 4.2 GHz \nNúmero de nucleos: 6\nNúmero de hilos:12");
         DB.insertarComponentes(25002, R.drawable.ryzen_5600, "AMD Ryzen 5 5600X", "CPU", 295.00, "Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 6\nNúmero de hilos:12");
         DB.insertarComponentes(25003, R.drawable.ryzen_3700x, "AMD Ryzen 7 3700X", "CPU", 320.00, "Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16");
@@ -51,10 +51,7 @@ public class Cpu extends AppCompatActivity {
         recyclerComponentes = (RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
 
-        //listaComponentes.add(new Componente(25001, R.drawable.ryzen_3600, "AMD Ryzen 5 3600", "CPU", 225.00, "Velocidad del procesador: 3.6 GHz \nVelocidad máx procesador: 4.2 GHz \nNúmero de nucleos: 6\nNúmero de hilos:12"));
-        //listaComponentes.add(new Componente(25002, R.drawable.ryzen_5600, "AMD Ryzen 5 5600X", "CPU", 295.00, "Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 6\nNúmero de hilos:12"));
-        //listaComponentes.add(new Componente(25003, R.drawable.ryzen_3700x, "AMD Ryzen 7 3700X", "CPU", 320.00, "Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16"));
-        //listaComponentes.add(new Componente(25004, R.drawable.ryzen_5700g, "AMD Ryzen 5 5700G", "CPU", 340.00, "Velocidad del procesador: 3.8 GHz \nVelocidad máx procesador: 4.6 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16"));
+
         AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
         /**
          *Este método lo que hace es que al clickar en el dropdown podemos organizar los valores alfabeticamente o por precios

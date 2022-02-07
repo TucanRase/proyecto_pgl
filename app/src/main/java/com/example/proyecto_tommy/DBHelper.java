@@ -3,6 +3,7 @@ package com.example.proyecto_tommy;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -70,7 +71,12 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("tipo", tipo);
         contentValues.put("precio", precio);
         contentValues.put("caracteristicas", caracteristicas);
-        long resultado = MiDB.insert("componentes", null, contentValues);
+        long resultado = -1;
+        try {
+            resultado = MiDB.insertOrThrow("componentes", null, contentValues);
+        } catch (SQLException e) {
+            System.out.println("Este componente ya está en la lista");
+        }
         //se puede usar el "si es menos 1 devuelve false,si  devuelve true" esta linea es la simplificación
         return resultado != -1;
     }
@@ -140,10 +146,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    // TODO: 22/01/2022 Investigar solucion para los ordenadores
     public ArrayList<Ordenador> getOrdenadores(String email) {
         ArrayList<Ordenador> listaOrdenadores = new ArrayList<>();
-        SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = MiDB.rawQuery("Select * from ordenadores where UID = ?", new String[]{email});
 
         while (res.moveToNext()) {

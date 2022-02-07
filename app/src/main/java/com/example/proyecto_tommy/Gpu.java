@@ -44,24 +44,19 @@ public class Gpu extends AppCompatActivity {
         recyclerComponentes = (RecyclerView) findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
         DB = new DBHelper(this);
-        // TODO: 22/01/2022 Controlar errores al introducir y limpiar comentarios
+
         DB.insertarComponentes(22001, R.drawable.rtx_2060_evga, "Nvidia RTX 2060 EVGA KO", "GPU", 525.00, "Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:14000 MHz");
         DB.insertarComponentes(22002, R.drawable.rtx_2060_giga, "Nvidia RTX 2060 Gigabyte Windforce", "GPU", 600.00, "Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1830 MHz");
         DB.insertarComponentes(22003, R.drawable.rtx_2060_msi, "Nvidia RTX 2060 MSI Gaming Z 6G", "GPU", 600.00, "Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1830 MHz");
         DB.insertarComponentes(22004, R.drawable.rtx_2060_asus, "Nvidia RTX 2060 Asus Dual Evo", "GPU", 550.00, "Memoria 6GB GDDR6" + " \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1725 MHz");
         listaComponentes = DB.getComponentes("GPU");
+
         //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
         AutoCompleteTextView textOrdenar = (AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
         String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
         ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);
 
-        /*
-        listaComponentes.add(new Componente(22001, R.drawable.rtx_2060_evga, "Nvidia RTX 2060 EVGA KO", "GPU", 525.00, "Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:14000 MHz"));
-        listaComponentes.add(new Componente(22002, R.drawable.rtx_2060_giga, "Nvidia RTX 2060 Gigabyte Windforce", "GPU", 600.00, "Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1830 MHz"));
-        listaComponentes.add(new Componente(22003, R.drawable.rtx_2060_msi, "Nvidia RTX 2060 MSI Gaming Z 6G", "GPU", 600.00, "Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1830 MHz"));
-        listaComponentes.add(new Componente(22004, R.drawable.rtx_2060_asus, "Nvidia RTX 2060 Asus Dual Evo", "GPU", 550.00, "Memoria 6GB GDDR6" + " \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1725 MHz"));
-        */
         AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
 
         /**

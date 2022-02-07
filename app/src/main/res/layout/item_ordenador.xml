@@ -8,6 +8,7 @@
     android:background="@drawable/btn_redondo"
     android:clickable="true"
     android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     android:padding="5dp">
 
     <ImageView
