@@ -88,13 +88,12 @@ public class AdaptadorOrdenador extends RecyclerView.Adapter<AdaptadorOrdenador.
         }
     }
 
-    public void setOnItemClickListener(onClickListner onclicklistner) {
-        AdaptadorOrdenador.onclicklistner = onclicklistner;
-    }
-
     public interface onClickListner {
         void onItemClick(int position, View v);
         void onItemLongClick(int position, View v);
+    }
+    public void setOnItemClickListener(onClickListner onclicklistner) {
+        AdaptadorOrdenador.onclicklistner = onclicklistner;
     }
 }
 

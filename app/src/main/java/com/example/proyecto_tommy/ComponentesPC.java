@@ -15,6 +15,7 @@ public class ComponentesPC extends AppCompatActivity {
     RecyclerView recycler;
     ArrayList<Componente> listaComponentes=new ArrayList<>();
     DBHelper DB;
+    Ordenador pc1;
 
 
     @Override
@@ -22,7 +23,9 @@ public class ComponentesPC extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_componentes_pc);
 
-        Ordenador pc1=new Ordenador(1,"2022-02-07",1189.0,25002,23001,22002,28003,26001,"a@a.es");
+        if (getIntent().getExtras() != null) {
+            pc1 = getIntent().getExtras().getParcelable("pc");
+        }
 
         setTitle("Componentes del ordenador "+pc1.getId());
 
@@ -34,8 +37,6 @@ public class ComponentesPC extends AppCompatActivity {
 
         AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
         recycler.setAdapter(adapter);
-
-
 
     }
     /**

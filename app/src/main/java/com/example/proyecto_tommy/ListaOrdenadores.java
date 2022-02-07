@@ -1,15 +1,18 @@
 package com.example.proyecto_tommy;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,6 +22,7 @@ public class ListaOrdenadores extends AppCompatActivity {
     //crear las variables
     ArrayList<Ordenador> ordenadores;
     RecyclerView recyclerOrdenador;
+    AdaptadorOrdenador adapter;
     TextView placeholder;
     FloatingActionButton fab;
     Intent intent;
@@ -40,7 +44,7 @@ public class ListaOrdenadores extends AppCompatActivity {
         ordenadores = DB.getOrdenadores(Login.email);
         if (ordenadores.size() > 0) {
             //Establecer el adaptador
-            AdaptadorOrdenador adapter = new AdaptadorOrdenador(this, ordenadores);
+            adapter = new AdaptadorOrdenador(this, ordenadores);
             recyclerOrdenador.setAdapter(adapter);
         } else {
             //establecer aviso de no hay ordenadores
@@ -57,7 +61,51 @@ public class ListaOrdenadores extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+        adapter.setOnItemClickListener(new AdaptadorOrdenador.onClickListner() {
+            @Override
+            public void onItemClick(int position, View v) {
+                Intent i = new Intent(getApplicationContext(), ComponentesPC.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("pc", ordenadores.get(position));
+                i.putExtras(bundle);
+                startActivity(i);
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
+            }
+
+            @Override
+            public void onItemLongClick(int position, View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(ListaOrdenadores.this);
+                alert.setTitle("Eliminar ordenador");
+                alert.setMessage("¿Está seguro de querer eliminar el ordenador con el ID: " + ordenadores.get(position).getId() + "?");
+                alert.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (DB.borrarPc(ordenadores.get(position).getId())){
+                            System.out.println(ordenadores.size());
+                            ordenadores.remove(position);
+                            Toast.makeText(ListaOrdenadores.this, "El ordenador se ha eliminado de su lista de ordenadores.", Toast.LENGTH_SHORT).show();
+                            adapter.notifyItemRemoved(position);
+                        }
+                        else
+                            Toast.makeText(ListaOrdenadores.this, "No se ha podido eliminar el ordenador de su lista.Lo sentimos, inténtelo de nuevo más tarde.", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                alert.show();
+            }
+        });
     }
+
 
     /**
      * Creamos el menú
@@ -91,10 +139,8 @@ public class ListaOrdenadores extends AppCompatActivity {
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
-            case R.id.perfil:/*
+            case R.id.perfil:
                 intent = new Intent(ListaOrdenadores.this, Perfil.class);
-                startActivity(intent);*/
-                intent = new Intent(ListaOrdenadores.this, ComponentesPC.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;

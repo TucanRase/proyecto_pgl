@@ -193,4 +193,8 @@ public class DBHelper extends SQLiteOpenHelper {
         return listaComponentes;
     }
 
+    public boolean borrarPc(int id) {
+        return MiDB.delete("ordenadores", "ID=?", new String[]{String.valueOf(id)}) > 0;
+
+    }
 }
