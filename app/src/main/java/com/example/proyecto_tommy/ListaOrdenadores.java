@@ -46,6 +46,49 @@ public class ListaOrdenadores extends AppCompatActivity {
             //Establecer el adaptador
             adapter = new AdaptadorOrdenador(this, ordenadores);
             recyclerOrdenador.setAdapter(adapter);
+            //Establecer los escuchadores para onclick y longclick
+            adapter.setOnItemClickListener(new AdaptadorOrdenador.onClickListner() {
+                @Override
+                public void onItemClick(int position, View v) {
+                    Intent i = new Intent(getApplicationContext(), ComponentesPC.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("pc", ordenadores.get(position));
+                    i.putExtras(bundle);
+                    startActivity(i);
+                    overridePendingTransition(R.anim.left_in, R.anim.left_out);
+                }
+
+                @Override
+                public void onItemLongClick(int position, View v) {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(ListaOrdenadores.this);
+                    alert.setTitle("Eliminar ordenador");
+                    alert.setMessage("¿Está seguro de querer eliminar el ordenador con el ID: " + ordenadores.get(position).getId() + "?");
+                    alert.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (DB.borrarPc(ordenadores.get(position).getId())) {
+                                System.out.println(ordenadores.size());
+                                ordenadores.remove(position);
+                                Toast.makeText(ListaOrdenadores.this, "El ordenador se ha eliminado de su lista de ordenadores.", Toast.LENGTH_SHORT).show();
+                                adapter.notifyItemRemoved(position);
+                            } else
+                                Toast.makeText(ListaOrdenadores.this, "No se ha podido eliminar el ordenador de su lista.Lo sentimos, inténtelo de nuevo más tarde.", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+                    alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    alert.show();
+                }
+            });
         } else {
             //establecer aviso de no hay ordenadores
             recyclerOrdenador.setVisibility(View.GONE);
@@ -59,48 +102,6 @@ public class ListaOrdenadores extends AppCompatActivity {
                 intent = new Intent(ListaOrdenadores.this, Cpu.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        });
-        adapter.setOnItemClickListener(new AdaptadorOrdenador.onClickListner() {
-            @Override
-            public void onItemClick(int position, View v) {
-                Intent i = new Intent(getApplicationContext(), ComponentesPC.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("pc", ordenadores.get(position));
-                i.putExtras(bundle);
-                startActivity(i);
-                overridePendingTransition(R.anim.left_in, R.anim.left_out);
-            }
-
-            @Override
-            public void onItemLongClick(int position, View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(ListaOrdenadores.this);
-                alert.setTitle("Eliminar ordenador");
-                alert.setMessage("¿Está seguro de querer eliminar el ordenador con el ID: " + ordenadores.get(position).getId() + "?");
-                alert.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (DB.borrarPc(ordenadores.get(position).getId())) {
-                            System.out.println(ordenadores.size());
-                            ordenadores.remove(position);
-                            Toast.makeText(ListaOrdenadores.this, "El ordenador se ha eliminado de su lista de ordenadores.", Toast.LENGTH_SHORT).show();
-                            adapter.notifyItemRemoved(position);
-                        } else
-                            Toast.makeText(ListaOrdenadores.this, "No se ha podido eliminar el ordenador de su lista.Lo sentimos, inténtelo de nuevo más tarde.", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
-                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                alert.show();
             }
         });
     }
@@ -139,7 +140,7 @@ public class ListaOrdenadores extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
             case R.id.perfil:
-                intent = new Intent(ListaOrdenadores.this, Perfil.class);
+                intent = new Intent(ListaOrdenadores.this, Portada.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;

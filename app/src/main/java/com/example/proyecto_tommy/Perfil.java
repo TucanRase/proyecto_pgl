@@ -178,7 +178,6 @@ public class Perfil extends AppCompatActivity {
     public void recogerUsuario() {
         SQLiteDatabase db = DB.getWritableDatabase();
         Cursor res = db.rawQuery("select * from usuarios where usuario='" + Login.email + "'", null);
-        res.close();
         String email = "";
         String tipo = "";
         int curso = 0;

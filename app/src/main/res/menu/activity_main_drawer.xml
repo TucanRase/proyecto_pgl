@@ -10,7 +10,7 @@
                     android:icon="@drawable/lista_drawable"
                     android:title="Mostrar lista de ordenadores" />
                 <item
-                    android:id="@+id/nav_gallery"
+                    android:id="@+id/addPc"
                     android:icon="@drawable/plus_drawable"
                     android:title="Añadir ordenador" />
             </group>

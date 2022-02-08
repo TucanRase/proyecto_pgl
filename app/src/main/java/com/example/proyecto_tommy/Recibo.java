@@ -108,7 +108,6 @@ public class Recibo extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
     /**
      * Método para establecer la animación al pulsar el botón "atrás"
      */
