@@ -60,9 +60,9 @@ public class AdaptadorRecibo extends RecyclerView.Adapter<AdaptadorRecibo.Viewho
 
         public ViewholderRecibo(View itemView) {
             super(itemView);
-            txtID = (TextView) itemView.findViewById(R.id.idProducto);
-            txtNombre = (TextView) itemView.findViewById(R.id.nombreProducto);
-            txtPrecio = (TextView) itemView.findViewById(R.id.precioProducto);
+            txtID = itemView.findViewById(R.id.idProducto);
+            txtNombre = itemView.findViewById(R.id.nombreProducto);
+            txtPrecio = itemView.findViewById(R.id.precioProducto);
 
         }
     }

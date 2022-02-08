@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,7 +38,7 @@ public class Gpu extends AppCompatActivity {
         }
 
         //se crea y añaden los componentes al arraylist además se crea el adapter y se establece
-        recyclerComponentes = (RecyclerView) findViewById(R.id.recycler);
+        recyclerComponentes = findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
         DB = new DBHelper(this);
 
@@ -50,7 +49,7 @@ public class Gpu extends AppCompatActivity {
         listaComponentes = DB.getComponentes("GPU");
 
         //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
-        AutoCompleteTextView textOrdenar = (AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
+        AutoCompleteTextView textOrdenar = findViewById(R.id.dropDownOrdenar);
         String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
         ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);
@@ -136,13 +135,11 @@ public class Gpu extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()) {
-            case R.id.home:
-                intent = new Intent(Gpu.this, ListaOrdenadores.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.home) {
+            intent = new Intent(Gpu.this, ListaOrdenadores.class);
+            startActivity(intent);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

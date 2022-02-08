@@ -63,7 +63,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return resultado != -1;
     }
 
-    public boolean insertarComponentes(int id, int imagen, String nombreComponente, String tipo, double precio, String caracteristicas) {
+    public void insertarComponentes(int id, int imagen, String nombreComponente, String tipo, double precio, String caracteristicas) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("ID", id);
         contentValues.put("imagen", imagen);
@@ -71,29 +71,29 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("tipo", tipo);
         contentValues.put("precio", precio);
         contentValues.put("caracteristicas", caracteristicas);
-        long resultado = -1;
         try {
-            resultado = MiDB.insertOrThrow("componentes", null, contentValues);
+            MiDB.insertOrThrow("componentes", null, contentValues);
         } catch (SQLException e) {
             System.out.println("Este componente ya está en la lista");
         }
-        //se puede usar el "si es menos 1 devuelve false,si  devuelve true" esta linea es la simplificación
-        return resultado != -1;
     }
 
     public Boolean comprobarUsuario(String usuario) {
         Cursor cursor = MiDB.rawQuery("SELECT * FROM usuarios WHERE usuario = ?", new String[]{usuario});
+        cursor.close();
         return cursor.getCount() > 0;
     }
 
     public Boolean comprobarContrasenaUsuario(String usuario, String contrasena) {
         Cursor cursor = MiDB.rawQuery("SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?", new String[]{usuario, contrasena});
+        cursor.close();
         return cursor.getCount() > 0;
     }
 
     public ArrayList<Componente> getComponentes(String tipoComponente) {
         ArrayList<Componente> listaComponentes = new ArrayList<>();
         Cursor res = MiDB.rawQuery("SELECT * FROM componentes WHERE tipo = ?", new String[]{tipoComponente});
+        res.close();
 
         while (res.moveToNext()) {
             int id = res.getInt(0);
@@ -130,6 +130,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<Ordenador> getOrdenadores(String email) {
         ArrayList<Ordenador> listaOrdenadores = new ArrayList<>();
         Cursor res = MiDB.rawQuery("SELECT * FROM ordenadores WHERE UID = ?", new String[]{email});
+        res.close();
 
         while (res.moveToNext()) {
             int id = res.getInt(0);
@@ -152,6 +153,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public int[] getIdsPC(String idOrdenador) {
         int[] listaIds = new int[5];
         Cursor res = MiDB.rawQuery("SELECT cpuID,ramID,gpuId,psuID,almacenamientoId FROM ordenadores WHERE ID = ?", new String[]{idOrdenador});
+        res.close();
 
         while (res.moveToNext()) {
             int cpuID = res.getInt(0);
@@ -175,9 +177,8 @@ public class DBHelper extends SQLiteOpenHelper {
         for (Integer id : listaIds) {
             System.out.println(id);
         }
-        // TODO: 07/02/2022 MIRAR ESTE METODO 
         Cursor res = MiDB.rawQuery("SELECT * FROM componentes WHERE id in(?,?,?,?,?)", new String[]{String.valueOf(listaIds[0]), String.valueOf(listaIds[1]), String.valueOf(listaIds[2]), String.valueOf(listaIds[3]), String.valueOf(listaIds[4])});
-
+        res.close();
         while (res.moveToNext()) {
             int id = res.getInt(0);
             int imagen = res.getInt(1);

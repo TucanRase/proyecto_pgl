@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Objects;
+
 public class Perfil extends AppCompatActivity {
     DBHelper DB;
     Button btnCancelar, btnAceptar, btnEditar, btnEliminar, btnVolver;
@@ -28,24 +30,24 @@ public class Perfil extends AppCompatActivity {
         DB = new DBHelper(this);
 
         //Inicializamos los botones y los inputs
-        btnAceptar = (Button) findViewById(R.id.btnAceptar);
-        btnCancelar = (Button) findViewById(R.id.btnCancelar);
-        btnEditar = (Button) findViewById(R.id.btnEditar);
-        btnEliminar = (Button) findViewById(R.id.btnEliminar);
-        btnVolver = (Button) findViewById(R.id.btnVolver);
-        txtEmail = (TextInputLayout) findViewById(R.id.txtEmail);
-        txtContrasenaP = (TextInputLayout) findViewById(R.id.txtContrasenaP);
-        txtContrasena2 = (TextInputLayout) findViewById(R.id.txtContrasena2);
-        txtTipoP = (TextInputLayout) findViewById(R.id.txtTipoP);
-        txtCursoP = (TextInputLayout) findViewById(R.id.txtCursoP);
+        btnAceptar = findViewById(R.id.btnAceptar);
+        btnCancelar = findViewById(R.id.btnCancelar);
+        btnEditar = findViewById(R.id.btnEditar);
+        btnEliminar = findViewById(R.id.btnEliminar);
+        btnVolver = findViewById(R.id.btnVolver);
+        txtEmail = findViewById(R.id.txtEmail);
+        txtContrasenaP = findViewById(R.id.txtContrasenaP);
+        txtContrasena2 = findViewById(R.id.txtContrasena2);
+        txtTipoP = findViewById(R.id.txtTipoP);
+        txtCursoP = findViewById(R.id.txtCursoP);
 
         recogerUsuario();
 
-        String correo = txtEmail.getEditText().getText().toString().trim();
-        String tipo = txtTipoP.getEditText().getText().toString().trim();
-        String curso = txtCursoP.getEditText().getText().toString();
-        String contrasena1 = txtContrasenaP.getEditText().getText().toString();
-        String contrasena2 = txtContrasena2.getEditText().getText().toString();
+        String correo = Objects.requireNonNull(txtEmail.getEditText()).getText().toString().trim();
+        String tipo = Objects.requireNonNull(txtTipoP.getEditText()).getText().toString().trim();
+        String curso = Objects.requireNonNull(txtCursoP.getEditText()).getText().toString();
+        String contrasena1 = Objects.requireNonNull(txtContrasenaP.getEditText()).getText().toString();
+        String contrasena2 = Objects.requireNonNull(txtContrasena2.getEditText()).getText().toString();
 
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +90,11 @@ public class Perfil extends AppCompatActivity {
                 txtContrasena2.setError(null);
                 txtCursoP.setError(null);
                 Boolean insertado;
-                if (!curso.isEmpty() && Integer.valueOf(curso) > 0)
+                if (!curso.isEmpty() && Integer.parseInt(curso) > 0)
                     if (!contrasena1.isEmpty())
                         if (!contrasena2.isEmpty())
                             if (contrasena1.equals(contrasena2)) {
-                                insertado = DB.updateUsuario(correo, contrasena1, tipo, Integer.valueOf(curso));
+                                insertado = DB.updateUsuario(correo, contrasena1, tipo, Integer.parseInt(curso));
                                 if (insertado)
                                     Toast.makeText(getApplicationContext(), "Sus datos han sido actualizados correctamente", Toast.LENGTH_SHORT).show();
                                 else
@@ -159,14 +161,12 @@ public class Perfil extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()) {
-            case R.id.home:
-                intent = new Intent(Perfil.this, ListaOrdenadores.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.home) {
+            intent = new Intent(Perfil.this, ListaOrdenadores.class);
+            startActivity(intent);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -178,21 +178,20 @@ public class Perfil extends AppCompatActivity {
     public void recogerUsuario() {
         SQLiteDatabase db = DB.getWritableDatabase();
         Cursor res = db.rawQuery("select * from usuarios where usuario='" + Login.email + "'", null);
+        res.close();
         String email = "";
-        String contrasena = "";
         String tipo = "";
         int curso = 0;
         while (res.moveToNext()) {
             email = res.getString(0);
-            contrasena = res.getString(1);
             tipo = res.getString(2);
             curso = res.getInt(3);
 
         }
 
-        txtEmail.getEditText().setText(email);
-        txtTipoP.getEditText().setText(tipo);
-        txtCursoP.getEditText().setText(String.valueOf(curso));
+        Objects.requireNonNull(txtEmail.getEditText()).setText(email);
+        Objects.requireNonNull(txtTipoP.getEditText()).setText(tipo);
+        Objects.requireNonNull(txtCursoP.getEditText()).setText(String.valueOf(curso));
 
     }
 }

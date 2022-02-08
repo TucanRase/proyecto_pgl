@@ -1,13 +1,11 @@
 package com.example.proyecto_tommy;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,7 +40,7 @@ public class AdaptadorOrdenador extends RecyclerView.Adapter<AdaptadorOrdenador.
     @Override
     public void onBindViewHolder(ViewholderOrdenador holder, int position) {
         holder.txtId.setText("ID:" + listaOrdenadores.get(position).getId());
-        holder.txtPrecio.setText(String.valueOf(listaOrdenadores.get(position).getPrecio()) + " €");
+        holder.txtPrecio.setText(listaOrdenadores.get(position).getPrecio() + " €");
         holder.txtFecha.setText(listaOrdenadores.get(position).getFecha());
 
         holder.imagenPc.setImageResource(R.drawable.ordenador);
@@ -68,14 +66,15 @@ public class AdaptadorOrdenador extends RecyclerView.Adapter<AdaptadorOrdenador.
             super(itemView);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
-            txtId = (TextView) itemView.findViewById(R.id.txtID);
-            txtFecha = (TextView) itemView.findViewById(R.id.txtFecha);
-            txtPrecio = (TextView) itemView.findViewById(R.id.txtPrecioPC);
-            imagenPc = (ImageView) itemView.findViewById(R.id.imagenPc);
+            txtId = itemView.findViewById(R.id.txtID);
+            txtFecha = itemView.findViewById(R.id.txtFecha);
+            txtPrecio = itemView.findViewById(R.id.txtPrecioPC);
+            imagenPc = itemView.findViewById(R.id.imagenPc);
             itemView.setOnClickListener(this);
 
 
         }
+
         @Override
         public void onClick(View v) {
             onclicklistner.onItemClick(getAdapterPosition(), v);
@@ -90,8 +89,10 @@ public class AdaptadorOrdenador extends RecyclerView.Adapter<AdaptadorOrdenador.
 
     public interface onClickListner {
         void onItemClick(int position, View v);
+
         void onItemLongClick(int position, View v);
     }
+
     public void setOnItemClickListener(onClickListner onclicklistner) {
         AdaptadorOrdenador.onclicklistner = onclicklistner;
     }

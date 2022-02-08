@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,10 +30,10 @@ public class Cpu extends AppCompatActivity {
 
         setTitle("Procesadores");
 
-        AutoCompleteTextView textOrdenar = (AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
+        AutoCompleteTextView textOrdenar = findViewById(R.id.dropDownOrdenar);
         String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
 
-        DB=new DBHelper(this);
+        DB = new DBHelper(this);
 
         DB.insertarComponentes(25001, R.drawable.ryzen_3600, "AMD Ryzen 5 3600", "CPU", 225.00, "Velocidad del procesador: 3.6 GHz \nVelocidad máx procesador: 4.2 GHz \nNúmero de nucleos: 6\nNúmero de hilos:12");
         DB.insertarComponentes(25002, R.drawable.ryzen_5600, "AMD Ryzen 5 5600X", "CPU", 295.00, "Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 6\nNúmero de hilos:12");
@@ -46,8 +45,8 @@ public class Cpu extends AppCompatActivity {
         textOrdenar.setAdapter(arrayAdapterOrdenar);
 
         //se crea y añaden los componentes al arraylist además se crea el adapter y se establece
-        listaComponentes= DB.getComponentes("CPU");
-        recyclerComponentes = (RecyclerView) findViewById(R.id.recycler);
+        listaComponentes = DB.getComponentes("CPU");
+        recyclerComponentes = findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
 
 
@@ -128,13 +127,11 @@ public class Cpu extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()) {
-            case R.id.home:
-                intent = new Intent(Cpu.this, ListaOrdenadores.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.home) {
+            intent = new Intent(Cpu.this, ListaOrdenadores.class);
+            startActivity(intent);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

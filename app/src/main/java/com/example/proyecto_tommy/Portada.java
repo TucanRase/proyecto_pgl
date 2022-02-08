@@ -1,10 +1,8 @@
 package com.example.proyecto_tommy;
 
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -19,13 +17,12 @@ import com.example.proyecto_tommy.databinding.ActivityPortadaBinding;
 public class Portada extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityPortadaBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityPortadaBinding.inflate(getLayoutInflater());
+        com.example.proyecto_tommy.databinding.ActivityPortadaBinding binding = ActivityPortadaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarPortada.toolbar);

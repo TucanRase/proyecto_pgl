@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class Login extends AppCompatActivity {
     TextInputLayout usuario, contrasena;
@@ -38,8 +38,8 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 usuario.setError(null);
                 contrasena.setError(null);
-                email = usuario.getEditText().getText().toString().trim();
-                String contra = contrasena.getEditText().getText().toString().trim();
+                email = Objects.requireNonNull(usuario.getEditText()).getText().toString().trim();
+                String contra = Objects.requireNonNull(contrasena.getEditText()).getText().toString().trim();
 
                 if (email.isEmpty())
                     usuario.setError("Por favor, introduzca un usuario");

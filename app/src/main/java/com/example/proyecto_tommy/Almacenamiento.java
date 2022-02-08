@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,12 +37,12 @@ public class Almacenamiento extends AppCompatActivity {
             psu = getIntent().getExtras().getParcelable("psu");
         }
 
-        DB=new DBHelper(this);
+        DB = new DBHelper(this);
 
         listaComponentes = new ArrayList<>();
-        recyclerComponentes = (RecyclerView) findViewById(R.id.recycler);
+        recyclerComponentes = findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
-        AutoCompleteTextView textOrdenar = (AutoCompleteTextView) findViewById(R.id.dropDownOrdenar);
+        AutoCompleteTextView textOrdenar = findViewById(R.id.dropDownOrdenar);
         String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
 
         //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
@@ -141,13 +140,11 @@ public class Almacenamiento extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()) {
-            case R.id.home:
-                intent = new Intent(Almacenamiento.this, ListaOrdenadores.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.home) {
+            intent = new Intent(Almacenamiento.this, ListaOrdenadores.class);
+            startActivity(intent);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

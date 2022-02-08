@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class ComponentesPC extends AppCompatActivity {
     RecyclerView recycler;
-    ArrayList<Componente> listaComponentes=new ArrayList<>();
+    ArrayList<Componente> listaComponentes = new ArrayList<>();
     DBHelper DB;
     Ordenador pc1;
 
@@ -27,18 +27,19 @@ public class ComponentesPC extends AppCompatActivity {
             pc1 = getIntent().getExtras().getParcelable("pc");
         }
 
-        setTitle("Componentes del ordenador "+pc1.getId());
+        setTitle("Componentes del ordenador " + pc1.getId());
 
-        DB=new DBHelper(this);
+        DB = new DBHelper(this);
 
-        listaComponentes=DB.getComponentesPc("1");
-        recycler=(RecyclerView) findViewById(R.id.recyclerComponentes);
+        listaComponentes = DB.getComponentesPc("1");
+        recycler = findViewById(R.id.recyclerComponentes);
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
         AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
         recycler.setAdapter(adapter);
 
     }
+
     /**
      * Creamos el menú
      **/
@@ -54,14 +55,12 @@ public class ComponentesPC extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()) {
-            case R.id.home:
-                intent = new Intent(ComponentesPC.this, ListaOrdenadores.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.home) {
+            intent = new Intent(ComponentesPC.this, ListaOrdenadores.class);
+            startActivity(intent);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
 

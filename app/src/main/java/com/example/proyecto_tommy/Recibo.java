@@ -1,7 +1,5 @@
 package com.example.proyecto_tommy;
 
-import static java.lang.Math.round;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,10 +32,10 @@ public class Recibo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recibo);
 
-        subtotal = (TextView) findViewById(R.id.recSubtotal);
-        igic = (TextView) findViewById(R.id.recIgic);
-        total = (TextView) findViewById(R.id.recTotal);
-        btnComprar = (Button) findViewById(R.id.btnComprar);
+        subtotal =  findViewById(R.id.recSubtotal);
+        igic = findViewById(R.id.recIgic);
+        total = findViewById(R.id.recTotal);
+        btnComprar = findViewById(R.id.btnComprar);
         DB = new DBHelper(this);
         //recogemos los valores pasados de las actividades anteriores para poder crear el recibo
         if (getIntent().getExtras() != null) {
@@ -49,7 +47,7 @@ public class Recibo extends AppCompatActivity {
         }
 
         listaComponentes = new ArrayList<>();
-        recyclerRecibo = (RecyclerView) findViewById(R.id.recyclerRecibo);
+        recyclerRecibo = findViewById(R.id.recyclerRecibo);
         recyclerRecibo.setLayoutManager(new LinearLayoutManager(this));
         //se añaden los componentes al arraylist
         listaComponentes.add(cpu);
@@ -103,14 +101,12 @@ public class Recibo extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()) {
-            case R.id.home:
-                intent = new Intent(Recibo.this, ListaOrdenadores.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.home) {
+            intent = new Intent(Recibo.this, ListaOrdenadores.class);
+            startActivity(intent);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

@@ -37,8 +37,8 @@ public class ListaOrdenadores extends AppCompatActivity {
 
         DB = new DBHelper(this);
 
-        recyclerOrdenador = (RecyclerView) findViewById(R.id.recyclerOrdenador);
-        placeholder = (TextView) findViewById(R.id.placeHolder);
+        recyclerOrdenador = findViewById(R.id.recyclerOrdenador);
+        placeholder = findViewById(R.id.placeHolder);
         recyclerOrdenador.setLayoutManager(new LinearLayoutManager(this));
         //se añaden los ordenadores al arraylist
         ordenadores = DB.getOrdenadores(Login.email);
@@ -52,7 +52,7 @@ public class ListaOrdenadores extends AppCompatActivity {
             placeholder.setVisibility(View.VISIBLE);
         }
         // TODO: 13/01/2022 Establecer animación al fab
-        fab = (FloatingActionButton) findViewById(R.id.fabAdd);
+        fab = findViewById(R.id.fabAdd);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,13 +81,12 @@ public class ListaOrdenadores extends AppCompatActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (DB.borrarPc(ordenadores.get(position).getId())){
+                        if (DB.borrarPc(ordenadores.get(position).getId())) {
                             System.out.println(ordenadores.size());
                             ordenadores.remove(position);
                             Toast.makeText(ListaOrdenadores.this, "El ordenador se ha eliminado de su lista de ordenadores.", Toast.LENGTH_SHORT).show();
                             adapter.notifyItemRemoved(position);
-                        }
-                        else
+                        } else
                             Toast.makeText(ListaOrdenadores.this, "No se ha podido eliminar el ordenador de su lista.Lo sentimos, inténtelo de nuevo más tarde.", Toast.LENGTH_SHORT).show();
 
                     }

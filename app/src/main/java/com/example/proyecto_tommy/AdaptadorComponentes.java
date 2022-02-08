@@ -6,14 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class AdaptadorComponentes extends RecyclerView.Adapter<AdaptadorComponentes.ViewholderComponentes> implements View.OnClickListener {
     //crear las variables
@@ -81,10 +77,10 @@ public class AdaptadorComponentes extends RecyclerView.Adapter<AdaptadorComponen
 
         public ViewholderComponentes(View itemView) {
             super(itemView);
-            ivImagen = (ImageView) itemView.findViewById(R.id.ivImagen);
-            txtNombre = (TextView) itemView.findViewById(R.id.txtNombre);
-            txtDescripcion = (TextView) itemView.findViewById(R.id.txtDescripcion);
-            txtPrecio = (TextView) itemView.findViewById(R.id.txtPrecio);
+            ivImagen = itemView.findViewById(R.id.ivImagen);
+            txtNombre = itemView.findViewById(R.id.txtNombre);
+            txtDescripcion = itemView.findViewById(R.id.txtDescripcion);
+            txtPrecio = itemView.findViewById(R.id.txtPrecio);
 
         }
     }
