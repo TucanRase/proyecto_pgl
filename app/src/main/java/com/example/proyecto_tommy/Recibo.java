@@ -102,7 +102,7 @@ public class Recibo extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         if (item.getItemId() == R.id.home) {
-            intent = new Intent(Recibo.this, ListaOrdenadores.class);
+            intent = new Intent(Recibo.this, Portada.class);
             startActivity(intent);
             return true;
         }

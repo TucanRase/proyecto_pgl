@@ -139,7 +139,7 @@ public class Psu extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         if (item.getItemId() == R.id.home) {
-            intent = new Intent(Psu.this, ListaOrdenadores.class);
+            intent = new Intent(Psu.this, Portada.class);
             startActivity(intent);
             return true;
         }

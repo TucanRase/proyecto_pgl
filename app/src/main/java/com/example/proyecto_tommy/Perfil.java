@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -22,7 +24,6 @@ public class Perfil extends AppCompatActivity {
     DBHelper DB;
     Button btnCancelar, btnAceptar, btnEditar, btnEliminar, btnVolver;
     TextInputLayout txtEmail, txtContrasenaP, txtContrasena2, txtTipoP, txtCursoP;
-    String tipo="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,12 @@ public class Perfil extends AppCompatActivity {
         txtTipoP = findViewById(R.id.txtTipoP);
         txtCursoP = findViewById(R.id.txtCursoP);
 
+        AutoCompleteTextView tipoUsuarios = findViewById(R.id.dropTipo);
+        String[] tipos = getResources().getStringArray(R.array.tipoUsuario);
+        //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
+        ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, tipos);
+        tipoUsuarios.setAdapter(arrayAdapterOrdenar);
+
         recogerUsuario();
 
         String correo = Objects.requireNonNull(txtEmail.getEditText()).getText().toString().trim();
@@ -60,6 +67,10 @@ public class Perfil extends AppCompatActivity {
                 txtContrasenaP.setVisibility(View.VISIBLE);
                 txtContrasena2.setVisibility(View.VISIBLE);
                 txtCursoP.setEnabled(true);
+                if (tipo.equals("Profesor")){
+                    txtTipoP.setEnabled(true);
+                    txtTipoP.getEditText().setText("");
+                }
             }
         });
 
@@ -163,7 +174,7 @@ public class Perfil extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         if (item.getItemId() == R.id.home) {
-            intent = new Intent(Perfil.this, ListaOrdenadores.class);
+            intent = new Intent(Perfil.this, Portada.class);
             startActivity(intent);
             return true;
         }
@@ -180,6 +191,7 @@ public class Perfil extends AppCompatActivity {
         SQLiteDatabase db = DB.getWritableDatabase();
         Cursor res = db.rawQuery("select * from usuarios where usuario='" + Login.email + "'", null);
         String email = "";
+        String tipo = "";
         int curso = 0;
         while (res.moveToNext()) {
             email = res.getString(0);

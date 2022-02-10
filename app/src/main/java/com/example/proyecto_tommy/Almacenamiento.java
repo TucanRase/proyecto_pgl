@@ -141,7 +141,7 @@ public class Almacenamiento extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         if (item.getItemId() == R.id.home) {
-            intent = new Intent(Almacenamiento.this, ListaOrdenadores.class);
+            intent = new Intent(Almacenamiento.this, Portada.class);
             startActivity(intent);
             return true;
         }

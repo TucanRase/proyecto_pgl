@@ -56,7 +56,7 @@ public class ComponentesPC extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         if (item.getItemId() == R.id.home) {
-            intent = new Intent(ComponentesPC.this, ListaOrdenadores.class);
+            intent = new Intent(ComponentesPC.this, Portada.class);
             startActivity(intent);
             return true;
         }

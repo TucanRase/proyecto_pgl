@@ -51,14 +51,13 @@
         android:layout_height="wrap_content"
         android:baselineAligned="false"
         android:orientation="horizontal">
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txtTipoP"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
             android:layout_weight="1"
+            android:hint="@string/tipo_de_usuario"
             android:textColorHint="@color/white"
             android:tooltipText="Insertar tipo de usuario"
             app:boxCornerRadiusBottomEnd="20dp"
@@ -66,17 +65,18 @@
             app:boxCornerRadiusTopEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/white"
-            app:errorTextColor="#E72900"
+            app:endIconTint="@color/white"
             app:hintTextColor="@color/white">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <AutoCompleteTextView
+                android:id="@+id/dropTipo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:hint="@string/tipo_de_usuario"
-                android:inputType="number"
+                android:layout_marginEnd="8dp"
+                android:inputType="none"
                 android:textColor="@color/white"
-                android:tooltipText="Ingresar tipo de usuario" />
+                tools:ignore="LabelFor" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

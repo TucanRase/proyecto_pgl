@@ -57,6 +57,10 @@ public class Portada extends AppCompatActivity {
         TextView navTextView = header.findViewById(R.id.emailHeader);
         navTextView.setText(Login.email);
 
+        View home=navigationView.getRootView();
+        TextView bienvenida = home.findViewById(R.id.bienvenida);
+        bienvenida.setText("Bienvenido "+ Login.email +" puede abrir el menu en la esquina superior izquierda");
+
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {

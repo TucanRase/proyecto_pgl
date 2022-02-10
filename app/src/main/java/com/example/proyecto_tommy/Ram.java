@@ -133,7 +133,7 @@ public class Ram extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         if (item.getItemId() == R.id.home) {
-            intent = new Intent(Ram.this, ListaOrdenadores.class);
+            intent = new Intent(Ram.this, Portada.class);
             startActivity(intent);
             return true;
         }

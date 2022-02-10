@@ -56,4 +56,5 @@
     <string name="precio">Precio</string>
     <string name="app_pc">APP PC</string>
     <string name="email_usuario">Email @ usuario</string>
+    <string name="bienvenido_puede_abrir_el_menu_en_la_esquina_superior_izquierda">¡Bienvenido! Puede abrir el menu en la esquina superior izquierda</string>
 </resources>

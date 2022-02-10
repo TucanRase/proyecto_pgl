@@ -16,7 +16,7 @@ public class Login extends AppCompatActivity {
     TextInputLayout usuario, contrasena;
     Button btnIniciar, btnRegistrar;
     DBHelper DB;
-    static String email;
+    public static String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

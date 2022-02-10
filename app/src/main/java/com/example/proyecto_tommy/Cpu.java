@@ -128,7 +128,7 @@ public class Cpu extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         if (item.getItemId() == R.id.home) {
-            intent = new Intent(Cpu.this, ListaOrdenadores.class);
+            intent = new Intent(Cpu.this, Portada.class);
             startActivity(intent);
             return true;
         }

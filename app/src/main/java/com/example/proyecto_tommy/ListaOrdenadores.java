@@ -101,7 +101,7 @@ public class ListaOrdenadores extends AppCompatActivity {
             public void onClick(View view) {
                 intent = new Intent(ListaOrdenadores.this, Cpu.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
             }
         });
     }
