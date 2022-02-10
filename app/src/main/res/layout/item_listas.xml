@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!-- layout del componente a mostrar,además le añadimos el efecto al clicar(clickable y foreground) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,7 +15,7 @@
         android:layout_width="135dp"
         android:layout_height="135dp"
         android:layout_margin="5dp"
-        android:contentDescription="Imagen del componente"
+        android:contentDescription="@string/imagen_del_componente"
         tools:ignore="ImageContrastCheck"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -30,7 +29,7 @@
             android:id="@+id/txtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@string/textview"
             android:textColor="#212121"
             android:textStyle="bold" />
 
@@ -40,14 +39,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="TextView"
+            android:text="@string/textview"
             android:textColor="#212121" />
 
         <TextView
             android:id="@+id/txtPrecio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@string/textview"
             android:textAlignment="textEnd"
             android:textColor="#212121" />
     </LinearLayout>

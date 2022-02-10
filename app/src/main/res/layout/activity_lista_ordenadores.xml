@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="75dp"
         android:layout_marginTop="275dp"
-        android:text="No hay ningún ordenador en tu lista"
+        android:text="@string/no_hay_ning_n_ordenador_en_tu_lista"
         android:textColor="@color/white"
         android:visibility="gone" />
 
@@ -34,10 +34,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
         android:clickable="true"
-        android:contentDescription="Pulse para añadir un pc"
+        android:contentDescription="@string/pulse_para_a_adir_un_pc"
         android:src="@drawable/plus_drawable"
         android:tooltipText="Añadir un pc"
-        app:backgroundTint="#29648A" />
+        app:backgroundTint="#29648A"
+        tools:ignore="RtlHardcoded" />
 
 
 </FrameLayout>

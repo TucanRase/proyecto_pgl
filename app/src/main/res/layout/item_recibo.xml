@@ -15,7 +15,7 @@
         android:gravity="center_vertical"
         android:lines="1"
         android:padding="2dp"
-        android:text="Id"
+        android:text="@string/id"
         android:textSize="16sp" />
 
     <TextView
@@ -26,7 +26,7 @@
         android:background="@drawable/back_clear"
         android:lines="1"
         android:padding="2dp"
-        android:text="Nombre"
+        android:text="@string/nombre"
         android:textAlignment="textStart"
         android:textSize="16sp" />
 
@@ -38,7 +38,7 @@
         android:background="@drawable/back_clear"
         android:lines="1"
         android:padding="2dp"
-        android:text="Precio"
+        android:text="@string/precio"
         android:textAlignment="textEnd"
         android:textSize="16sp" />
 

@@ -22,6 +22,7 @@ public class Perfil extends AppCompatActivity {
     DBHelper DB;
     Button btnCancelar, btnAceptar, btnEditar, btnEliminar, btnVolver;
     TextInputLayout txtEmail, txtContrasenaP, txtContrasena2, txtTipoP, txtCursoP;
+    String tipo="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,7 +180,6 @@ public class Perfil extends AppCompatActivity {
         SQLiteDatabase db = DB.getWritableDatabase();
         Cursor res = db.rawQuery("select * from usuarios where usuario='" + Login.email + "'", null);
         String email = "";
-        String tipo = "";
         int curso = 0;
         while (res.moveToNext()) {
             email = res.getString(0);

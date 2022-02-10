@@ -22,7 +22,7 @@
                 <item
                     android:id="@+id/editarUsuario"
                     android:icon="@drawable/edit_drawable"
-                    android:title="Editar usuario" />
+                    android:title="Ver Perfil" />
                 <item
                     android:id="@+id/cerrarSesionNav"
                     android:icon="@android:drawable/ic_menu_close_clear_cancel"

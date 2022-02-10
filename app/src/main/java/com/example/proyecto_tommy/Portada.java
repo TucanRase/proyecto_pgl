@@ -33,6 +33,8 @@ public class Portada extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setTitle("Inicio");
+
         binding = ActivityPortadaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -50,6 +52,11 @@ public class Portada extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.hamburguesa);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        View header = navigationView.getHeaderView(0);
+        TextView navTextView = header.findViewById(R.id.emailHeader);
+        navTextView.setText(Login.email);
+
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -72,7 +79,7 @@ public class Portada extends AppCompatActivity {
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                                 return true;
-                            case R.id.cerrarSesion:
+                            case R.id.cerrarSesionNav:
                                 intent = new Intent(Portada.this, Login.class);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

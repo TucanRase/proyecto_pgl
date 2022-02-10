@@ -53,7 +53,7 @@ public class Login extends AppCompatActivity {
                     Boolean checkuserpass = DB.comprobarContrasenaUsuario(email, contra);
                     if (checkuserpass) {
                         Toast.makeText(Login.this, "Sesión iniciada correctamente", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), ListaOrdenadores.class);
+                        Intent intent = new Intent(getApplicationContext(), Portada.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
                     } else {

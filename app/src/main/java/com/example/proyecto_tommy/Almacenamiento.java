@@ -68,21 +68,21 @@ public class Almacenamiento extends AppCompatActivity {
                 switch (item) {
                     case "Precio ascendente":
                         listaComponentes.sort(Comparator.comparing(Componente::getPrecio));
-                        recyclerComponentes.removeAllViews();
+                        adapter.notifyDataSetChanged();
                         break;
                     case "Precio descendente":
                         listaComponentes.sort(Comparator.comparing(Componente::getPrecio));
                         Collections.reverse(listaComponentes);
-                        recyclerComponentes.removeAllViews();
+                        adapter.notifyDataSetChanged();
                         break;
                     case "Nombre A-Z":
                         listaComponentes.sort(Comparator.comparing(Componente::getNombre));
-                        recyclerComponentes.removeAllViews();
+                        adapter.notifyDataSetChanged();
                         break;
                     case "Nombre Z-A":
                         listaComponentes.sort(Comparator.comparing(Componente::getNombre));
                         Collections.reverse(listaComponentes);
-                        recyclerComponentes.removeAllViews();
+                        adapter.notifyDataSetChanged();
                         break;
                     default:
                         break;

@@ -13,7 +13,7 @@
         android:id="@+id/emailHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="REGISTRO"
+        android:text="@string/REGISTRO"
         android:textAlignment="center"
         android:textColor="#757575"
         android:textSize="34sp" />
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Tipo de usuario"
+            android:hint="@string/tipo_de_usuario"
             android:textColorHint="@color/white"
             android:tooltipText="Insertar tipo de usuario"
             app:boxCornerRadiusBottomEnd="20dp"
@@ -70,9 +70,10 @@
                 android:id="@+id/dropDownTipos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
                 android:inputType="none"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                tools:ignore="LabelFor" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,12 +97,13 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:hint="Curso"
-                android:inputType="number|textEmailAddress"
+                android:layout_marginStart="8dp"
+                android:hint="@string/curso"
+                android:inputType="number"
                 android:numeric="integer"
                 android:textColor="@color/white"
-                android:tooltipText="Ingresar curso" />
+                android:tooltipText="Ingresar curso"
+                tools:ignore="Deprecated" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -153,7 +155,7 @@
             android:id="@+id/inputConfirmContrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Vuelva a escribir la contraseña"
+            android:hint="@string/vuelva_a_escribir_la_contrase_a"
             android:inputType="textPassword"
             android:textColor="@color/white"
             android:tooltipText="Volver a insertar contraseña" />
@@ -174,10 +176,11 @@
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:background="@drawable/btn_redondo"
-            android:text="Registrar"
+            android:text="@string/registrar"
             android:textColor="#212121"
             android:tooltipText="Completar el registro"
-            app:backgroundTint="@null" />
+            app:backgroundTint="@null"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:id="@+id/btnRegistrar2"
@@ -187,10 +190,11 @@
             android:layout_marginTop="25dp"
             android:layout_weight="1"
             android:background="@drawable/btn_redondo"
-            android:text="Volver"
+            android:text="@string/volver"
             android:textColor="#212121"
             android:tooltipText="Iniciar sesion"
-            app:backgroundTint="@null" />
+            app:backgroundTint="@null"
+            style="?android:attr/buttonBarButtonStyle" />
     </LinearLayout>
 
 </LinearLayout>
