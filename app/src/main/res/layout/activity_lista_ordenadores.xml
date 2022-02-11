@@ -37,7 +37,7 @@
         android:contentDescription="@string/pulse_para_a_adir_un_pc"
         android:src="@drawable/plus_drawable"
         android:tooltipText="Añadir un pc"
-        app:backgroundTint="#29648A"
+        app:backgroundTint="#AAABB8"
         tools:ignore="RtlHardcoded" />
 
 

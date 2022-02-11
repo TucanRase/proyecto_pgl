@@ -66,6 +66,7 @@
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/white"
             app:endIconTint="@color/white"
+            app:endIconMode="dropdown_menu"
             app:hintTextColor="@color/white">
 
             <AutoCompleteTextView
@@ -74,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:inputType="none"
+                android:enabled="false"
                 android:textColor="@color/white"
                 tools:ignore="LabelFor" />
 

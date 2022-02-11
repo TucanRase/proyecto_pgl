@@ -43,6 +43,7 @@ public class Perfil extends AppCompatActivity {
         txtTipoP = findViewById(R.id.txtTipoP);
         txtCursoP = findViewById(R.id.txtCursoP);
 
+
         AutoCompleteTextView tipoUsuarios = findViewById(R.id.dropTipo);
         String[] tipos = getResources().getStringArray(R.array.tipoUsuario);
         //Creamos y establecemos el ArrayAdapter del dropdown con sus valores

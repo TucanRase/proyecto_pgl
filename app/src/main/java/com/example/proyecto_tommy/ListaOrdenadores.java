@@ -105,16 +105,12 @@ public class ListaOrdenadores extends AppCompatActivity {
             }
         });
     }
-
-
     /**
      * Creamos el menú
      **/
-
-    // TODO: 13/01/2022 Cambiar el tooltip del menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.opciones_menu, menu);
+        getMenuInflater().inflate(R.menu.volver_inicio, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -123,30 +119,13 @@ public class ListaOrdenadores extends AppCompatActivity {
      **/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.cerrarSesion:
-                intent = new Intent(ListaOrdenadores.this, Login.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                return true;
-            case R.id.acerca:
-                intent = new Intent(ListaOrdenadores.this, Acerca.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                return true;
-            case R.id.add:
-                intent = new Intent(ListaOrdenadores.this, Cpu.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                return true;
-            case R.id.perfil:
-                intent = new Intent(ListaOrdenadores.this, Perfil.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        Intent intent;
+        if (item.getItemId() == R.id.home) {
+            intent = new Intent(ListaOrdenadores.this, Portada.class);
+            startActivity(intent);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
