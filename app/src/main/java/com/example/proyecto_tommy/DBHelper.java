@@ -124,9 +124,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public Boolean comprobarAdmin(String email) {
+        Cursor cursor = MiDB.rawQuery("SELECT * FROM usuarios WHERE usuario = ? AND tipoUsuario='Profesor'", new String[]{email});
+        return cursor.getCount() > 0;
+    }
+
     public ArrayList<Ordenador> getOrdenadores(String email) {
+        Cursor res;
         ArrayList<Ordenador> listaOrdenadores = new ArrayList<>();
-        Cursor res = MiDB.rawQuery("SELECT * FROM ordenadores WHERE UID = ?", new String[]{email});
+        if(comprobarAdmin(email))
+            res=MiDB.rawQuery("SELECT * FROM ordenadores", null);
+        else
+            res = MiDB.rawQuery("SELECT * FROM ordenadores WHERE UID = ?", new String[]{email});
 
         while (res.moveToNext()) {
             int id = res.getInt(0);
@@ -169,9 +178,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<Componente> getComponentesPc(String idOrdenador) {
         ArrayList<Componente> listaComponentes = new ArrayList<>();
         int[] listaIds = getIdsPC(idOrdenador);
-        for (Integer id : listaIds) {
-            System.out.println(id);
-        }
         Cursor res = MiDB.rawQuery("SELECT * FROM componentes WHERE id in(?,?,?,?,?)", new String[]{String.valueOf(listaIds[0]), String.valueOf(listaIds[1]), String.valueOf(listaIds[2]), String.valueOf(listaIds[3]), String.valueOf(listaIds[4])});
         while (res.moveToNext()) {
             int id = res.getInt(0);

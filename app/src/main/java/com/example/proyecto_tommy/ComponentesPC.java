@@ -31,7 +31,7 @@ public class ComponentesPC extends AppCompatActivity {
 
         DB = new DBHelper(this);
 
-        listaComponentes = DB.getComponentesPc("1");
+        listaComponentes = DB.getComponentesPc(String.valueOf(pc1.getId()));
         recycler = findViewById(R.id.recyclerComponentes);
         recycler.setLayoutManager(new LinearLayoutManager(this));
 

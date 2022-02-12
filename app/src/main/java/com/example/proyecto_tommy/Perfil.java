@@ -24,6 +24,7 @@ public class Perfil extends AppCompatActivity {
     DBHelper DB;
     Button btnCancelar, btnAceptar, btnEditar, btnEliminar, btnVolver;
     TextInputLayout txtEmail, txtContrasenaP, txtContrasena2, txtTipoP, txtCursoP;
+    String correo,tipo,curso,contrasena1,contrasena2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +51,10 @@ public class Perfil extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, tipos);
         tipoUsuarios.setAdapter(arrayAdapterOrdenar);
 
+        tipo = Objects.requireNonNull(txtTipoP.getEditText()).getText().toString().trim();
+
         recogerUsuario();
 
-        String correo = Objects.requireNonNull(txtEmail.getEditText()).getText().toString().trim();
-        String tipo = Objects.requireNonNull(txtTipoP.getEditText()).getText().toString().trim();
-        String curso = Objects.requireNonNull(txtCursoP.getEditText()).getText().toString();
-        String contrasena1 = Objects.requireNonNull(txtContrasenaP.getEditText()).getText().toString();
-        String contrasena2 = Objects.requireNonNull(txtContrasena2.getEditText()).getText().toString();
 
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +69,7 @@ public class Perfil extends AppCompatActivity {
                 if (tipo.equals("Profesor")){
                     txtTipoP.setEnabled(true);
                     txtTipoP.getEditText().setText("");
+                    txtEmail.setEnabled(true);
                 }
             }
         });
@@ -99,6 +98,11 @@ public class Perfil extends AppCompatActivity {
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                correo = Objects.requireNonNull(txtEmail.getEditText()).getText().toString().trim();
+                tipo = Objects.requireNonNull(txtTipoP.getEditText()).getText().toString().trim();
+                curso = Objects.requireNonNull(txtCursoP.getEditText()).getText().toString();
+                contrasena1 = (txtContrasenaP.getEditText()).getText().toString();
+                contrasena2 = Objects.requireNonNull(txtContrasena2.getEditText()).getText().toString();
                 txtContrasenaP.setError(null);
                 txtContrasena2.setError(null);
                 txtCursoP.setError(null);
@@ -109,7 +113,7 @@ public class Perfil extends AppCompatActivity {
                             if (contrasena1.equals(contrasena2)) {
                                 insertado = DB.updateUsuario(correo, contrasena1, tipo, Integer.parseInt(curso));
                                 if (insertado)
-                                    Toast.makeText(getApplicationContext(), "Sus datos han sido actualizados correctamente", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Los datos en la cuenta seleccionada han sido actualizados", Toast.LENGTH_SHORT).show();
                                 else
                                     Toast.makeText(getApplicationContext(), "Ha habido un problema al actualizar los datos. Inténtelo de nuevo", Toast.LENGTH_SHORT).show();
                             } else {

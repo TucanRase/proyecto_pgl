@@ -53,6 +53,7 @@ public class ListaOrdenadores extends AppCompatActivity {
                     Intent i = new Intent(getApplicationContext(), ComponentesPC.class);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("pc", ordenadores.get(position));
+                    System.out.println(ordenadores.get(position).getId());
                     i.putExtras(bundle);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_in, R.anim.left_out);
