@@ -51,9 +51,9 @@ public class Perfil extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, tipos);
         tipoUsuarios.setAdapter(arrayAdapterOrdenar);
 
-        tipo = Objects.requireNonNull(txtTipoP.getEditText()).getText().toString().trim();
-
         recogerUsuario();
+
+        tipo = Objects.requireNonNull(txtTipoP.getEditText()).getText().toString().trim();
 
 
         btnEditar.setOnClickListener(new View.OnClickListener() {
@@ -196,17 +196,17 @@ public class Perfil extends AppCompatActivity {
         SQLiteDatabase db = DB.getWritableDatabase();
         Cursor res = db.rawQuery("select * from usuarios where usuario='" + Login.email + "'", null);
         String email = "";
-        String tipo = "";
+        String tipoU = "";
         int curso = 0;
         while (res.moveToNext()) {
             email = res.getString(0);
-            tipo = res.getString(2);
+            tipoU = res.getString(2);
             curso = res.getInt(3);
 
         }
 
         Objects.requireNonNull(txtEmail.getEditText()).setText(email);
-        Objects.requireNonNull(txtTipoP.getEditText()).setText(tipo);
+        Objects.requireNonNull(txtTipoP.getEditText()).setText(tipoU);
         Objects.requireNonNull(txtCursoP.getEditText()).setText(String.valueOf(curso));
 
     }
