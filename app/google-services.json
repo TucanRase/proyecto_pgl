@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "768059008236",
+    "firebase_url": "https://proyecto-pgl-9d808-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "proyecto-pgl-9d808",
+    "storage_bucket": "proyecto-pgl-9d808.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768059008236:android:096c9e947535280da9f1c9",
+        "android_client_info": {
+          "package_name": "proyecto.tommy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768059008236-3nvgoe5t5m8fe0ah6stv3gsrbvje9aqr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "proyecto.tommy",
+            "certificate_hash": "b4bdda889ae1900abd25fe1b9f1a407f022f8aee"
+          }
+        },
+        {
+          "client_id": "768059008236-2il4lc2sd3ob1i790d1m1cr004lcdijt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn1whhTkE6Mrb3nv9JTsIg72pLeEKMP-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768059008236-2il4lc2sd3ob1i790d1m1cr004lcdijt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

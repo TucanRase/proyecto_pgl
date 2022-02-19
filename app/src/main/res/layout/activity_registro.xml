@@ -165,11 +165,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnRegistrar"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
@@ -179,11 +180,11 @@
             android:text="@string/registrar"
             android:textColor="#212121"
             android:tooltipText="Completar el registro"
-            app:backgroundTint="@null"
-            style="?android:attr/buttonBarButtonStyle" />
+            app:backgroundTint="@null" />
 
         <Button
             android:id="@+id/btnRegistrar2"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -193,8 +194,15 @@
             android:text="@string/volver"
             android:textColor="#212121"
             android:tooltipText="Iniciar sesion"
-            app:backgroundTint="@null"
-            style="?android:attr/buttonBarButtonStyle" />
+            app:backgroundTint="@null" />
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="#FF2E9CCA"
+        android:visibility="gone" />
 
 </LinearLayout>

@@ -40,8 +40,8 @@ public class AdaptadorOrdenador extends RecyclerView.Adapter<AdaptadorOrdenador.
     @Override
     public void onBindViewHolder(ViewholderOrdenador holder, int position) {
         holder.txtId.setText("ID:" + listaOrdenadores.get(position).getId());
-        holder.txtPrecio.setText(listaOrdenadores.get(position).getPrecio() + " €");
-        holder.txtFecha.setText(listaOrdenadores.get(position).getFecha());
+        holder.txtPrecio.setText("Precio total: "+listaOrdenadores.get(position).getPrecio() + " €");
+        holder.txtFecha.setText("Fecha de compra: "+listaOrdenadores.get(position).getFecha());
 
         holder.imagenPc.setImageResource(R.drawable.ordenador);
     }

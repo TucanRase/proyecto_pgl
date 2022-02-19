@@ -20,7 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyecto_tommy.databinding.ActivityPortadaBinding;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Portada extends AppCompatActivity {
 
@@ -84,9 +84,12 @@ public class Portada extends AppCompatActivity {
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                                 return true;
                             case R.id.cerrarSesionNav:
+                                //cerrar sesión firebase
+                                //FirebaseAuth.getInstance().signOut();
                                 intent = new Intent(Portada.this, Login.class);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                //finish();
                                 return true;
                             case R.id.cerrarApp:
                                 Toast.makeText(Portada.this, "Se ha cerrado la aplicación satisfactoriamente", Toast.LENGTH_SHORT).show();
@@ -108,6 +111,15 @@ public class Portada extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //cerrar sesión firebase
+        FirebaseAuth.getInstance().signOut();
+        finish();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     @Override
