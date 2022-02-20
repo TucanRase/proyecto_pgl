@@ -21,7 +21,6 @@
         <activity android:name=".Perfil" />
         <activity android:name=".Recibo" />
         <activity android:name=".Psu" />
-        <activity android:name=".Acerca" />
         <activity android:name=".Ram" />
         <activity android:name=".Almacenamiento" />
         <activity android:name=".Gpu" />
