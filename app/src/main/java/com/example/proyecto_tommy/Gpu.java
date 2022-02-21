@@ -13,16 +13,24 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class Gpu extends AppCompatActivity {
     //crear las variables
-    ArrayList<Componente> listaComponentes;
+    ArrayList<Componente> listaComponentes=new ArrayList<>();
     RecyclerView recyclerComponentes;
     Componente cpu, ram;
-    DBHelper DB;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    AdaptadorComponentes adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,21 +48,34 @@ public class Gpu extends AppCompatActivity {
         //se crea y añaden los componentes al arraylist además se crea el adapter y se establece
         recyclerComponentes = findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
-        DB = new DBHelper(this);
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("componentes");
 
-        DB.insertarComponentes(22001, R.drawable.rtx_2060_evga, "Nvidia RTX 2060 EVGA KO", "GPU", 525.00, "Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:14000 MHz");
-        DB.insertarComponentes(22002, R.drawable.rtx_2060_giga, "Nvidia RTX 2060 Gigabyte Windforce", "GPU", 600.00, "Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1830 MHz");
-        DB.insertarComponentes(22003, R.drawable.rtx_2060_msi, "Nvidia RTX 2060 MSI Gaming Z 6G", "GPU", 600.00, "Memoria 6GB GDDR6 \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1830 MHz");
-        DB.insertarComponentes(22004, R.drawable.rtx_2060_asus, "Nvidia RTX 2060 Asus Dual Evo", "GPU", 550.00, "Memoria 6GB GDDR6" + " \nNúcleos CUDA: 1920\nVelocidad del reloj de la memoria:1725 MHz");
-        listaComponentes = DB.getComponentes("GPU");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                listaComponentes.clear();
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Componente componente = postSnapshot.getValue(Componente.class);
+                    if (componente.getTipo().equals("GPU"))
+                        listaComponentes.add(componente);
+                }
+                adapter = new AdaptadorComponentes(getApplicationContext(), listaComponentes);
+                recyclerComponentes.setAdapter(adapter);
+                activarOnClick();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("La lectura de componentes falló" + databaseError.getMessage());
+            }
+        });
 
         //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
         AutoCompleteTextView textOrdenar = findViewById(R.id.dropDownOrdenar);
         String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
         ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);
-
-        AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
 
         /**
          *Este método lo que hace es que al clickar en el dropdown podemos organizar los valores alfabeticamente o por precios
@@ -88,27 +109,6 @@ public class Gpu extends AppCompatActivity {
                 }
             }
         });
-
-        /**
-         * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
-         * **/
-        adapter.setOnclickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Gpu.this, Psu.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("cpu", cpu);
-                bundle.putParcelable("ram", ram);
-                bundle.putParcelable("gpu", listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
-
-                intent.putExtras(bundle);
-                startActivity(intent);
-                overridePendingTransition(R.anim.left_in, R.anim.left_out);
-
-            }
-        });
-
-        recyclerComponentes.setAdapter(adapter);
     }
 
     /**
@@ -141,5 +141,26 @@ public class Gpu extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void activarOnClick(){
+        /**
+         * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
+         * **/
+        adapter.setOnclickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Gpu.this, Psu.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("cpu", cpu);
+                bundle.putParcelable("ram", ram);
+                bundle.putParcelable("gpu", listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
+
+                intent.putExtras(bundle);
+                startActivity(intent);
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
+
+            }
+        });
     }
 }

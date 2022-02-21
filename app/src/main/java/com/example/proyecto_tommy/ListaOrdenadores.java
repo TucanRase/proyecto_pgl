@@ -15,18 +15,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class ListaOrdenadores extends AppCompatActivity {
     //crear las variables
-    ArrayList<Ordenador> ordenadores;
+    ArrayList<Ordenador> ordenadores = new ArrayList<>();
     RecyclerView recyclerOrdenador;
     AdaptadorOrdenador adapter;
     TextView placeholder;
     FloatingActionButton fab;
     Intent intent;
-    DBHelper DB;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,67 +41,39 @@ public class ListaOrdenadores extends AppCompatActivity {
 
         setTitle("Mis ordenadores");
 
-        DB = new DBHelper(this);
-
         recyclerOrdenador = findViewById(R.id.recyclerOrdenador);
         placeholder = findViewById(R.id.placeHolder);
         recyclerOrdenador.setLayoutManager(new LinearLayoutManager(this));
         //se añaden los ordenadores al arraylist
-        ordenadores = DB.getOrdenadores(LoginFirebase.email);
-        if (ordenadores.size() > 0) {
-            //Establecer el adaptador
-            adapter = new AdaptadorOrdenador(this, ordenadores);
-            recyclerOrdenador.setAdapter(adapter);
-            //Establecer los escuchadores para onclick y longclick
-            adapter.setOnItemClickListener(new AdaptadorOrdenador.onClickListner() {
-                @Override
-                public void onItemClick(int position, View v) {
-                    Intent i = new Intent(getApplicationContext(), ComponentesPC.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("pc", ordenadores.get(position));
-                    System.out.println(ordenadores.get(position).getId());
-                    i.putExtras(bundle);
-                    startActivity(i);
-                    overridePendingTransition(R.anim.left_in, R.anim.left_out);
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("ordenadores");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                ordenadores.clear();
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Ordenador ordenador = postSnapshot.getValue(Ordenador.class);
+                    ordenadores.add(ordenador);
                 }
+                if (ordenadores.size() > 0) {
+                    //Establecer el adaptador
+                    adapter = new AdaptadorOrdenador(getApplicationContext(), ordenadores);
+                    recyclerOrdenador.setAdapter(adapter);
+                    activarOnClick();
 
-                @Override
-                public void onItemLongClick(int position, View v) {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(ListaOrdenadores.this);
-                    alert.setTitle("Eliminar ordenador");
-                    alert.setMessage("¿Está seguro de querer eliminar el ordenador con el ID: " + ordenadores.get(position).getId() + "?");
-                    alert.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (DB.borrarPc(ordenadores.get(position).getId())) {
-                                System.out.println(ordenadores.size());
-                                ordenadores.remove(position);
-                                Toast.makeText(ListaOrdenadores.this, "El ordenador se ha eliminado de su lista de ordenadores.", Toast.LENGTH_SHORT).show();
-                                adapter.notifyItemRemoved(position);
-                            } else
-                                Toast.makeText(ListaOrdenadores.this, "No se ha podido eliminar el ordenador de su lista.Lo sentimos, inténtelo de nuevo más tarde.", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
-
-                    alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-
-                    alert.show();
+                } else {
+                    //establecer aviso de no hay ordenadores
+                    recyclerOrdenador.setVisibility(View.GONE);
+                    placeholder.setVisibility(View.VISIBLE);
                 }
-            });
-        } else {
-            //establecer aviso de no hay ordenadores
-            recyclerOrdenador.setVisibility(View.GONE);
-            placeholder.setVisibility(View.VISIBLE);
-        }
-        // TODO: 13/01/2022 Establecer animación al fab
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("La lectura de ordendadores falló" + databaseError.getMessage());
+            }
+        });
         fab = findViewById(R.id.fabAdd);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +84,7 @@ public class ListaOrdenadores extends AppCompatActivity {
             }
         });
     }
+
     /**
      * Creamos el menú
      **/
@@ -136,5 +115,45 @@ public class ListaOrdenadores extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.zoom_back_in, R.anim.zoom_back_out);
+    }
+
+    public void activarOnClick() {
+        //Establecer los escuchadores para onclick y longclick
+        adapter.setOnItemClickListener(new AdaptadorOrdenador.onClickListner() {
+            @Override
+            public void onItemClick(int position, View v) {
+                Intent i = new Intent(getApplicationContext(), ComponentesPC.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("pc", ordenadores.get(position));
+                System.out.println(ordenadores.get(position).getId());
+                i.putExtras(bundle);
+                startActivity(i);
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
+            }
+
+            @Override
+            public void onItemLongClick(int position, View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(ListaOrdenadores.this);
+                alert.setTitle("Eliminar ordenador");
+                alert.setMessage("¿Está seguro de querer eliminar el ordenador con el ID: " + ordenadores.get(position).getId() + "?");
+                alert.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //borrar pc en firebase
+                    }
+                });
+
+                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                alert.show();
+            }
+        });
     }
 }

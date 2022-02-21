@@ -16,6 +16,10 @@ public class Componente implements Parcelable {
     private Double precio;
     private String caracteristicas;
 
+    public Componente(){
+
+    }
+
     /**
      * Contructor del objeto
      */

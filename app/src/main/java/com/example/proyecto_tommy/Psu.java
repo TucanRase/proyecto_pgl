@@ -13,6 +13,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,7 +28,9 @@ public class Psu extends AppCompatActivity {
     ArrayList<Componente> listaComponentes;
     RecyclerView recyclerComponentes;
     Componente cpu, ram, gpu;
-    DBHelper DB;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    AdaptadorComponentes adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,22 +49,36 @@ public class Psu extends AppCompatActivity {
         //se crea y añaden los componentes al arraylist además se crea el adapter y se establece
         listaComponentes = new ArrayList<>();
         recyclerComponentes = findViewById(R.id.recycler);
-        recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
+        recyclerComponentes.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         AutoCompleteTextView textOrdenar = findViewById(R.id.dropDownOrdenar);
         String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
-        DB = new DBHelper(this);
 
-        DB.insertarComponentes(28001, R.drawable.psu_corsair_850x, "Corsair RM850X psu", "PSU", 110.00, "Potencia de la fuente:850W\nTipo de cableado: Modular\nEficiencia de la fuente:80+Gold\nMarca: Corsair");
-        DB.insertarComponentes(28002, R.drawable.psu_evga_850, "EVGA 850G+ psu", "PSU", 95.00, "Potencia de la fuente:850W\nTipo de cableado: Modular\nEficiencia de la fuente:80+Gold\nMarca: EVGA");
-        DB.insertarComponentes(28003, R.drawable.psu_rog, "ASUS Rog strix 850G+", "PSU", 120.00, "Potencia de la fuente:850W\nTipo de cableado: Modular\nEficiencia de la fuente:80+Gold\nMarca: Asus Strix");
-        DB.insertarComponentes(28004, R.drawable.psu_evga_850_no, "EVGA 850BQ", "PSU", 70.00, "Potencia de la fuente:850W\nTipo de cableado: No modular\nEficiencia de la fuente:80+Bronze\nMarca: EVGA");
-        listaComponentes = DB.getComponentes("PSU");
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("componentes");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                listaComponentes.clear();
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Componente componente = postSnapshot.getValue(Componente.class);
+                    if (componente.getTipo().equals("PSU"))
+                        listaComponentes.add(componente);
+                }
+                adapter = new AdaptadorComponentes(getApplicationContext(), listaComponentes);
+                recyclerComponentes.setAdapter(adapter);
+                activarOnClick();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("La lectura de componentes falló" + databaseError.getMessage());
+            }
+        });
 
         //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
         ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);
-
-        AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
 
         /**
          *Este método lo que hace es que al clickar en el dropdown podemos organizar los valores alfabeticamente o por precios
@@ -90,28 +112,6 @@ public class Psu extends AppCompatActivity {
                 }
             }
         });
-        /**
-         * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
-         * **/
-        adapter.setOnclickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Psu.this, Almacenamiento.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("cpu", cpu);
-                bundle.putParcelable("ram", ram);
-                bundle.putParcelable("gpu", gpu);
-                bundle.putParcelable("psu", listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
-
-                intent.putExtras(bundle);
-                startActivity(intent);
-                overridePendingTransition(R.anim.left_in, R.anim.left_out);
-
-            }
-        });
-
-        recyclerComponentes.setAdapter(adapter);
-
     }
 
     /**
@@ -144,5 +144,27 @@ public class Psu extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void activarOnClick() {
+        /**
+         * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
+         * **/
+        adapter.setOnclickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Psu.this, Almacenamiento.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("cpu", cpu);
+                bundle.putParcelable("ram", ram);
+                bundle.putParcelable("gpu", gpu);
+                bundle.putParcelable("psu", listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
+
+                intent.putExtras(bundle);
+                startActivity(intent);
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
+
+            }
+        });
     }
 }

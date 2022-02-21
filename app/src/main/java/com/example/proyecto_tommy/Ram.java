@@ -13,16 +13,24 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class Ram extends AppCompatActivity {
     //crear las variables
-    ArrayList<Componente> listaComponentes;
+    ArrayList<Componente> listaComponentes=new ArrayList<>();
     RecyclerView recyclerComponentes;
     Componente cpu;
-    DBHelper DB;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    AdaptadorComponentes adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +48,33 @@ public class Ram extends AppCompatActivity {
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
         AutoCompleteTextView textOrdenar = findViewById(R.id.dropDownOrdenar);
         String[] ordenaciones = getResources().getStringArray(R.array.ordenarPor);
-        DB = new DBHelper(this);
 
-        DB.insertarComponentes(23001, R.drawable.ram_corsair, "RAM Corsair Vengeance RGB PRO", "RAM", 89.00, "Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair");
-        DB.insertarComponentes(23002, R.drawable.ram_tridentz, "RAM GSkill Trident Z RGB", "RAM", 99.00, "Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair");
-        DB.insertarComponentes(23003, R.drawable.ram_corsair, "RAM Kingston Hyperx Fury Black", "RAM", 87.00, "Tamaño de memoria: 2x8GB\nVelocidad de memoria:2933MHz\nTipo:DDR4 SDRAM\nMarca: Kingston");
-        DB.insertarComponentes(23004, R.drawable.ram_corsair_dominator, "RAM Corsair Dominator White RGB", "RAM", 120.00, "Tamaño de memoria: 2x8GB\nVelocidad de memoria:3200MHz\nTipo:DDR4 SDRAM\nMarca: Corsair");
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("componentes");
 
-        listaComponentes = DB.getComponentes("RAM");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                listaComponentes.clear();
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Componente componente = postSnapshot.getValue(Componente.class);
+                    if (componente.getTipo().equals("RAM"))
+                        listaComponentes.add(componente);
+                }
+                adapter = new AdaptadorComponentes(getApplicationContext(), listaComponentes);
+                recyclerComponentes.setAdapter(adapter);
+                activarOnClick();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("La lectura de componentes falló" + databaseError.getMessage());
+            }
+        });
 
         //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
         ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);
-
-        AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
 
         /**
          *Este método lo que hace es que al clickar en el dropdown podemos organizar los valores alfabeticamente o por precios
@@ -87,25 +108,6 @@ public class Ram extends AppCompatActivity {
                 }
             }
         });
-        /**
-         * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
-         * **/
-        adapter.setOnclickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Ram.this, Gpu.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("cpu", cpu);
-                bundle.putParcelable("ram", listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
-
-                intent.putExtras(bundle);
-                startActivity(intent);
-                overridePendingTransition(R.anim.left_in, R.anim.left_out);
-
-            }
-        });
-
-        recyclerComponentes.setAdapter(adapter);
     }
 
     /**
@@ -138,5 +140,25 @@ public class Ram extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void activarOnClick() {
+        /**
+         * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
+         * **/
+        adapter.setOnclickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Ram.this, Gpu.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("cpu", cpu);
+                bundle.putParcelable("ram", listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
+
+                intent.putExtras(bundle);
+                startActivity(intent);
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
+
+            }
+        });
     }
 }

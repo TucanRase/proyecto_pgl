@@ -13,6 +13,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,7 +27,9 @@ public class Almacenamiento extends AppCompatActivity {
     ArrayList<Componente> listaComponentes;
     RecyclerView recyclerComponentes;
     Componente cpu, ram, gpu, psu;
-    DBHelper DB;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    AdaptadorComponentes adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +45,6 @@ public class Almacenamiento extends AppCompatActivity {
             psu = getIntent().getExtras().getParcelable("psu");
         }
 
-        DB = new DBHelper(this);
-
         listaComponentes = new ArrayList<>();
         recyclerComponentes = findViewById(R.id.recycler);
         recyclerComponentes.setLayoutManager(new LinearLayoutManager(this));
@@ -49,13 +55,28 @@ public class Almacenamiento extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);
 
-        DB.insertarComponentes(26001, R.drawable.ssd_wb_blue, "Western Digital SSD 1tb", "ALMACENAMIENTO", 85.00, "Tipo de disco duro: SSD\nCapacidad: 1Tb\nVelocidad de lectura:560mb/s\nVelociad de escritura: 530mb/s");
-        DB.insertarComponentes(26002, R.drawable.ssd_wd_m2, "Western Digital SSD M.2 1tb ", "ALMACENAMIENTO", 100.00, "Tipo de disco duro: SSD\nCapacidad: 1Tb\nVelocidad de lectura:2000mb/s\nVelociad de escritura: 1700mb/s");
-        DB.insertarComponentes(26003, R.drawable.ssd_samsung, "Samsung 970 EVO Plus", "ALMACENAMIENTO", 150.00, "Tipo de disco duro: SSD NVME\nCapacidad: 1Tb\nVelocidad de lectura:3500mb/s\nVelociad de escritura: 3200mb/s");
-        DB.insertarComponentes(26004, R.drawable.ssd_aorus, "Gigabyte AORUS 7000s", "ALMACENAMIENTO", 190.00, "Tipo de disco duro: SSD NVME\nCapacidad: 1Tb\nVelocidad de lectura:7000mb/s\nVelociad de escritura: 5500mb/s");
-        listaComponentes = DB.getComponentes("ALMACENAMIENTO");
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("componentes");
 
-        AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                listaComponentes.clear();
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Componente componente = postSnapshot.getValue(Componente.class);
+                    if (componente.getTipo().equals("ALMACENAMIENTO"))
+                        listaComponentes.add(componente);
+                }
+                adapter = new AdaptadorComponentes(getApplicationContext(), listaComponentes);
+                recyclerComponentes.setAdapter(adapter);
+                activarOnClick();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("La lectura de componentes falló" + databaseError.getMessage());
+            }
+        });
 
         /**
          *Este método lo que hace es que al clickar en el dropdown podemos organizar los valores alfabeticamente o por precios
@@ -89,31 +110,6 @@ public class Almacenamiento extends AppCompatActivity {
                 }
             }
         });
-
-        /**
-         * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
-         * **/
-        adapter.setOnclickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //creamos el intent para la proxima actividad, acontinuación el bundle para guardar el objeto y por ultimo lo añadimos para poder enviarlo
-                Intent intent = new Intent(Almacenamiento.this, Recibo.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("cpu", cpu);
-                bundle.putParcelable("ram", ram);
-                bundle.putParcelable("gpu", gpu);
-                bundle.putParcelable("psu", psu);
-                bundle.putParcelable("almacenamiento", listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
-
-                intent.putExtras(bundle);
-                startActivity(intent);
-                overridePendingTransition(R.anim.left_in, R.anim.left_out);
-
-            }
-        });
-
-
-        recyclerComponentes.setAdapter(adapter);
     }
 
     /**
@@ -146,5 +142,29 @@ public class Almacenamiento extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void activarOnClick(){
+        /**
+         * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
+         * **/
+        adapter.setOnclickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //creamos el intent para la proxima actividad, acontinuación el bundle para guardar el objeto y por ultimo lo añadimos para poder enviarlo
+                Intent intent = new Intent(Almacenamiento.this, Recibo.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("cpu", cpu);
+                bundle.putParcelable("ram", ram);
+                bundle.putParcelable("gpu", gpu);
+                bundle.putParcelable("psu", psu);
+                bundle.putParcelable("almacenamiento", listaComponentes.get(recyclerComponentes.getChildAdapterPosition(view)));
+
+                intent.putExtras(bundle);
+                startActivity(intent);
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
+
+            }
+        });
     }
 }
