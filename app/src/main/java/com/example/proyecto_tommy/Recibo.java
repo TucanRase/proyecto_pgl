@@ -75,7 +75,7 @@ public class Recibo extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String fechaCompra = sdf.format(new Date());
 
-                Boolean insertar = DB.insertarOrdenador(fechaCompra, calcularTotal(), cpu.getId(), ram.getId(), gpu.getId(), psu.getId(), almacenamiento.getId(), Login.email);
+                Boolean insertar = DB.insertarOrdenador(fechaCompra, calcularTotal(), cpu.getId(), ram.getId(), gpu.getId(), psu.getId(), almacenamiento.getId(), LoginFirebase.email);
                 if (insertar) {
                     Toast.makeText(getApplicationContext(), "Su ordenador ha sido añadido a su lista", Toast.LENGTH_SHORT).show();
                     startActivity(intent);

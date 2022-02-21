@@ -1,54 +1,62 @@
 package com.example.proyecto_tommy;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Perfil extends AppCompatActivity {
-    DBHelper DB;
     Button btnCancelar, btnAceptar, btnEditar, btnEliminar, btnVolver;
     TextInputLayout txtEmail, txtContrasenaP, txtContrasena2, txtTipoP, txtCursoP;
-    String correo,tipo,curso,contrasena1,contrasena2;
+    String correo, tipo, curso, contrasena1;
     FirebaseFirestore fStore;
     FirebaseAuth fAuth;
+    FirebaseUser user;
     String userId;
+    ProgressBar progreso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
-        DB = new DBHelper(this);
-/*
-        fAuth=FirebaseAuth.getInstance();
-        fStore=FirebaseFirestore.getInstance();
 
-        userId=fAuth.getUid();
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        user = fAuth.getCurrentUser();
+        userId = user.getUid();
+        progreso=findViewById(R.id.progressBar3);
 
-        DocumentReference documentReference=fStore.collection("usuarios").document(userId);*/
-
+        DocumentReference documentReference = fStore.collection("usuarios").document(userId);
 
 
         //Inicializamos los botones y los inputs
@@ -70,23 +78,24 @@ public class Perfil extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, tipos);
         tipoUsuarios.setAdapter(arrayAdapterOrdenar);
 
-       recogerUsuario();
-/*
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                txtEmail.getEditText().setText(value.getString("email"));
-                txtTipoP.getEditText().setText(value.getString("tipo"));
-                txtCursoP.getEditText().setText(value.getString("curso"));
+                try {
+                    txtEmail.getEditText().setText(value.getString("email"));
+                    txtTipoP.getEditText().setText(value.getString("tipo"));
+                    txtCursoP.getEditText().setText(value.getString("curso"));
+                }catch (NullPointerException e){
+                    Log.d(TAG,"El usuario está vacío");
+                }
             }
-        });*/
-
-        tipo = Objects.requireNonNull(txtTipoP.getEditText()).getText().toString().trim();
+        });
 
 
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tipo = Objects.requireNonNull(txtTipoP.getEditText()).getText().toString().trim();
                 btnEditar.setVisibility(View.GONE);
                 btnAceptar.setVisibility(View.VISIBLE);
                 btnCancelar.setVisibility(View.VISIBLE);
@@ -94,7 +103,7 @@ public class Perfil extends AppCompatActivity {
                 txtContrasenaP.setVisibility(View.VISIBLE);
                 txtContrasena2.setVisibility(View.VISIBLE);
                 txtCursoP.setEnabled(true);
-                if (tipo.equals("Profesor")){
+                if (tipo.equals("Profesor")) {
                     txtTipoP.setEnabled(true);
                     txtTipoP.getEditText().setText("");
                     txtEmail.setEnabled(true);
@@ -126,35 +135,9 @@ public class Perfil extends AppCompatActivity {
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                correo = Objects.requireNonNull(txtEmail.getEditText()).getText().toString().trim();
-                tipo = Objects.requireNonNull(txtTipoP.getEditText()).getText().toString().trim();
-                curso = Objects.requireNonNull(txtCursoP.getEditText()).getText().toString();
-                contrasena1 = (txtContrasenaP.getEditText()).getText().toString();
-                contrasena2 = Objects.requireNonNull(txtContrasena2.getEditText()).getText().toString();
-                txtContrasenaP.setError(null);
-                txtContrasena2.setError(null);
-                txtCursoP.setError(null);
-                Boolean insertado;
-                if (!curso.isEmpty() && Integer.parseInt(curso) > 0)
-                    if (!contrasena1.isEmpty())
-                        if (!contrasena2.isEmpty())
-                            if (contrasena1.equals(contrasena2)) {
-                                insertado = DB.updateUsuario(correo, contrasena1, tipo, Integer.parseInt(curso));
-                                if (insertado)
-                                    Toast.makeText(getApplicationContext(), "Los datos en la cuenta seleccionada han sido actualizados", Toast.LENGTH_SHORT).show();
-                                else
-                                    Toast.makeText(getApplicationContext(), "Ha habido un problema al actualizar los datos. Inténtelo de nuevo", Toast.LENGTH_SHORT).show();
-                            } else {
-                                txtContrasenaP.setError("Por favor, compruebe que las contraseñas sean iguales");
-                                txtContrasena2.setError("Por favor, compruebe que las contraseñas sean iguales");
-                            }
-                        else
-                            txtContrasena2.setError("Por favor, introduzca una contraseña válida");
-                    else
-                        txtContrasenaP.setError("Por favor, introduzca una contraseña válida");
-                else
-                    txtCursoP.setError("Por favor, introduzca el curso y asegúrese de que es superior a 0");
-
+                if(validarFormulario()){
+                    insertarDatos();
+                }
             }
         });
 
@@ -168,13 +151,7 @@ public class Perfil extends AppCompatActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (DB.borrarUsuario(correo)) {
-                            Toast.makeText(getApplicationContext(), "Su usuario ha sido eliminado correctamente de la base de datos", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Perfil.this, Login.class);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        } else
-                            Toast.makeText(getApplicationContext(), "No se ha podido eliminar al usuario. Inténtelo de nuevo más tarde", Toast.LENGTH_SHORT).show();
+                        eliminarUsuario();
                     }
                 });
 
@@ -220,22 +197,132 @@ public class Perfil extends AppCompatActivity {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    public void recogerUsuario() {
-        SQLiteDatabase db = DB.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from usuarios where usuario='" + Login.email + "'", null);
-        String email = "";
-        String tipoU = "";
-        int curso = 0;
-        while (res.moveToNext()) {
-            email = res.getString(0);
-            tipoU = res.getString(2);
-            curso = res.getInt(3);
+    public boolean validarFormulario() {
+        Boolean valido = true;
+        String email = Objects.requireNonNull(txtEmail.getEditText()).getText().toString().trim();
+        if (email.isEmpty()) {
+            txtEmail.setError("Por favor, introduzca un usuario");
+            valido = false;
+        } else
+            txtEmail.setError(null);
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            txtEmail.setError("Por favor, introduzca un email válido");
+            valido = false;
+        } else
+            txtEmail.setError(null);
 
+        String contra = Objects.requireNonNull(txtContrasenaP.getEditText()).getText().toString().trim();
+        if (contra.isEmpty()) {
+            txtContrasenaP.setError("Por favor, introduzca una contraseña");
+            valido = false;
+        } else
+            txtContrasenaP.setError(null);
+
+        String confirmContra = Objects.requireNonNull(txtContrasena2.getEditText()).getText().toString().trim();
+        if (confirmContra.isEmpty()) {
+            txtContrasena2.setError("Por favor, vuelva a introducir la contraseña");
+            valido = false;
+        } else
+            txtContrasena2.setError(null);
+
+        String tipo = Objects.requireNonNull(txtTipoP.getEditText()).getText().toString().trim();
+        if (tipo.isEmpty()) {
+            txtTipoP.setError("Por favor, introduzca una contraseña");
+            valido = false;
+        } else
+            txtTipoP.setError(null);
+
+        String curso = Objects.requireNonNull(txtCursoP.getEditText()).getText().toString().trim();
+        if (curso.isEmpty() && Integer.parseInt(curso) > 0) {
+            txtCursoP.setError("Por favor, introduzca el curso y asegúrese de que es mayor a 0");
+            valido = false;
+        } else
+            txtCursoP.setError(null);
+        if (!confirmContra.equals(contra)) {
+            txtContrasena2.setError("Ambas contraseñas tienen que ser iguales");
+            txtContrasenaP.setError("Ambas contraseñas tienen que ser iguales");
+            valido = false;
+        } else {
+            txtContrasena2.setError(null);
+            txtContrasenaP.setError(null);
         }
+        if (contra.length() < 6) {
+            txtContrasenaP.setError("La contraseña tiene que tener mínimo 6 caracteres");
+            valido = false;
+        } else
+            txtContrasenaP.setError(null);
 
-        Objects.requireNonNull(txtEmail.getEditText()).setText(email);
-        Objects.requireNonNull(txtTipoP.getEditText()).setText(tipoU);
-        Objects.requireNonNull(txtCursoP.getEditText()).setText(String.valueOf(curso));
+        return valido;
+    }
 
+    public void insertarDatos() {
+        progreso.setVisibility(View.VISIBLE);
+        correo = Objects.requireNonNull(txtEmail.getEditText()).getText().toString().trim();
+        tipo = Objects.requireNonNull(txtTipoP.getEditText()).getText().toString().trim();
+        curso = Objects.requireNonNull(txtCursoP.getEditText()).getText().toString();
+        contrasena1 = (txtContrasenaP.getEditText()).getText().toString();
+
+        userId = fAuth.getCurrentUser().getUid();
+        DocumentReference documentReference = fStore.collection("usuarios").document(userId);
+        Map<String, Object> usuario = new HashMap<>();
+        usuario.put("email", correo);
+        usuario.put("tipo", tipo);
+        usuario.put("curso", curso);
+
+        user.updatePassword(contrasena1).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG,"no se ha podido actualizar los datos"+e.getMessage());
+            }
+        }).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                documentReference.set(usuario).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "onSuccess: perfil de usuario actualizado para " + userId);
+                        Toast.makeText(Perfil.this, "Sus datos han sido actualizados correctamente", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: " + e.getMessage());
+                        Toast.makeText(Perfil.this, "Los datos del usuario no se han podido actualizar."+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+        progreso.setVisibility(View.GONE);
+    }
+
+    public void eliminarUsuario(){
+        progreso.setVisibility(View.VISIBLE);
+        DocumentReference documentReference = fStore.collection("usuarios").document(userId);
+        fAuth.getCurrentUser().delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(Perfil.this, "El usuario se ha eliminado correctamente.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Perfil.this, LoginFirebase.class);
+                        fAuth.signOut();
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Perfil.this, "No se ha podido eliminar el usuario", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Perfil.this, "No se ha podido eliminar el usuario", Toast.LENGTH_SHORT).show();
+            }
+        });
+        progreso.setVisibility(View.GONE);
     }
 }

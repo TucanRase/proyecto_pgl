@@ -22,10 +22,10 @@
         android:id="@+id/placeHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="275dp"
+        android:layout_gravity="center_horizontal|center_vertical"
         android:text="@string/no_hay_ning_n_ordenador_en_tu_lista"
         android:textColor="@color/white"
+        android:textSize="24sp"
         android:visibility="gone" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -242,4 +242,12 @@
         android:visibility="visible"
         app:backgroundTint="@null" />
 
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="#FF2E9CCA"
+        android:visibility="gone" />
+
 </LinearLayout>

@@ -41,7 +41,7 @@ public class ListaOrdenadores extends AppCompatActivity {
         placeholder = findViewById(R.id.placeHolder);
         recyclerOrdenador.setLayoutManager(new LinearLayoutManager(this));
         //se añaden los ordenadores al arraylist
-        ordenadores = DB.getOrdenadores(Login.email);
+        ordenadores = DB.getOrdenadores(LoginFirebase.email);
         if (ordenadores.size() > 0) {
             //Establecer el adaptador
             adapter = new AdaptadorOrdenador(this, ordenadores);

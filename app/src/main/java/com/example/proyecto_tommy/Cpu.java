@@ -1,17 +1,26 @@
 package com.example.proyecto_tommy;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +31,8 @@ public class Cpu extends AppCompatActivity {
     ArrayList<Componente> listaComponentes;
     RecyclerView recyclerComponentes;
     DBHelper DB;
+    /*FirebaseDatabase database;
+    DatabaseReference myRef;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +50,25 @@ public class Cpu extends AppCompatActivity {
         DB.insertarComponentes(25002, R.drawable.ryzen_5600, "AMD Ryzen 5 5600X", "CPU", 295.00, "Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 6\nNúmero de hilos:12");
         DB.insertarComponentes(25003, R.drawable.ryzen_3700x, "AMD Ryzen 7 3700X", "CPU", 320.00, "Velocidad del procesador: 3.7 GHz \nVelocidad máx procesador: 4.4 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16");
         DB.insertarComponentes(25004, R.drawable.ryzen_5700g, "AMD Ryzen 5 5700G", "CPU", 340.00, "Velocidad del procesador: 3.8 GHz \nVelocidad máx procesador: 4.6 GHz\nNúmero de nucleos: 8\nNúmero de hilos:16");
+        //intento recoger cpu firebase
+        /*database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("componentes");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Value is: " + value);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+*/
         //Creamos y establecemos el ArrayAdapter del dropdown con sus valores
         ArrayAdapter<String> arrayAdapterOrdenar = new ArrayAdapter<>(getApplicationContext(), R.layout.item_dropdown, ordenaciones);
         textOrdenar.setAdapter(arrayAdapterOrdenar);

@@ -70,7 +70,7 @@ public class Login extends AppCompatActivity {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), LoginFirebase.class);
+                Intent intent = new Intent(getApplicationContext(), Registro.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
             }

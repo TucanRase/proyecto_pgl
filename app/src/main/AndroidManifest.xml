@@ -12,12 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Proyecto_Tommy">
         <activity android:name=".RegistroFire" />
-        <activity android:name=".LoginFirebase" />
+        <activity
+            android:name=".LoginFirebase"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ComponentesPC" />
         <activity
             android:name=".Portada"
             android:theme="@style/Theme.Proyecto_Tommy.NoActionBar" />
-        <activity android:name=".InicioProfe" />
         <activity android:name=".Perfil" />
         <activity android:name=".Recibo" />
         <activity android:name=".Psu" />
@@ -27,15 +33,7 @@
         <activity android:name=".ListaOrdenadores" />
         <activity android:name=".Cpu" />
         <activity android:name=".Registro" />
-        <activity
-            android:name=".Login"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Login" />
     </application>
 
 </manifest>

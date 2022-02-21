@@ -55,11 +55,11 @@ public class Portada extends AppCompatActivity {
 
         View header = navigationView.getHeaderView(0);
         TextView navTextView = header.findViewById(R.id.emailHeader);
-        navTextView.setText(Login.email);
+        navTextView.setText(LoginFirebase.email);
 
         View home=navigationView.getRootView();
         TextView bienvenida = home.findViewById(R.id.bienvenida);
-        bienvenida.setText("Bienvenido "+ Login.email +" puede abrir el menu en la esquina superior izquierda");
+        bienvenida.setText("Bienvenido "+ LoginFirebase.email +" puede abrir el menu en la esquina superior izquierda");
 
 
         navigationView.setNavigationItemSelectedListener(
@@ -84,12 +84,11 @@ public class Portada extends AppCompatActivity {
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                                 return true;
                             case R.id.cerrarSesionNav:
-                                //cerrar sesión firebase
-                                //FirebaseAuth.getInstance().signOut();
-                                intent = new Intent(Portada.this, Login.class);
+                                FirebaseAuth.getInstance().signOut();
+                                intent = new Intent(Portada.this, LoginFirebase.class);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                                //finish();
+                                finish();
                                 return true;
                             case R.id.cerrarApp:
                                 Toast.makeText(Portada.this, "Se ha cerrado la aplicación satisfactoriamente", Toast.LENGTH_SHORT).show();

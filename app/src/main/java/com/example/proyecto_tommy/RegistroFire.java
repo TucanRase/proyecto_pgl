@@ -75,7 +75,6 @@ public class RegistroFire extends AppCompatActivity {
             public void onClick(View view) {
                 String email = Objects.requireNonNull(usuario.getEditText()).getText().toString().trim();
                 String contra = Objects.requireNonNull(contrasena.getEditText()).getText().toString().trim();
-                String confirmContra = Objects.requireNonNull(confirmContrasena.getEditText()).getText().toString().trim();
                 String tipo = Objects.requireNonNull(txtTipo.getEditText()).getText().toString().trim();
                 String curso = Objects.requireNonNull(txtCurso.getEditText()).getText().toString().trim();
                 progreso.setVisibility(View.VISIBLE);

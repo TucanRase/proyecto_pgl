@@ -76,7 +76,7 @@ public class Registro extends AppCompatActivity {
                             if (!comprobarUsuario) {
                                 Boolean insertar = DB.insertarDatosUsuario(email, contra, tipo, Integer.parseInt(curso));
                                 if (insertar) {
-                                    Login.email = email;
+                                    LoginFirebase.email = email;
                                     Toast.makeText(Registro.this, "Registrado correctamente", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), Portada.class);
                                     startActivity(intent);
