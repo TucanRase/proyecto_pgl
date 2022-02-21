@@ -129,32 +129,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return cursor.getCount() > 0;
     }
 
-    public ArrayList<Ordenador> getOrdenadores(String email) {
-        Cursor res;
-        ArrayList<Ordenador> listaOrdenadores = new ArrayList<>();
-        if(comprobarAdmin(email))
-            res=MiDB.rawQuery("SELECT * FROM ordenadores", null);
-        else
-            res = MiDB.rawQuery("SELECT * FROM ordenadores WHERE UID = ?", new String[]{email});
-
-        while (res.moveToNext()) {
-            int id = res.getInt(0);
-            String fecha = res.getString(1);
-            double precio = res.getDouble(2);
-            int cpuId = res.getInt(3);
-            int ramId = res.getInt(4);
-            int gpuId = res.getInt(5);
-            int psuId = res.getInt(6);
-            int almacenamientoId = res.getInt(7);
-            String UID = res.getString(8);
-
-
-            Ordenador nuevoOrdenador = new Ordenador(id, fecha, precio, cpuId, ramId, gpuId, psuId, almacenamientoId, UID);
-            listaOrdenadores.add(nuevoOrdenador);
-        }
-        return listaOrdenadores;
-    }
-
     public int[] getIdsPC(String idOrdenador) {
         int[] listaIds = new int[5];
         Cursor res = MiDB.rawQuery("SELECT cpuID,ramID,gpuId,psuID,almacenamientoId FROM ordenadores WHERE ID = ?", new String[]{idOrdenador});

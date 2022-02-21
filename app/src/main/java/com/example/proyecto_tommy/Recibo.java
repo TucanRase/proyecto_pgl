@@ -1,5 +1,6 @@
 package com.example.proyecto_tommy;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,18 +31,18 @@ public class Recibo extends AppCompatActivity {
     Componente cpu, ram, gpu, psu, almacenamiento;
     TextView subtotal, igic, total;
     Button btnComprar;
-    DBHelper DB;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recibo);
 
-        subtotal =  findViewById(R.id.recSubtotal);
+        subtotal = findViewById(R.id.recSubtotal);
         igic = findViewById(R.id.recIgic);
         total = findViewById(R.id.recTotal);
         btnComprar = findViewById(R.id.btnComprar);
-        DB = new DBHelper(this);
         //recogemos los valores pasados de las actividades anteriores para poder crear el recibo
         if (getIntent().getExtras() != null) {
             cpu = getIntent().getExtras().getParcelable("cpu");
@@ -74,14 +80,22 @@ public class Recibo extends AppCompatActivity {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String fechaCompra = sdf.format(new Date());
-
-                Boolean insertar = DB.insertarOrdenador(fechaCompra, calcularTotal(), cpu.getId(), ram.getId(), gpu.getId(), psu.getId(), almacenamiento.getId(), LoginFirebase.email);
-                if (insertar) {
-                    Toast.makeText(getApplicationContext(), "Su ordenador ha sido añadido a su lista", Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                } else
-                    Toast.makeText(getApplicationContext(), "Algo ha ido mal en la compra, no se ha podido finalizar. Inténtelo de nuevo", Toast.LENGTH_LONG).show();
+                database = FirebaseDatabase.getInstance();
+                String id =database.getReference().child("ordenadores").push().getKey();
+                Ordenador ordenador=new Ordenador(id,fechaCompra, calcularTotal(), cpu.getId(), ram.getId(), gpu.getId(), psu.getId(), almacenamiento.getId(), LoginFirebase.email);
+                database.getReference().child("ordenadores").push().setValue(ordenador).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(getApplicationContext(), "Su ordenador ha sido añadido a su lista", Toast.LENGTH_SHORT).show();
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Algo ha ido mal en la compra, no se ha podido finalizar. Inténtelo de nuevo", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
     }
@@ -108,6 +122,7 @@ public class Recibo extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     /**
      * Método para establecer la animación al pulsar el botón "atrás"
      */

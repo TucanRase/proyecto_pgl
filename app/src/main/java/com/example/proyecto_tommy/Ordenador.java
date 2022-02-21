@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Clase ordenador para guardar los componentes
  **/
 public class Ordenador implements Parcelable {
-    private int id;
+    private String id;
     private String fecha;
     private double precio;
     private int cpu;
@@ -17,7 +17,7 @@ public class Ordenador implements Parcelable {
     private int almacenamiento;
     private String UID;
 
-    public Ordenador(int id, String fecha, double precio, int cpu, int ram, int gpu, int psu, int almacenamiento, String UID) {
+    public Ordenador(String id, String fecha, double precio, int cpu, int ram, int gpu, int psu, int almacenamiento, String UID) {
         this.id = id;
         this.fecha = fecha;
         this.precio = precio;
@@ -29,8 +29,21 @@ public class Ordenador implements Parcelable {
         this.UID = UID;
     }
 
+    public Ordenador(){}
+
+    public Ordenador(String fecha, double precio, int cpu, int ram, int gpu, int psu, int almacenamiento, String UID) {
+        this.fecha = fecha;
+        this.precio = precio;
+        this.cpu = cpu;
+        this.ram = ram;
+        this.gpu = gpu;
+        this.psu = psu;
+        this.almacenamiento = almacenamiento;
+        this.UID = UID;
+    }
+
     protected Ordenador(Parcel in) {
-        id = in.readInt();
+        id = in.readString();
         fecha = in.readString();
         precio = in.readDouble();
         cpu = in.readInt();
@@ -53,11 +66,11 @@ public class Ordenador implements Parcelable {
         }
     };
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -132,7 +145,7 @@ public class Ordenador implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
+        parcel.writeString(id);
         parcel.writeString(fecha);
         parcel.writeDouble(precio);
         parcel.writeInt(cpu);
