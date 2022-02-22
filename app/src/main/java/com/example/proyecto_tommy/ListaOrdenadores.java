@@ -1,25 +1,40 @@
 package com.example.proyecto_tommy;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
@@ -32,7 +47,12 @@ public class ListaOrdenadores extends AppCompatActivity {
     FloatingActionButton fab;
     Intent intent;
     FirebaseDatabase database;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    FirebaseUser user;
     DatabaseReference myRef;
+    String userId,tipo,email;
+    CardView cargando;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +62,52 @@ public class ListaOrdenadores extends AppCompatActivity {
         setTitle("Mis ordenadores");
 
         recyclerOrdenador = findViewById(R.id.recyclerOrdenador);
+        cargando=findViewById(R.id.cargando);
         placeholder = findViewById(R.id.placeHolder);
         recyclerOrdenador.setLayoutManager(new LinearLayoutManager(this));
         //se añaden los ordenadores al arraylist
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("ordenadores");
 
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        user = fAuth.getCurrentUser();
+        userId = user.getUid();
+        email = user.getEmail();
+
+        DocumentReference documentReference = fStore.collection("usuarios").document(userId);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                cargando.setVisibility(View.VISIBLE);
+                try {
+                    tipo = value.getString("tipo");
+                } catch (NullPointerException e) {
+                    Log.d(TAG, "El usuario está vacío");
+                }
+            }
+        });
+        try {
+            cargando.setVisibility(View.VISIBLE);
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 ordenadores.clear();
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    Ordenador ordenador = postSnapshot.getValue(Ordenador.class);
-                    ordenadores.add(ordenador);
+                if (tipo.equals("Profesor")) {
+                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                        Ordenador ordenador = postSnapshot.getValue(Ordenador.class);
+                        ordenadores.add(ordenador);
+                    }
+                }else{
+                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                        Ordenador ordenador = postSnapshot.getValue(Ordenador.class);
+                        if(ordenador.getUID().equals(email))
+                            ordenadores.add(ordenador);
+                    }
                 }
                 if (ordenadores.size() > 0) {
                     //Establecer el adaptador
@@ -67,6 +120,7 @@ public class ListaOrdenadores extends AppCompatActivity {
                     recyclerOrdenador.setVisibility(View.GONE);
                     placeholder.setVisibility(View.VISIBLE);
                 }
+                cargando.setVisibility(View.GONE);
             }
 
             @Override
@@ -140,7 +194,19 @@ public class ListaOrdenadores extends AppCompatActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //borrar pc en firebase
+                        database.getReference("ordenadores").child(ordenadores.get(position).getId()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+//                                Toast.makeText(ListaOrdenadores.this, "Ordenador eliminado correctamente de la lista", Toast.LENGTH_SHORT).show();
+//                                ordenadores.remove(position);
+//                                adapter.notifyItemRemoved(position);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(ListaOrdenadores.this, "No se ha podido eliminar el ordenador de la lista", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 });
 

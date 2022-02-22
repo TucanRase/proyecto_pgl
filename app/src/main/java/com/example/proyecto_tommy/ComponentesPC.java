@@ -8,14 +8,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.google.android.gms.common.util.ArrayUtils;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class ComponentesPC extends AppCompatActivity {
     RecyclerView recycler;
     ArrayList<Componente> listaComponentes = new ArrayList<>();
-    DBHelper DB;
     Ordenador pc1;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    AdaptadorComponentes adapter;
 
 
     @Override
@@ -27,15 +37,38 @@ public class ComponentesPC extends AppCompatActivity {
             pc1 = getIntent().getExtras().getParcelable("pc");
         }
 
-        setTitle("Componentes del ordenador " + pc1.getId());
+        setTitle("Componentes del ordenador");
 
-        DB = new DBHelper(this);
-
-        listaComponentes = DB.getComponentesPc(String.valueOf(pc1.getId()));
         recycler = findViewById(R.id.recyclerComponentes);
         recycler.setLayoutManager(new LinearLayoutManager(this));
+        int[] listaIds = new int[5];
+        listaIds[0] = pc1.getCpu();
+        listaIds[1] = pc1.getAlmacenamiento();
+        listaIds[2] = pc1.getGpu();
+        listaIds[3] = pc1.getRam();
+        listaIds[4] = pc1.getPsu();
 
-        AdaptadorComponentes adapter = new AdaptadorComponentes(this, listaComponentes);
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("componentes");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                listaComponentes.clear();
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Componente componente = postSnapshot.getValue(Componente.class);
+                    if (ArrayUtils.contains(listaIds, componente.getId()))
+                        listaComponentes.add(componente);
+                }
+                adapter = new AdaptadorComponentes(getApplicationContext(), listaComponentes);
+                recycler.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("La lectura de ordenadores falló" + databaseError.getMessage());
+            }
+        });
         recycler.setAdapter(adapter);
 
     }

@@ -83,6 +83,7 @@ public class RegistroFire extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                LoginFirebase.email=email;
                                 Toast.makeText(RegistroFire.this, "Usuario creado satisfactoriamente", Toast.LENGTH_SHORT).show();
                                 userID = mAuth.getCurrentUser().getUid();
                                 DocumentReference documentReference = fStore.collection("usuarios").document(userID);

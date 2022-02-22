@@ -168,42 +168,50 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilDir"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:boxCornerRadiusBottomEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusTopStart="8dp">
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDirx"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Dirección"
-            android:inputType="text"
-            android:textColorHint="#757575" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilDirx"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxCornerRadiusBottomEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusTopStart="8dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:hint="Localidad"
+                android:inputType="text"
+                android:textColorHint="#757575" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDir"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Localidad"
-            android:inputType="text"
-            android:textColorHint="#757575" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="16dp"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dirección"
+                android:inputType="text"
+                android:textColorHint="#757575" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnComprar"
