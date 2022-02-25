@@ -106,7 +106,6 @@ public class Perfil extends AppCompatActivity {
                 if (tipo.equals("Profesor")) {
                     txtTipoP.setEnabled(true);
                     txtTipoP.getEditText().setText("");
-                    txtEmail.setEnabled(true);
                 }
             }
         });
