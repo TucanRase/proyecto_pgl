@@ -132,10 +132,9 @@ public class Cpu extends AppCompatActivity {
      **/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
         if (item.getItemId() == R.id.home) {
-            intent = new Intent(Cpu.this, Portada.class);
-            startActivity(intent);
+            startActivity(new Intent(getApplicationContext(),Portada.class));
+            overridePendingTransition(R.anim.right_in, R.anim.right_out);
             return true;
         }
         return super.onOptionsItemSelected(item);

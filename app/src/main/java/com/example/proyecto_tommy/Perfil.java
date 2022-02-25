@@ -126,8 +126,7 @@ public class Perfil extends AppCompatActivity {
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Perfil.this, ListaOrdenadores.class);
-                startActivity(intent);
+                onBackPressed();
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
@@ -182,10 +181,9 @@ public class Perfil extends AppCompatActivity {
      **/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
         if (item.getItemId() == R.id.home) {
-            intent = new Intent(Perfil.this, Portada.class);
-            startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.zoom_back_in, R.anim.zoom_back_out);
             return true;
         }
         return super.onOptionsItemSelected(item);

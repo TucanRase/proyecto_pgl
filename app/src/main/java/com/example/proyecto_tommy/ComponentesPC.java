@@ -95,6 +95,14 @@ public class ComponentesPC extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    /**
+     * Método para establecer la animación al pulsar el botón "atrás"
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.zoom_back_in, R.anim.zoom_back_out);
+    }
 
 
 }

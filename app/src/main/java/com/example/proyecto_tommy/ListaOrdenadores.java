@@ -51,7 +51,7 @@ public class ListaOrdenadores extends AppCompatActivity {
     FirebaseFirestore fStore;
     FirebaseUser user;
     DatabaseReference myRef;
-    String userId,tipo,email;
+    String userId, tipo, email;
     CardView cargando;
 
     @Override
@@ -62,7 +62,7 @@ public class ListaOrdenadores extends AppCompatActivity {
         setTitle("Mis ordenadores");
 
         recyclerOrdenador = findViewById(R.id.recyclerOrdenador);
-        cargando=findViewById(R.id.cargando);
+        cargando = findViewById(R.id.cargando);
         placeholder = findViewById(R.id.placeHolder);
         recyclerOrdenador.setLayoutManager(new LinearLayoutManager(this));
         //se añaden los ordenadores al arraylist
@@ -102,10 +102,10 @@ public class ListaOrdenadores extends AppCompatActivity {
                         Ordenador ordenador = postSnapshot.getValue(Ordenador.class);
                         ordenadores.add(ordenador);
                     }
-                }else{
+                } else {
                     for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                         Ordenador ordenador = postSnapshot.getValue(Ordenador.class);
-                        if(ordenador.getUID().equals(email))
+                        if (ordenador.getUID().equals(email))
                             ordenadores.add(ordenador);
                     }
                 }
@@ -194,12 +194,11 @@ public class ListaOrdenadores extends AppCompatActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        System.out.println(ordenadores.get(position).getId());
                         database.getReference("ordenadores").child(ordenadores.get(position).getId()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-//                                Toast.makeText(ListaOrdenadores.this, "Ordenador eliminado correctamente de la lista", Toast.LENGTH_SHORT).show();
-//                                ordenadores.remove(position);
-//                                adapter.notifyItemRemoved(position);
+                                Toast.makeText(ListaOrdenadores.this, "Ordenador eliminado correctamente de la lista", Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override

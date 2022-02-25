@@ -83,7 +83,7 @@ public class Recibo extends AppCompatActivity {
                 database = FirebaseDatabase.getInstance();
                 String id =database.getReference().child("ordenadores").push().getKey();
                 Ordenador ordenador=new Ordenador(id,fechaCompra, calcularTotal(), cpu.getId(), ram.getId(), gpu.getId(), psu.getId(), almacenamiento.getId(), LoginFirebase.email);
-                database.getReference().child("ordenadores").push().setValue(ordenador).addOnSuccessListener(new OnSuccessListener<Void>() {
+                database.getReference().child("ordenadores").child(id).setValue(ordenador).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(getApplicationContext(), "Su ordenador ha sido añadido a su lista", Toast.LENGTH_SHORT).show();
