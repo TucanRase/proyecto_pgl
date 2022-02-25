@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.common.util.ArrayUtils;
 import com.google.firebase.database.DataSnapshot;
@@ -66,6 +67,7 @@ public class ComponentesPC extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(ComponentesPC.this, "Ha habido un problema al leer la base de datos", Toast.LENGTH_SHORT).show();
                 System.out.println("La lectura de ordenadores falló" + databaseError.getMessage());
             }
         });

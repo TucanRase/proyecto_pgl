@@ -126,6 +126,7 @@ public class ListaOrdenadores extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("La lectura de ordendadores falló" + databaseError.getMessage());
+                Toast.makeText(getApplicationContext(), "Ha habido un problema al leer la base de datos", Toast.LENGTH_SHORT).show();
             }
         });
         fab = findViewById(R.id.fabAdd);
@@ -179,7 +180,6 @@ public class ListaOrdenadores extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), ComponentesPC.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("pc", ordenadores.get(position));
-                System.out.println(ordenadores.get(position).getId());
                 i.putExtras(bundle);
                 startActivity(i);
                 overridePendingTransition(R.anim.left_in, R.anim.left_out);
@@ -194,7 +194,6 @@ public class ListaOrdenadores extends AppCompatActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        System.out.println(ordenadores.get(position).getId());
                         database.getReference("ordenadores").child(ordenadores.get(position).getId()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {

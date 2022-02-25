@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,6 +69,7 @@ public class Gpu extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("La lectura de componentes falló" + databaseError.getMessage());
+                Toast.makeText(getApplicationContext(), "Ha habido un problema al leer la base de datos", Toast.LENGTH_SHORT).show();
             }
         });
 
