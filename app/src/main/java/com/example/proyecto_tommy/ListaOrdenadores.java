@@ -194,6 +194,7 @@ public class ListaOrdenadores extends AppCompatActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        cargando.setVisibility(View.VISIBLE);
                         database.getReference("ordenadores").child(ordenadores.get(position).getId()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
@@ -205,6 +206,7 @@ public class ListaOrdenadores extends AppCompatActivity {
                                 Toast.makeText(ListaOrdenadores.this, "No se ha podido eliminar el ordenador de la lista", Toast.LENGTH_SHORT).show();
                             }
                         });
+                        cargando.setVisibility(View.GONE);
                     }
                 });
 

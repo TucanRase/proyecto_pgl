@@ -224,7 +224,7 @@ public class Perfil extends AppCompatActivity {
 
         String tipo = Objects.requireNonNull(txtTipoP.getEditText()).getText().toString().trim();
         if (tipo.isEmpty()) {
-            txtTipoP.setError("Por favor, introduzca una contraseña");
+            txtTipoP.setError("Por favor, introduzca un tipo");
             valido = false;
         } else
             txtTipoP.setError(null);
