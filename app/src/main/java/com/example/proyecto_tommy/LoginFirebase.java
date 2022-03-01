@@ -61,6 +61,8 @@ public class LoginFirebase extends AppCompatActivity {
                                 overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
                             }else{
                                 Toast.makeText(LoginFirebase.this, "¡Error!"+task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                usuario.setError("Compruebe el usuario");
+                                contrasena.setError("Compruebe la contraseña");
                             }
                         }
                     });

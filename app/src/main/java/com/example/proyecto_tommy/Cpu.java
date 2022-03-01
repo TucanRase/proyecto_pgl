@@ -48,14 +48,13 @@ public class Cpu extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("componentes");
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.orderByChild("tipo").equalTo("CPU").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 listaComponentes.clear();
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     Componente componente = postSnapshot.getValue(Componente.class);
-                    if (componente.getTipo().equals("CPU"))
-                        listaComponentes.add(componente);
+                    listaComponentes.add(componente);
                 }
                 recyclerComponentes = findViewById(R.id.recycler);
                 recyclerComponentes.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -135,14 +134,14 @@ public class Cpu extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.home) {
-            startActivity(new Intent(getApplicationContext(),Portada.class));
+            startActivity(new Intent(getApplicationContext(), Portada.class));
             overridePendingTransition(R.anim.right_in, R.anim.right_out);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void activarOnclick(){
+    public void activarOnclick() {
         /**
          * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
          * **/
