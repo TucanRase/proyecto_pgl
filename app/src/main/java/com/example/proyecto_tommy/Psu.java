@@ -56,14 +56,13 @@ public class Psu extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("componentes");
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.orderByChild("tipo").equalTo("PSU").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 listaComponentes.clear();
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     Componente componente = postSnapshot.getValue(Componente.class);
-                    if (componente.getTipo().equals("PSU"))
-                        listaComponentes.add(componente);
+                    listaComponentes.add(componente);
                 }
                 adapter = new AdaptadorComponentes(getApplicationContext(), listaComponentes);
                 recyclerComponentes.setAdapter(adapter);

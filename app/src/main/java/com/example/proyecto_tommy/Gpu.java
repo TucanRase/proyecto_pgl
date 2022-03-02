@@ -26,7 +26,7 @@ import java.util.Comparator;
 
 public class Gpu extends AppCompatActivity {
     //crear las variables
-    ArrayList<Componente> listaComponentes=new ArrayList<>();
+    ArrayList<Componente> listaComponentes = new ArrayList<>();
     RecyclerView recyclerComponentes;
     Componente cpu, ram;
     FirebaseDatabase database;
@@ -52,14 +52,13 @@ public class Gpu extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("componentes");
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.orderByChild("tipo").equalTo("GPU").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 listaComponentes.clear();
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     Componente componente = postSnapshot.getValue(Componente.class);
-                    if (componente.getTipo().equals("GPU"))
-                        listaComponentes.add(componente);
+                    listaComponentes.add(componente);
                 }
                 adapter = new AdaptadorComponentes(getApplicationContext(), listaComponentes);
                 recyclerComponentes.setAdapter(adapter);
@@ -145,7 +144,7 @@ public class Gpu extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void activarOnClick(){
+    public void activarOnClick() {
         /**
          * Al clickar uno de los componentes en la lista se añade al bundle y se envía a la siguiente actividad junto a los componentes que llevemos de otras actividades
          * **/

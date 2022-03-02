@@ -53,13 +53,12 @@ public class Ram extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("componentes");
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.orderByChild("tipo").orderByChild("RAM").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 listaComponentes.clear();
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     Componente componente = postSnapshot.getValue(Componente.class);
-                    if (componente.getTipo().equals("RAM"))
                         listaComponentes.add(componente);
                 }
                 adapter = new AdaptadorComponentes(getApplicationContext(), listaComponentes);
